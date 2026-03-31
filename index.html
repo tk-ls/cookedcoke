@@ -147,18 +147,6 @@
       gap: 1.2rem;
       background: transparent;
     }
-    .poll-label {
-      font-size: 0.62rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    .poll-heading {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.05em;
-      color: var(--text);
-    }
     .poll-embed {
       width: 100%;
       border: none;
@@ -382,9 +370,9 @@
     /* ─── RESPONSIVE ─── */
     @media (max-width: 860px) {
       nav { padding: 1rem 1.5rem; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
-      .hero-left { padding: 4rem 1.5rem; }
+      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto; }
+      .hero-left { padding: 4rem 1.5rem 2rem; border-right: none; border-bottom: 1px solid var(--border); }
+      .hero-right { display: flex; padding: 2rem 1.5rem; border-bottom: 1px solid var(--border); }
       .stats { grid-template-columns: 1fr; }
       .stat { border-right: none; border-bottom: 1px solid var(--border); }
       .steps { grid-template-columns: 1fr; }
@@ -434,8 +422,6 @@
 
   </div>
   <div class="hero-right">
-    <p class="poll-label">Community Vote</p>
-    <p class="poll-heading">What should we stock next?</p>
     <iframe data-tally-src="https://tally.so/embed/D4Dq6X?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="225" frameborder="0" marginheight="0" marginwidth="0" title="Should we add chips to the menu?" class="poll-embed"></iframe>
   </div>
 </section>
