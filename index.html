@@ -7,591 +7,358 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥤</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d0d0d;
+      --bg: #0B0B0B;
       --surface: #141414;
-      --border: #222;
-      --coke-red: #e8001c;
-      --fanta-orange: #ff6a00;
-      --sprite-green: #00b140;
-      --accent: #e8001c;
-      --text: #f5f5f5;
-      --muted: #a0a0a0;
+      --surface-hover: #1C1C1C;
+      --border: #2C2C2C;
+      --text: #FFFFFF;
+      --text-muted: #A0A0A0;
+      --accent: #E8001C;
+      --accent-soft: rgba(232, 0, 28, 0.1);
+      --radius: 8px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
 
     body {
-      background: var(--bg);
+      background-color: var(--bg);
       color: var(--text);
       font-family: 'Inter', sans-serif;
-      overflow-x: hidden;
-      cursor: crosshair;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* ─── NOISE OVERLAY ─── */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none;
-      z-index: 999;
-      opacity: 0.4;
-    }
-
-    /* ─── MARQUEE ─── */
+    /* ─── TICKER ─── */
     .ticker {
-      background: var(--coke-red);
-      color: #fff;
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      letter-spacing: 0.15em;
-      padding: 6px 0;
+      background: var(--accent);
+      color: white;
+      padding: 10px 0;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
       overflow: hidden;
       white-space: nowrap;
+      position: relative;
     }
     .ticker-inner {
-      display: inline-block;
-      animation: ticker 22s linear infinite;
+      display: flex;
+      width: fit-content;
+      animation: ticker 25s linear infinite;
     }
-    .ticker-inner span { margin: 0 2rem; }
+    .ticker-inner span { 
+      padding: 0 2rem;
+      flex-shrink: 0;
+    }
     @keyframes ticker {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     /* ─── NAV ─── */
     nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11, 11, 11, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 1.4rem 3rem;
-      border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.6rem;
-      letter-spacing: 0.08em;
-      color: var(--coke-red);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
       text-decoration: none;
+      letter-spacing: -0.02em;
     }
     .nav-links {
-      display: flex;
-      gap: 2.5rem;
-      list-style: none;
+      display: flex; gap: 1.5rem; list-style: none;
     }
-    .nav-links a {
-      color: var(--muted);
+    .nav-links a, .back-btn {
+      color: var(--text-muted);
       text-decoration: none;
       font-size: 0.85rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-weight: 500;
       transition: color 0.2s;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: 'Inter', sans-serif;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover, .back-btn:hover { color: var(--text); }
 
     /* ─── HERO ─── */
     .hero {
-      min-height: 88vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      border-bottom: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-    .hero-left {
-      padding: 5rem 3rem 5rem 3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      border-right: 1px solid var(--border);
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
     }
     .hero-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 100px;
       font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-weight: 600;
       margin-bottom: 1.5rem;
-    }
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(5rem, 10vw, 9rem);
-      line-height: 0.9;
-      color: var(--text);
-      margin-bottom: 1.5rem;
-    }
-    .hero-title .red  { color: var(--coke-red); }
-    .hero-title .lime { color: var(--sprite-green); }
-    .hero-sub {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      color: var(--muted);
-      max-width: 420px;
-      margin-bottom: 1rem;
-    }
-    .hero-right {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      padding: 3rem;
-      gap: 1.2rem;
-      background: transparent;
-    }
-    .poll-embed {
-      width: 100%;
-      border: none;
-      background: transparent;
-    }
-
-    /* ─── STATS BAR ─── */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-bottom: 1px solid var(--border);
-    }
-    .stat {
-      padding: 2rem 3rem;
-      border-right: 1px solid var(--border);
-    }
-    .stat:last-child { border-right: none; }
-    .stat-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3.5rem;
-      line-height: 1;
-    }
-    .stat-num.red    { color: var(--coke-red); }
-    .stat-num.orange { color: var(--fanta-orange); }
-    .stat-num.green  { color: var(--sprite-green); }
-    .stat-label {
-      font-size: 0.75rem;
-      letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 0.3rem;
-    }
-
-    /* ─── MENU ─── */
-    #menu {
-      padding: 5rem 3rem;
-    }
-    .section-header {
-      display: flex;
-      align-items: baseline;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 1.2rem;
-    }
-    .section-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 3rem;
       letter-spacing: 0.05em;
     }
-    .section-count {
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      color: var(--muted);
-      text-transform: uppercase;
+    .hero-title {
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-btn {
+      display: inline-block;
+      background: var(--text);
+      color: var(--bg);
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.2s;
+      cursor: pointer;
+      border: none;
+      font-family: 'Inter', sans-serif;
+    }
+    .hero-btn:hover { opacity: 0.9; }
+
+    /* ─── GRID SYSTEM ─── */
+    section {
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-header {
+      margin-bottom: 2rem;
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
     }
 
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
       margin-bottom: 4rem;
     }
-    .drink-card {
-      background: var(--bg);
-      padding: 1.8rem 1.5rem;
-      transition: background 0.15s;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
-    .drink-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0;
-      width: 0; height: 2px;
-      background: var(--accent);
-      transition: width 0.3s;
-    }
-    .drink-card:hover { background: var(--surface); }
-    .drink-card:hover::after { width: 100%; }
-    .drink-emoji { font-size: 2.2rem; margin-bottom: 0.8rem; display: block; }
-    .drink-name {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.3rem;
-    }
-    .drink-desc {
-      font-size: 0.8rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      line-height: 1.5;
-      flex-grow: 1;
-    }
-    .drink-price {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      color: var(--accent);
-      margin-top: 0.8rem;
-    }
-
-    /* ─── HOW IT WORKS ─── */
-    #how {
-      padding: 5rem 3rem;
-      border-top: 1px solid var(--border);
+    .card {
       background: var(--surface);
-    }
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-    .step {
-      position: relative;
-      padding: 2.5rem;
       border: 1px solid var(--border);
-      background: var(--bg);
-    }
-    .step-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 5rem;
-      color: var(--border);
-      line-height: 1;
-      margin-bottom: 1rem;
-      transition: color 0.2s;
-    }
-    .step:hover .step-num { color: var(--coke-red); }
-
-    @media (hover: none) {
-      .step:nth-child(1) .step-num { color: var(--coke-red); }
-      .step:nth-child(2) .step-num { color: var(--fanta-orange); }
-      .step:nth-child(3) .step-num { color: var(--sprite-green); }
-    }
-    .step-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.5rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.5rem;
-    }
-    .step-text {
-      font-size: 0.85rem;
-      line-height: 1.7;
-      color: var(--muted);
-    }
-
-    /* ─── ORDER ─── */
-    #order {
-      padding: 5rem 3rem;
-      border-top: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
-    }
-    .order-text .hero-title { font-size: clamp(3rem, 6vw, 6rem); }
-    .order-text .hero-sub { max-width: 420px; }
-    .order-text .hero-tag { color: var(--muted); }
-
-    .order-box {
-      border: 1px solid var(--border);
-      padding: 2.5rem;
-    }
-    .order-box-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.4rem;
-      letter-spacing: 0.06em;
-      margin-bottom: 1.5rem;
-      color: var(--coke-red);
-    }
-    .order-contact {
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
       gap: 1rem;
     }
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem;
-      border: 1px solid var(--border);
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      transition: border-color 0.2s;
+    .card:hover {
+      border-color: #444;
+      background: var(--surface-hover);
+      transform: translateY(-2px);
     }
-    .contact-item:nth-child(1):hover { border-color: var(--coke-red); }
-    .contact-item:nth-child(2):hover { border-color: var(--fanta-orange); }
-    .contact-item:nth-child(3):hover { border-color: var(--sprite-green); }
-    .contact-item:nth-child(4):hover { border-color: var(--coke-red); }
-    .contact-icon { font-size: 1.3rem; }
-    .contact-label { color: var(--muted); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.15em; }
-    .contact-val { color: var(--text); }
+    .card-emoji {
+      font-size: 1.5rem;
+      width: 40px; height: 40px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .card-name { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+    .card-desc { font-size: 0.9rem; color: var(--text-muted); flex-grow: 1; }
+    .card-price { font-weight: 600; font-size: 1rem; color: var(--text); padding-top: 0.5rem; border-top: 1px solid var(--border); }
+
+    /* ─── STATS ─── */
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; }
+    .stat-num { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
+    .stat-label { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    /* ─── FIND US ─── */
+    .find-us-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 3rem; }
+    .contact-list { margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
+    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .contact-icon { font-size: 1.2rem; }
+    .contact-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+    .contact-val { font-size: 0.95rem; font-weight: 500; }
 
     /* ─── FOOTER ─── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.1rem;
-      color: var(--coke-red);
-      letter-spacing: 0.1em;
-    }
-    .footer-text {
-      font-size: 0.75rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-    }
+    footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+    .footer-text { font-size: 0.85rem; color: var(--text-muted); }
 
-    /* ─── ANIMATIONS ─── */
-    .fade-up {
-      opacity: 0;
-      transform: translateY(24px);
-      animation: fadeUp 0.6s ease forwards;
+    /* ─── POPUP ─── */
+    .popup-overlay {
+      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 2rem;
     }
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .hero-tag  { animation-delay: 0.05s; }
-    .hero-title{ animation-delay: 0.15s; }
-    .hero-sub  { animation-delay: 0.25s; }
+    .popup-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 3rem; max-width: 440px; width: 100%; text-align: center; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.6); }
+    .popup-close { position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; line-height: 1; }
+    .popup-title { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin-bottom: 1rem; }
+    .popup-text { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; line-height: 1.5; }
+    .popup-btn { display: inline-block; background: var(--text); color: var(--bg); padding: 1rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1rem; width: 100%; transition: opacity 0.2s; cursor: pointer; text-align: center; font-family: 'Inter', sans-serif; }
+    .popup-btn:hover { opacity: 0.9; }
 
-    /* ─── RESPONSIVE ─── */
+    /* ─── VOTE VIEW ─── */
+    #vote-view {
+      display: none; flex: 1; align-items: center; justify-content: center; padding: 4rem 2rem;
+    }
+    .poll-wrapper { width: 100%; max-width: 600px; }
+
     @media (max-width: 860px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; grid-template-rows: auto auto; }
-      .hero-left { padding: 4rem 1.5rem 2rem; border-right: none; border-bottom: 1px solid var(--border); }
-      .hero-right { display: flex; padding: 2rem 1.5rem; border-bottom: 1px solid var(--border); }
       .stats { grid-template-columns: 1fr; }
-      .stat { border-right: none; border-bottom: 1px solid var(--border); }
-      .steps { grid-template-columns: 1fr; }
-      #order { grid-template-columns: 1fr; padding: 3rem 1.5rem; }
-      #how { padding: 3rem 1.5rem; }
-      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+      .hero { padding: 4rem 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
-    <span>COOKED COKE CO</span><span>★</span>
-    <span>COLD DRINKS & SNACKS</span><span>★</span>
     <span>COKE · SPRITE · FANTA · SOLO · CHI FOREST · ICED TEA</span><span>★</span>
-    <span>SMITHS · RED ROCK · PRINGLES · POCKY · JELLY</span><span>★</span>
-    <span>COOKED COKE CO</span><span>★</span>
-    <span>COLD DRINKS & SNACKS</span><span>★</span>
+    <span>SMITHS · RED ROCK · PRINGLES · POCKY · JELLY · NOODLES</span><span>★</span>
+    <span>LEVEL 3 · RECESS & LUNCH · EST. 2026</span><span>★</span>
     <span>COKE · SPRITE · FANTA · SOLO · CHI FOREST · ICED TEA</span><span>★</span>
-    <span>SMITHS · RED ROCK · PRINGLES · POCKY · JELLY</span><span>★</span>
+    <span>SMITHS · RED ROCK · PRINGLES · POCKY · JELLY · NOODLES</span><span>★</span>
+    <span>LEVEL 3 · RECESS & LUNCH · EST. 2026</span><span>★</span>
   </div>
 </div>
 
-<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">Cooked Coke Co.</a>
-  <ul class="nav-links">
-    <li><a href="#menu">Menu</a></li>
-    <li><a href="#how">How It Works</a></li>
-    <li><a href="#order">Find Us</a></li>
-  </ul>
+  <a href="#" onclick="hideVote(); return false;" class="nav-logo">Cooked Coke Co.</a>
+  <div id="nav-links-container">
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#" onclick="showVote(); return false;">Vote</a></li>
+      <li><a href="#find">Find us</a></li>
+    </ul>
+  </div>
+  <button id="nav-back-btn" class="back-btn" style="display: none;" onclick="hideVote()">← Back to Menu</button>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-left">
-    <p class="hero-tag fade-up">Reddam House North Shore · Est. 2026</p>
-    <h1 class="hero-title fade-up">
-      STAY<br>
-      <span class="red">COOKED</span><br>
-      <span class="lime">CHILLED.</span>
-    </h1>
-    <p class="hero-sub fade-up">
-      The ultimate hookup for drinks and snacks at school. From ice-cold Coke to Red Rock Deli chips and Iced Black Tea. We've got the goods.
-    </p>
+<main id="page-content">
+  <section class="hero">
+    <span class="hero-tag">EST. 2026 · Reddam House</span>
+    <h1 class="hero-title">Stay Chilled.</h1>
+    <p class="hero-sub">The ultimate hookup for drinks and snacks at school. Hand-picked selection, kept ice cold, delivered daily.</p>
+    <button onclick="showVote()" class="hero-btn" style="margin-bottom: 3rem;">Vote & Get 10% Off</button>
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-num" style="color:var(--accent)">15+</div>
+        <div class="stat-label">Items in stock</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:#FF6A00">$0.50</div>
+        <div class="stat-label">Starting price</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="color:#00B140">Cold</div>
+        <div class="stat-label">Guaranteed</div>
+      </div>
+    </div>
+  </section>
 
-  </div>
-  <div class="hero-right">
-    <iframe data-tally-src="https://tally.so/embed/D4Dq6X?alignLeft=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="225" frameborder="0" marginheight="0" marginwidth="0" title="Should we add chips to the menu?" class="poll-embed"></iframe>
-  </div>
-</section>
+  <section id="menu">
+    <div class="section-header"><h2 class="section-title">Drinks</h2></div>
+    <div class="menu-grid">
+      <div class="card"><div class="card-emoji">🥤</div><div class="card-name">OG Classics</div><p class="card-desc">Coke, Sprite, Fanta, or Solo. The heavy hitters, kept at sub-zero temps.</p><div class="card-price">$3.00</div></div>
+      <div class="card"><div class="card-emoji">🍵</div><div class="card-name">Iced Black Tea</div><p class="card-desc">Classic Chinese style Iced Black Tea. The elite choice for a long day.</p><div class="card-price">$4.00</div></div>
+      <div class="card"><div class="card-emoji">🍑</div><div class="card-name">Chi Forest</div><p class="card-desc">Sugar-free sparkling water. Peach, Grape, or Lychee. Refreshing as hell.</p><div class="card-price">$4.00</div></div>
+    </div>
+    <div class="section-header"><h2 class="section-title">Snacks</h2></div>
+    <div class="menu-grid">
+      <div class="card"><div class="card-emoji">🥔</div><div class="card-name">Classic Chips</div><p class="card-desc">Smiths or Red Rock Deli. All the best flavors, crunchy and fresh.</p><div class="card-price">$2.00</div></div>
+      <div class="card"><div class="card-emoji">🥔</div><div class="card-name">Pringles</div><p class="card-desc">The elite stackable snack. Various flavors available.</p><div class="card-price">$2.50</div></div>
+      <div class="card"><div class="card-emoji">🥢</div><div class="card-name">Pocky</div><p class="card-desc">Chocolate or Strawberry sticks. The perfect shared snack.</p><div class="card-price">$2.00</div></div>
+      <div class="card"><div class="card-emoji">🍜</div><div class="card-name">Fantastic Noodles</div><p class="card-desc">Instant cup noodles. The perfect warm snack for a cold day.</p><div class="card-price">$3.00</div></div>
+      <div class="card"><div class="card-emoji">🍮</div><div class="card-name">Mini Jelly</div><p class="card-desc">Small but mighty. A quick hit of sweetness to get you through.</p><div class="card-price">$0.50</div></div>
+    </div>
+  </section>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stat">
-    <div class="stat-num red">15+</div>
-    <div class="stat-label">Items in stock</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num orange">$0.50</div>
-    <div class="stat-label">Starting from</div>
-  </div>
-  <div class="stat">
-    <div class="stat-num green">Ice Cold</div>
-    <div class="stat-label">Every single time</div>
+  <section id="find">
+    <div class="find-us-box">
+      <h2 class="section-title">Come find us.</h2>
+      <p style="color:var(--text-muted); margin-top: 0.5rem;">We're easy to spot. Look for the cooler on Level 3.</p>
+      <div class="contact-list">
+        <div class="contact-item"><span class="contact-icon">📍</span><div><div class="contact-label">Location</div><div class="contact-val">Level 3 · Next to the vending machine</div></div></div>
+        <div class="contact-item"><span class="contact-icon">⏰</span><div><div class="contact-label">Hours</div><div class="contact-val">Recess & Lunch · Mon – Fri</div></div></div>
+        <div class="contact-item"><span class="contact-icon">💸</span><div><div class="contact-label">Payment</div><div class="contact-val">Cash · Card</div></div></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="vote-view">
+  <div class="poll-wrapper">
+    <iframe data-tally-src="https://tally.so/embed/D4Dq6X?alignLeft=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="225" frameborder="0" marginheight="0" marginwidth="0" title="Should we add chips to the menu?"></iframe>
   </div>
 </div>
 
-<!-- MENU -->
-<section id="menu">
-  <div class="section-header">
-    <h2 class="section-title">The Drinks</h2>
-    <span class="section-count">From $3.00</span>
+<div class="popup-overlay" id="votePopup">
+  <div class="popup-card">
+    <button class="popup-close" onclick="closePopup()">×</button>
+    <span class="hero-tag" style="margin-bottom: 1rem; background: rgba(255,255,255,0.05); color: white;">Limited Offer</span>
+    <h2 class="popup-title">Vote & Get 10% Off.</h2>
+    <p class="popup-text">Tell us what you want in stock and we'll give you a discount code.</p>
+    <button class="popup-btn" onclick="showVote(); closePopup();">Vote Now</button>
   </div>
-  <div class="menu-grid">
-    <div class="drink-card">
-      <span class="drink-emoji">🥤</span>
-      <div class="drink-name">OG Classics</div>
-      <div class="drink-desc">Coke, Sprite, Fanta, Solo. The heavy hitters, kept at sub-zero temps.</div>
-      <div class="drink-price">$3.00</div>
-    </div>
-    <div class="drink-card">
-      <span class="drink-emoji">🍵</span>
-      <div class="drink-name">Iced Black Tea</div>
-      <div class="drink-desc">Classic Chinese style Iced Black Tea. The elite choice for a long day.</div>
-      <div class="drink-price">$4.00</div>
-    </div>
-    <div class="drink-card">
-      <span class="drink-emoji">🍑</span>
-      <div class="drink-name">Chi Forest</div>
-      <div class="drink-desc">Sugar-free sparkling water. Peach, Grape, or Lychee. Refreshing as hell.</div>
-      <div class="drink-price">$4.00</div>
-    </div>
-  </div>
+</div>
 
-  <div class="section-header">
-    <h2 class="section-title">The Snacks</h2>
-    <span class="section-count">From $0.50</span>
-  </div>
-  <div class="menu-grid">
-    <div class="drink-card">
-      <span class="drink-emoji">🥔</span>
-      <div class="drink-name">Classic Chips</div>
-      <div class="drink-desc">Smiths or Red Rock Deli. All the best flavors, crunchy and fresh.</div>
-      <div class="drink-price">$2.00</div>
-    </div>
-    <div class="drink-card">
-      <span class="drink-emoji">🥔</span>
-      <div class="drink-name">Pringles</div>
-      <div class="drink-desc">The elite stackable snack. Various flavors available.</div>
-      <div class="drink-price">$2.50</div>
-    </div>
-    <div class="drink-card">
-      <span class="drink-emoji">🥢</span>
-      <div class="drink-name">Pocky</div>
-      <div class="drink-desc">Chocolate or Strawberry sticks. The perfect shared snack (or not).</div>
-      <div class="drink-price">$2.00</div>
-    </div>
-    <div class="drink-card">
-      <span class="drink-emoji">🍜</span>
-      <div class="drink-name">Fantastic Noodles</div>
-      <div class="drink-desc">Instant cup noodles. The perfect warm snack for a cold day.</div>
-      <div class="drink-price">$3.00</div>
-    </div>
-    <div class="drink-card">
-      <span class="drink-emoji">🍮</span>
-      <div class="drink-name">Mini Jelly</div>
-      <div class="drink-desc">Small but mighty. A quick hit of sweetness to get you through.</div>
-      <div class="drink-price">$0.50</div>
-    </div>
-  </div>
-</section>
-
-<!-- HOW IT WORKS -->
-<section id="how">
-  <div class="section-header">
-    <h2 class="section-title">How It Works</h2>
-    <span class="section-count">3 steps</span>
-  </div>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <div class="step-title">Pick Your Fuel</div>
-      <p class="step-text">Choose from our range of cold drinks and salty/sweet snacks. We rotate stock daily so there's always something new.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <div class="step-title">Find Us At School</div>
-      <p class="step-text">Find us at Level 3, on the counter next to the vending machine. We're there at recess and lunch.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <div class="step-title">Enjoy & Repeat</div>
-      <p class="step-text">Cold drink + crunchy snacks = instant satisfaction. Tell your friends before we sell out.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ORDER / FIND US -->
-<section id="order">
-  <div class="order-text">
-    <p class="hero-tag">Where to find us</p>
-    <h2 class="hero-title">COME<br><span class="red">FIND</span> <span style="color:var(--sprite-green)">US.</span></h2>
-    <p class="hero-sub">
-      Level 3, counter next to the vending machine. Recess and lunch, every school day. Stock is limited — first in, best dressed.
-    </p>
-  </div>
-  <div class="order-box">
-    <div class="order-box-title">Find Us</div>
-    <div class="order-contact">
-      <div class="contact-item">
-        <span class="contact-icon">📍</span>
-        <div>
-          <div class="contact-label">Location</div>
-          <div class="contact-val">Level 3 · Counter next to the vending machine</div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <span class="contact-icon">🏫</span>
-        <div>
-          <div class="contact-label">School</div>
-          <div class="contact-val">Reddam House North Shore</div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <span class="contact-icon">💸</span>
-        <div>
-          <div class="contact-label">Payment</div>
-          <div class="contact-val">Cash · Card</div>
-        </div>
-      </div>
-      <div class="contact-item">
-        <span class="contact-icon">⏰</span>
-        <div>
-          <div class="contact-label">Hours</div>
-          <div class="contact-val">Recess &amp; Lunch · Mon – Fri</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Cooked Coke Co.</div>
-  <div class="footer-text">cookedcoke.xyz · Reddam House North Shore · Not affiliated with Coca-Cola or anyone important.</div>
+<footer id="main-footer">
+  <div class="nav-logo" onclick="hideVote()" style="cursor: pointer;">Cooked Coke Co.</div>
+  <p class="footer-text">© 2026 · Not affiliated with Coca-Cola.</p>
 </footer>
 
-<script>var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-
+<script>
+  function showVote() {
+    document.getElementById('page-content').style.display = 'none';
+    document.getElementById('main-footer').style.display = 'none';
+    document.getElementById('vote-view').style.display = 'flex';
+    document.getElementById('nav-links-container').style.display = 'none';
+    document.getElementById('nav-back-btn').style.display = 'block';
+    window.scrollTo(0, 0);
+  }
+  function hideVote() {
+    document.getElementById('page-content').style.display = 'block';
+    document.getElementById('main-footer').style.display = 'flex';
+    document.getElementById('vote-view').style.display = 'none';
+    document.getElementById('nav-links-container').style.display = 'block';
+    document.getElementById('nav-back-btn').style.display = 'none';
+  }
+  function closePopup() {
+    document.getElementById('votePopup').style.display = 'none';
+    localStorage.setItem('hasSeenVotePopup', 'true');
+  }
+  window.onload = function() {
+    if (!localStorage.getItem('hasSeenVotePopup')) {
+      setTimeout(() => { document.getElementById('votePopup').style.display = 'flex'; }, 2000);
+    }
+  }
+  var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 </body>
 </html>
