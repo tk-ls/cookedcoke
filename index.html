@@ -81,6 +81,7 @@
       color: var(--text);
       text-decoration: none;
       letter-spacing: -0.02em;
+      font-family: 'Inter', sans-serif;
     }
     .nav-links {
       display: flex; gap: 1.5rem; list-style: none;
@@ -243,6 +244,7 @@
     <span>COKE · SPRITE · FANTA · SOLO · CHI FOREST · ICED TEA</span><span>★</span>
     <span>SMITHS · RED ROCK · PRINGLES · POCKY · JELLY · NOODLES</span><span>★</span>
     <span>LEVEL 3 · RECESS & LUNCH · EST. 2026</span><span>★</span>
+    <!-- Duplicate for infinite loop -->
     <span>COKE · SPRITE · FANTA · SOLO · CHI FOREST · ICED TEA</span><span>★</span>
     <span>SMITHS · RED ROCK · PRINGLES · POCKY · JELLY · NOODLES</span><span>★</span>
     <span>LEVEL 3 · RECESS & LUNCH · EST. 2026</span><span>★</span>
@@ -355,14 +357,18 @@
     localStorage.setItem('hasSeenVotePopup', 'true');
   }
   window.onload = function() {
-    if (!localStorage.getItem('hasSeenVotePopup')) {
-      setTimeout(() => { document.getElementById('votePopup').style.display = 'flex'; }, 2000);
-    }
-  }
-  var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-</body>
-</html>
-they haven't voted and haven't seen it yet
+    const hasVoted = localStorage.getItem('voterCode');
+    if (hasVoted) {
+      const heroBtn = document.getElementById('hero-vote-btn');
+      if (heroBtn) {
+        heroBtn.textContent = 'Thanks for voting!';
+        heroBtn.onclick = null;
+        heroBtn.style.cursor = 'default';
+        heroBtn.style.opacity = '0.7';
+      }
+      const navVote = document.getElementById('nav-vote-item');
+      if (navVote) navVote.style.display = 'none';
+    } else if (!localStorage.getItem('hasSeenVotePopup')) {
       setTimeout(() => { document.getElementById('votePopup').style.display = 'flex'; }, 2000);
     }
   }
