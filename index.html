@@ -254,7 +254,7 @@
   <div id="nav-links-container">
     <ul class="nav-links">
       <li><a href="#menu">Menu</a></li>
-      <li><a href="#" onclick="showVote(); return false;">Vote</a></li>
+      <li id="nav-vote-item"><a href="#" onclick="showVote(); return false;">Vote</a></li>
       <li><a href="#find">Find us</a></li>
     </ul>
   </div>
@@ -266,7 +266,7 @@
     <span class="hero-tag">EST. 2026 · Reddam House</span>
     <h1 class="hero-title">Stay Chilled.</h1>
     <p class="hero-sub">The ultimate hookup for drinks and snacks at school. Hand-picked selection, kept ice cold, delivered daily.</p>
-    <button onclick="showVote()" class="hero-btn" style="margin-bottom: 3rem;">Vote & Get 10% Off</button>
+    <button id="hero-vote-btn" onclick="showVote()" class="hero-btn" style="margin-bottom: 3rem;">Vote & Get 10% Off</button>
     <div class="stats">
       <div class="stat-card">
         <div class="stat-num" style="color:var(--accent)">15+</div>
@@ -356,6 +356,13 @@
   }
   window.onload = function() {
     if (!localStorage.getItem('hasSeenVotePopup')) {
+      setTimeout(() => { document.getElementById('votePopup').style.display = 'flex'; }, 2000);
+    }
+  }
+  var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
+</body>
+</html>
+they haven't voted and haven't seen it yet
       setTimeout(() => { document.getElementById('votePopup').style.display = 'flex'; }, 2000);
     }
   }
