@@ -269,7 +269,11 @@
     <span class="hero-tag">EST. 2026 · Reddam House</span>
     <h1 class="hero-title">Stay Chilled.</h1>
     <p class="hero-sub">The ultimate hookup for drinks and snacks at school. Hand-picked selection, kept ice cold, delivered daily.</p>
-    <button id="hero-vote-btn" onclick="showVote()" class="hero-btn" style="margin-bottom: 3rem;">Vote & Get 10% Off</button>
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap;">
+      <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="hero-btn" style="background: var(--accent); color: white;">Order Online</a>
+      <button id="hero-vote-btn" onclick="showVote()" class="hero-btn">Vote & Get 10% Off</button>
+    </div>
+    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 3rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;">Pickup only · Stock reserved for online orders</p>
     <div class="stats">
       <div class="stat-card">
         <div class="stat-num" style="color:var(--accent)">15+</div>
@@ -310,7 +314,7 @@
       <div class="contact-list">
         <div class="contact-item"><span class="contact-icon">📍</span><div><div class="contact-label">Location</div><div class="contact-val">Level 3 · Next to the vending machine</div></div></div>
         <div class="contact-item"><span class="contact-icon">⏰</span><div><div class="contact-label">Hours</div><div class="contact-val">Recess & Lunch · Mon – Fri</div></div></div>
-        <div class="contact-item"><span class="contact-icon">💸</span><div><div class="contact-label">Payment</div><div class="contact-val">Cash · Card</div></div></div>
+        <div class="contact-item"><span class="contact-icon">💸</span><div><div class="contact-label">Payment</div><div class="contact-val">Cash · Card · <a href="https://cookedcoke.square.site/s/shop" style="color: inherit; text-decoration: underline;">Online</a></div></div></div>
       </div>
     </div>
   </section>
@@ -374,8 +378,5 @@
     }
   }
   var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
-</body>
-</html>
-"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 </body>
 </html>
