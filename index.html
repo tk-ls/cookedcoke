@@ -79,12 +79,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      transition: background 0.3s ease;
-    }
-    nav.active {
-      position: fixed;
-      width: 100%;
-      background: rgba(11, 11, 11, 0.95);
     }
     .nav-logo {
       display: flex;
@@ -283,14 +277,16 @@
         top: 0; right: 0;
         width: 100%;
         height: 100dvh;
-        background: transparent;
+        background: rgba(11, 11, 11, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 2rem;
         gap: 2.5rem;
         transition: opacity 0.3s ease, visibility 0.3s ease;
-        z-index: 999;
+        z-index: 1001;
         opacity: 0;
         visibility: hidden;
       }
@@ -431,11 +427,9 @@
 
 <script>
   function toggleMenu() {
-    const nav = document.getElementById('mainNav');
     const toggle = document.getElementById('menuToggle');
     const links = document.getElementById('navLinks');
     if (window.innerWidth <= 860) {
-      nav.classList.toggle('active');
       toggle.classList.toggle('active');
       links.classList.toggle('active');
       document.body.style.overflow = links.classList.contains('active') ? 'hidden' : '';
