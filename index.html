@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cooked Coke Co.</title>
+  <title>Cooked Coke | Student Portal</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥤</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +23,10 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
+
+    button, input, select, textarea, a {
+      font-family: inherit;
+    }
 
     body {
       background-color: var(--bg);
@@ -81,7 +85,6 @@
       color: var(--text);
       text-decoration: none;
       letter-spacing: -0.02em;
-      font-family: 'Inter', sans-serif;
     }
     .nav-links {
       display: flex; gap: 1.5rem; list-style: none;
@@ -95,7 +98,6 @@
       cursor: pointer;
       background: none;
       border: none;
-      font-family: 'Inter', sans-serif;
     }
     .nav-links a:hover, .back-btn:hover { color: var(--text); }
 
@@ -143,11 +145,10 @@
       transition: opacity 0.2s;
       cursor: pointer;
       border: none;
-      font-family: 'Inter', sans-serif;
     }
     .hero-btn:hover { opacity: 0.9; }
 
-    /* ─── GRID SYSTEM ─── */
+    /* ─── SECTION ─── */
     section {
       padding: 4rem 2rem;
       max-width: 1200px;
@@ -210,19 +211,20 @@
     .contact-val { font-size: 0.95rem; font-weight: 500; }
 
     /* ─── FOOTER ─── */
-    footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+    footer { border-top: 1px solid var(--border); padding: 3rem 2rem; margin-top: auto; }
+    .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     .footer-text { font-size: 0.85rem; color: var(--text-muted); }
+    .footer-link { color: var(--text); text-decoration: none; font-weight: 500; }
 
     /* ─── POPUP ─── */
     .popup-overlay {
       position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 2rem;
     }
-    .popup-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 3rem; max-width: 440px; width: 100%; text-align: center; position: relative; box-shadow: 0 40px 80px rgba(0,0,0,0.6); }
-    .popup-close { position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; line-height: 1; }
+    .popup-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 3rem; max-width: 440px; width: 100%; text-align: center; position: relative; }
+    .popup-close { position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; }
     .popup-title { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin-bottom: 1rem; }
-    .popup-text { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; line-height: 1.5; }
-    .popup-btn { display: inline-block; background: var(--text); color: var(--bg); padding: 1rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1rem; width: 100%; transition: opacity 0.2s; cursor: pointer; text-align: center; font-family: 'Inter', sans-serif; }
-    .popup-btn:hover { opacity: 0.9; }
+    .popup-text { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; }
+    .popup-btn { display: inline-block; background: var(--text); color: var(--bg); padding: 1rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1rem; width: 100%; cursor: pointer; }
 
     /* ─── VOTE VIEW ─── */
     #vote-view {
@@ -233,7 +235,7 @@
     @media (max-width: 860px) {
       .stats { grid-template-columns: 1fr; }
       .hero { padding: 4rem 1.5rem; }
-      nav { padding: 1rem 1.5rem; }
+      .footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
     }
   </style>
 </head>
@@ -243,11 +245,11 @@
   <div class="ticker-inner">
     <span>COKE · SPRITE · FANTA · SOLO · CHI FOREST · ICED TEA</span><span>★</span>
     <span>SMITHS · RED ROCK · PRINGLES · POCKY · JELLY · NOODLES</span><span>★</span>
-    <span>LEVEL 3 · RECESS & LUNCH · EST. 2026</span><span>★</span>
+    <span>RECESS & LUNCH · EST. 2026</span><span>★</span>
     <!-- Duplicate for infinite loop -->
     <span>COKE · SPRITE · FANTA · SOLO · CHI FOREST · ICED TEA</span><span>★</span>
     <span>SMITHS · RED ROCK · PRINGLES · POCKY · JELLY · NOODLES</span><span>★</span>
-    <span>LEVEL 3 · RECESS & LUNCH · EST. 2026</span><span>★</span>
+    <span>RECESS & LUNCH · EST. 2026</span><span>★</span>
   </div>
 </div>
 
@@ -268,7 +270,7 @@
   <section class="hero">
     <span class="hero-tag">EST. 2026 · Reddam House</span>
     <h1 class="hero-title">Stay Chilled.</h1>
-    <p class="hero-sub">The ultimate hookup for drinks and snacks at school. Hand-picked selection, kept ice cold, delivered daily.</p>
+    <p class="hero-sub">Providing premium refreshments for the school community. Curated selection, kept ice cold, and managed with professional standards.</p>
     <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap;">
       <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="hero-btn" style="background: var(--accent); color: white;">Order Online</a>
       <button id="hero-vote-btn" onclick="showVote()" class="hero-btn">Vote & Get 10% Off</button>
@@ -295,7 +297,7 @@
     <div class="menu-grid">
       <div class="card"><div class="card-emoji">🥤</div><div class="card-name">OG Classics</div><p class="card-desc">Coke, Sprite, Fanta, or Solo. The heavy hitters, kept at sub-zero temps.</p><div class="card-price">$3.00</div></div>
       <div class="card"><div class="card-emoji">🍵</div><div class="card-name">Iced Black Tea</div><p class="card-desc">Classic Chinese style Iced Black Tea. The elite choice for a long day.</p><div class="card-price">$4.00</div></div>
-      <div class="card"><div class="card-emoji">🍑</div><div class="card-name">Chi Forest</div><p class="card-desc">Sugar-free sparkling water. Peach, Grape, or Lychee. Refreshing as hell.</p><div class="card-price">$4.00</div></div>
+      <div class="card"><div class="card-emoji">🍑</div><div class="card-name">Chi Forest</div><p class="card-desc">Zero-Sugar sparkling water. Peach, Grape, or Lychee. Health-conscious refreshment.</p><div class="card-price">$4.00</div></div>
     </div>
     <div class="section-header"><h2 class="section-title">Snacks</h2></div>
     <div class="menu-grid">
@@ -309,10 +311,10 @@
 
   <section id="find">
     <div class="find-us-box">
-      <h2 class="section-title">Come find us.</h2>
-      <p style="color:var(--text-muted); margin-top: 0.5rem;">We're easy to spot. Look for the cooler on Level 3.</p>
+      <h2 class="section-title">Operations</h2>
+      <p style="color:var(--text-muted); margin-top: 0.5rem;">Convenient pickup during designated school breaks.</p>
       <div class="contact-list">
-        <div class="contact-item"><span class="contact-icon">📍</span><div><div class="contact-label">Location</div><div class="contact-val">Level 3 · Next to the vending machine</div></div></div>
+        <div class="contact-item"><span class="contact-icon">📍</span><div><div class="contact-label">Location</div><div class="contact-val">Official location pending school approval</div></div></div>
         <div class="contact-item"><span class="contact-icon">⏰</span><div><div class="contact-label">Hours</div><div class="contact-val">Recess & Lunch · Mon – Fri</div></div></div>
         <div class="contact-item"><span class="contact-icon">💸</span><div><div class="contact-label">Payment</div><div class="contact-val">Cash · Card · <a href="https://cookedcoke.square.site/s/shop" style="color: inherit; text-decoration: underline;">Online</a></div></div></div>
       </div>
@@ -331,20 +333,27 @@
     <button class="popup-close" onclick="closePopup()">×</button>
     <span class="hero-tag" style="margin-bottom: 1rem; background: rgba(255,255,255,0.05); color: white;">Limited Offer</span>
     <h2 class="popup-title">Vote & Get<br>10% Off.</h2>
-    <p class="popup-text">Tell us what you want in stock and we'll give you a discount code.</p>
+    <p class="popup-text">Help us shape our menu and receive a thank-you discount code.</p>
     <button class="popup-btn" onclick="showVote(); closePopup();">Vote Now</button>
   </div>
 </div>
 
-<footer id="main-footer">
-  <div class="nav-logo" onclick="hideVote()" style="cursor: pointer;">Cooked Coke Co.</div>
-  <p class="footer-text">© 2026</p>
+<footer>
+  <div class="footer-content">
+    <div>
+      <div class="nav-logo" onclick="hideVote()" style="cursor: pointer; margin-bottom: 0.5rem;">Cooked Coke Co.</div>
+      <p class="footer-text">© 2026 | Part of the <a href="https://cookedcoke.org" style="color: var(--text); text-decoration: underline;">Cooked Coke Social Enterprise Initiative</a></p>
+    </div>
+    <div style="display: flex; gap: 2rem;">
+      <a href="https://cookedcoke.org" class="footer-link">Social Impact</a>
+      <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="footer-link">Order Now</a>
+    </div>
+  </div>
 </footer>
 
 <script>
   function showVote() {
     document.getElementById('page-content').style.display = 'none';
-    document.getElementById('main-footer').style.display = 'none';
     document.getElementById('vote-view').style.display = 'flex';
     document.getElementById('nav-links-container').style.display = 'none';
     document.getElementById('nav-back-btn').style.display = 'block';
@@ -352,7 +361,6 @@
   }
   function hideVote() {
     document.getElementById('page-content').style.display = 'block';
-    document.getElementById('main-footer').style.display = 'flex';
     document.getElementById('vote-view').style.display = 'none';
     document.getElementById('nav-links-container').style.display = 'block';
     document.getElementById('nav-back-btn').style.display = 'none';
