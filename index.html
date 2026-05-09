@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Cooked Coke | Student Portal</title>
+  <title>Cooked Coke | Social Enterprise Proposal</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥤</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -77,22 +77,14 @@
     .nav-links {
       display: flex; gap: 1.5rem; list-style: none;
     }
-    .nav-links a, .back-btn {
+    .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
       font-size: 0.85rem;
       font-weight: 500;
       transition: color 0.2s;
-      cursor: pointer;
-      background: none;
-      border: none;
     }
-    .nav-links a:hover, .back-btn:hover { color: var(--text); }
-
-    .external-link {
-      text-decoration: underline !important;
-      color: var(--text) !important;
-    }
+    .nav-links a:hover { color: var(--text); }
 
     /* ─── HAMBURGER ─── */
     .menu-toggle {
@@ -118,7 +110,7 @@
 
     /* ─── HERO ─── */
     .hero {
-      padding: 6rem 2rem;
+      padding: 8rem 2rem;
       max-width: 1200px;
       margin: 0 auto;
       text-align: center;
@@ -136,16 +128,16 @@
       letter-spacing: 0.05em;
     }
     .hero-title {
-      font-size: clamp(3rem, 8vw, 5rem);
+      font-size: clamp(2.5rem, 6vw, 4rem);
       font-weight: 700;
       letter-spacing: -0.04em;
-      line-height: 1;
+      line-height: 1.1;
       margin-bottom: 1.5rem;
     }
     .hero-sub {
       font-size: 1.1rem;
       color: var(--text-muted);
-      max-width: 600px;
+      max-width: 650px;
       margin: 0 auto 2.5rem;
     }
     .hero-btn {
@@ -165,24 +157,30 @@
 
     /* ─── SECTION ─── */
     section {
-      padding: 4rem 2rem;
+      padding: 5rem 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
     .section-header {
-      margin-bottom: 2rem;
+      margin-bottom: 3rem;
+      text-align: center;
     }
     .section-title {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 2rem;
+      font-weight: 700;
       letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
     }
 
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 1rem;
-      margin-bottom: 4rem;
     }
     .card {
       background: var(--surface);
@@ -209,44 +207,46 @@
     }
     .card-name { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
     .card-desc { font-size: 0.9rem; color: var(--text-muted); flex-grow: 1; }
-    .card-price { font-weight: 600; font-size: 1rem; color: var(--text); padding-top: 0.5rem; border-top: 1px solid var(--border); }
+    .card-btn {
+      background: var(--border);
+      color: var(--text-muted);
+      text-align: center;
+      padding: 0.6rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: default;
+    }
 
     /* ─── STATS ─── */
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
     .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; }
-    .stat-num { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
-    .stat-label { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+    .stat-num { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
+    .stat-label { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
 
-    /* ─── FIND US ─── */
-    .find-us-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 3rem; }
-    .contact-list { margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; }
-    .contact-item { display: flex; gap: 1rem; align-items: flex-start; }
-    .contact-icon { font-size: 1.2rem; }
-    .contact-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
-    .contact-val { font-size: 0.95rem; font-weight: 500; }
+    /* ─── LEADERSHIP ─── */
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .leader-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: left;
+    }
+    .leader-name { font-weight: 600; font-size: 1.1rem; }
+    .leader-role { color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
 
     /* ─── FOOTER ─── */
-    footer { border-top: 1px solid var(--border); padding: 3rem 2rem; margin-top: auto; }
-    .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-    .footer-text { font-size: 0.85rem; color: var(--text-muted); }
-    .footer-link { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.2s; }
-    .footer-link:hover { color: var(--text); }
-
-    /* ─── POPUP ─── */
-    .popup-overlay {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 1000; display: none; align-items: center; justify-content: center; padding: 2rem;
-    }
-    .popup-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 3rem; max-width: 440px; width: 100%; text-align: center; position: relative; }
-    .popup-close { position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; }
-    .popup-title { font-size: 2.5rem; font-weight: 700; letter-spacing: -0.04em; line-height: 1; margin-bottom: 1rem; }
-    .popup-text { color: var(--text-muted); margin-bottom: 2rem; font-size: 1.05rem; }
-    .popup-btn { display: inline-block; background: var(--text); color: var(--bg); padding: 1rem 2rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 1rem; width: 100%; cursor: pointer; }
-
-    /* ─── VOTE VIEW ─── */
-    #vote-view {
-      display: none; flex: 1; align-items: center; justify-content: center; padding: 4rem 2rem;
-    }
-    .poll-wrapper { width: 100%; max-width: 600px; }
+    footer { border-top: 1px solid var(--border); padding: 4rem 2rem; margin-top: auto; }
+    .footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
+    .footer-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
+    .footer-tag { color: var(--text); font-weight: 600; display: block; margin-bottom: 1rem; }
 
     @media (max-width: 860px) {
       .menu-toggle { display: flex; }
@@ -275,27 +275,25 @@
       .nav-links a { font-size: 1.5rem; font-weight: 600; }
 
       .stats { grid-template-columns: 1fr; }
-      .hero { padding: 4rem 1.5rem; }
-      .footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
+      .hero { padding: 5rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
 <nav id="mainNav">
-  <a href="#" onclick="hideVote(); return false;" class="nav-logo">
+  <a href="#" class="nav-logo">
     <span class="nav-logo-main">Cooked Coke Co.</span>
     <span class="nav-logo-sub">Social Enterprise</span>
   </a>
   <div id="nav-links-container">
     <ul class="nav-links" id="navLinks">
-      <li><a href="#menu" onclick="toggleMenu()">Menu</a></li>
-      <li><a href="https://cookedcoke.square.site/s/shop" class="external-link" target="_blank" onclick="toggleMenu()">Order Online</a></li>
-      <li id="nav-vote-item"><a href="#" onclick="showVote(); toggleMenu(); return false;">Vote</a></li>
-      <li><a href="#find" onclick="toggleMenu()">Find us</a></li>
+      <li><a href="#mission" onclick="toggleMenu()">Foundation</a></li>
+      <li><a href="#catalog" onclick="toggleMenu()">Catalog Preview</a></li>
+      <li><a href="#impact" onclick="toggleMenu()">Social Impact</a></li>
+      <li><a href="#governance" onclick="toggleMenu()">Governance</a></li>
     </ul>
   </div>
-  <button id="nav-back-btn" class="back-btn" style="display: none;" onclick="hideVote()">← Back to Menu</button>
   <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
     <span></span>
     <span></span>
@@ -305,89 +303,110 @@
 
 <main id="page-content">
   <section class="hero">
-    <span class="hero-tag">EST. 2026 · Reddam House</span>
-    <h1 class="hero-title">Stay Chilled.</h1>
-    <p class="hero-sub">Providing premium refreshments for the school community. Curated selection, kept ice cold, and managed with professional standards.</p>
-    <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap;">
-      <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="hero-btn" style="background: var(--accent); color: white;">Order Online</a>
-      <button id="hero-vote-btn" onclick="showVote()" class="hero-btn">Vote & Get 10% Off</button>
+    <span class="hero-tag">Launching Pending Approval</span>
+    <h1 class="hero-title">The Future of<br>School Refreshments</h1>
+    <p class="hero-sub">A student-led social enterprise initiative providing practical vocational experience through an ethical framework of transparency and community contribution.</p>
+    <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
+      <a href="#mission" class="hero-btn" style="background: var(--accent); color: white;">Explore Initiative</a>
+      <a href="#catalog" class="hero-btn">Product Preview</a>
     </div>
-    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 3rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;">Pickup only · Stock reserved for online orders</p>
+    
     <div class="stats">
       <div class="stat-card">
-        <div class="stat-num" style="color:var(--accent)">15+</div>
-        <div class="stat-label">Items in stock</div>
+        <div class="stat-num" style="color:var(--accent)">100%</div>
+        <div class="stat-label">Digital Transparency</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num" style="color:#FF6A00">$0.50</div>
-        <div class="stat-label">Starting price</div>
+        <div class="stat-num" style="color:#FF6A00">Vocational</div>
+        <div class="stat-label">Learning Model</div>
       </div>
       <div class="stat-card">
-        <div class="stat-num" style="color:#00B140">Cold</div>
-        <div class="stat-label">Guaranteed</div>
+        <div class="stat-num" style="color:#00B140">Philanthropy</div>
+        <div class="stat-label">Driven Success</div>
       </div>
     </div>
   </section>
 
-  <section id="menu">
-    <div class="section-header"><h2 class="section-title">Drinks</h2></div>
-    <div class="menu-grid">
-      <div class="card"><div class="card-emoji">🥤</div><div class="card-name">OG Classics</div><p class="card-desc">Coke, Sprite, Fanta, or Solo. The heavy hitters, kept at sub-zero temps.</p><div class="card-price">$3.00</div></div>
-      <div class="card"><div class="card-emoji">🍵</div><div class="card-name">Iced Black Tea</div><p class="card-desc">Classic Chinese style Iced Black Tea. The elite choice for a long day.</p><div class="card-price">$4.00</div></div>
-      <div class="card"><div class="card-emoji">🍑</div><div class="card-name">Chi Forest</div><p class="card-desc">Zero-Sugar sparkling water. Peach, Grape, or Lychee. Health-conscious refreshment.</p><div class="card-price">$4.00</div></div>
+  <section id="mission">
+    <div class="section-header">
+      <h2 class="section-title">Our Foundation</h2>
+      <p class="section-desc">Establishing a pedagogical laboratory for real-world enterprise management within the school community.</p>
     </div>
-    <div class="section-header"><h2 class="section-title">Snacks</h2></div>
     <div class="menu-grid">
-      <div class="card"><div class="card-emoji">🥔</div><div class="card-name">Classic Chips</div><p class="card-desc">Smiths or Red Rock Deli. All the best flavors, crunchy and fresh.</p><div class="card-price">$2.00</div></div>
-      <div class="card"><div class="card-emoji">🥔</div><div class="card-name">Pringles</div><p class="card-desc">The elite stackable snack. Various flavors available.</p><div class="card-price">$2.50</div></div>
-      <div class="card"><div class="card-emoji">🥢</div><div class="card-name">Pocky</div><p class="card-desc">Chocolate or Strawberry sticks. The perfect shared snack.</p><div class="card-price">$2.00</div></div>
-      <div class="card"><div class="card-emoji">🍜</div><div class="card-name">Fantastic Noodles</div><p class="card-desc">Instant cup noodles. The perfect warm snack for a cold day.</p><div class="card-price">$3.00</div></div>
-      <div class="card"><div class="card-emoji">🍮</div><div class="card-name">Mini Jelly</div><p class="card-desc">Small but mighty. A quick hit of sweetness to get you through.</p><div class="card-price">$0.50</div></div>
+      <div class="card">
+        <div class="card-emoji">⚖️</div>
+        <div class="card-name">Ethics & Responsibility</div>
+        <p class="card-desc">We emphasize fair pricing and responsible sourcing, focusing on the ethical implications of retail and the role of businesses in a school community.</p>
+      </div>
+      <div class="card">
+        <div class="card-emoji">📊</div>
+        <div class="card-name">Digital Accountability</div>
+        <p class="card-desc">Utilizing Square POS for all transactions ensures 100% digital transparency, allowing for verifiable financial audits and real-time management.</p>
+      </div>
+      <div class="card">
+        <div class="card-emoji">🌱</div>
+        <div class="card-name">Health Conscious</div>
+        <p class="card-desc">Our planned catalog prioritizes Zero-Sugar and wellness-oriented refreshments for both staff and students.</p>
+      </div>
     </div>
   </section>
 
-  <section id="find">
-    <div class="find-us-box">
-      <h2 class="section-title">Operations</h2>
-      <p style="color:var(--text-muted); margin-top: 0.5rem;">Convenient pickup during designated school breaks.</p>
-      <div class="contact-list">
-        <div class="contact-item"><span class="contact-icon">📍</span><div><div class="contact-label">Location</div><div class="contact-val">Official location pending school approval</div></div></div>
-        <div class="contact-item"><span class="contact-icon">⏰</span><div><div class="contact-label">Hours</div><div class="contact-val">Recess & Lunch · Mon – Fri</div></div></div>
-        <div class="contact-item"><span class="contact-icon">💸</span><div><div class="contact-label">Payment</div><div class="contact-val">Cash · Card · <a href="https://cookedcoke.square.site/s/shop" style="color: inherit; text-decoration: underline;">Online</a></div></div></div>
+  <section id="catalog" style="background: rgba(255,255,255,0.02); border-radius: 24px; margin-top: 2rem;">
+    <div class="section-header">
+      <h2 class="section-title">Catalog Preview</h2>
+      <p class="section-desc">A curated selection of premium refreshments, managed with professional vocational standards.</p>
+    </div>
+    <div class="menu-grid">
+      <div class="card"><div class="card-emoji">🥤</div><div class="card-name">OG Classics</div><p class="card-desc">Coke, Sprite, Fanta, or Solo. Industry standards served at optimal temperatures.</p><div class="card-btn">Product Preview</div></div>
+      <div class="card"><div class="card-emoji">🍵</div><div class="card-name">Iced Black Tea</div><p class="card-desc">Classic Chinese style Iced Black Tea. A premium botanical option.</p><div class="card-btn">Product Preview</div></div>
+      <div class="card"><div class="card-emoji">🍑</div><div class="card-name">Chi Forest</div><p class="card-desc">Zero-Sugar sparkling water. Peach, Grape, or Lychee flavors.</p><div class="card-btn">Product Preview</div></div>
+      <div class="card"><div class="card-emoji">🥔</div><div class="card-name">Red Rock Deli</div><p class="card-desc">Premium stackable and bagged snacks. High-quality flavor profiles.</p><div class="card-btn">Product Preview</div></div>
+      <div class="card"><div class="card-emoji">🥢</div><div class="card-name">Pocky & Snacks</div><p class="card-desc">Selected international snacks perfect for shared refreshments.</p><div class="card-btn">Product Preview</div></div>
+      <div class="card"><div class="card-emoji">🍜</div><div class="card-name">Hot Refreshments</div><p class="card-desc">Warm snack options planned for winter season implementation.</p><div class="card-btn">Product Preview</div></div>
+    </div>
+  </section>
+
+  <section id="impact">
+    <div class="section-header">
+      <h2 class="section-title">Philanthropic Commitment</h2>
+      <p class="section-desc">Our success is measured by the support we provide to our community.</p>
+    </div>
+    <div class="card" style="text-align: center; max-width: 800px; margin: 0 auto; border-color: var(--accent); padding: 3rem;">
+      <h3 class="card-title" style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--accent);">$600 Annually</h3>
+      <p class="leader-role" style="margin-bottom: 1.5rem;">Targeted Community Contribution</p>
+      <p class="card-text" style="font-size: 1.1rem; color: var(--text-muted);">The Cooked Coke Initiative is committed to donating <strong>$50 per month</strong> to school-approved charities. We believe in a model where business success directly funds social good.</p>
+    </div>
+  </section>
+
+  <section id="governance">
+    <div class="section-header">
+      <h2 class="section-title">Leadership Team</h2>
+      <p class="section-desc">Directed by students, governed by professional vocational standards.</p>
+    </div>
+    <div class="leadership-grid">
+      <div class="leader-card">
+        <div class="leader-role">COO & Lead Designer</div>
+        <div class="leader-name">William Luk</div>
+      </div>
+      <div class="leader-card">
+        <div class="leader-role">Head of Sales</div>
+        <div class="leader-name">Mike Lu</div>
+      </div>
+      <div class="leader-card">
+        <div class="leader-role">Customer Relations</div>
+        <div class="leader-name">Frankie Huang</div>
       </div>
     </div>
   </section>
 </main>
 
-<div id="vote-view">
-  <div class="poll-wrapper">
-    <iframe data-tally-src="https://tally.so/embed/D4Dq6X?alignLeft=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="225" frameborder="0" marginheight="0" marginwidth="0" title="Should we add chips to the menu?"></iframe>
-  </div>
-</div>
-
-<div class="popup-overlay" id="votePopup">
-  <div class="popup-card">
-    <button class="popup-close" onclick="closePopup()">×</button>
-    <span class="hero-tag" style="margin-bottom: 1rem; background: rgba(255,255,255,0.05); color: white;">Limited Offer</span>
-    <h2 class="popup-title">Vote & Get<br>10% Off.</h2>
-    <p class="popup-text">Help us shape our menu and receive a thank-you discount code.</p>
-    <button class="popup-btn" onclick="showVote(); closePopup();">Vote Now</button>
-  </div>
-</div>
-
 <footer>
   <div class="footer-content">
-    <div>
-      <div class="nav-logo" onclick="hideVote()" style="cursor: pointer; margin-bottom: 0.5rem;">
-        <span class="nav-logo-main">Cooked Coke Co.</span>
-        <span class="nav-logo-sub">Social Enterprise</span>
-      </div>
-      <p class="footer-text">© 2026 | Part of the <a href="https://cookedcoke.org" class="external-link" style="color: var(--text);">Cooked Coke Social Enterprise Initiative</a></p>
-    </div>
-    <div style="display: flex; gap: 2rem;">
-      <a href="https://cookedcoke.org" class="footer-link external-link">Social Impact</a>
-      <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="footer-link external-link">Order Now</a>
-    </div>
+    <span class="footer-tag">Official Pilot Program pending School Administration Approval</span>
+    <p class="footer-text">
+      Developed by William Luk, Mike, and Frankie.<br>
+      © 2026 Cooked Coke Social Enterprise Initiative. All rights reserved.
+    </p>
   </div>
 </footer>
 
@@ -401,40 +420,7 @@
       document.body.style.overflow = links.classList.contains('active') ? 'hidden' : '';
     }
   }
+</script>
 
-  function showVote() {
-    document.getElementById('page-content').style.display = 'none';
-    document.getElementById('vote-view').style.display = 'flex';
-    document.getElementById('nav-links-container').style.display = 'none';
-    document.getElementById('nav-back-btn').style.display = 'block';
-    window.scrollTo(0, 0);
-  }
-  function hideVote() {
-    document.getElementById('page-content').style.display = 'block';
-    document.getElementById('vote-view').style.display = 'none';
-    document.getElementById('nav-links-container').style.display = 'block';
-    document.getElementById('nav-back-btn').style.display = 'none';
-  }
-  function closePopup() {
-    document.getElementById('votePopup').style.display = 'none';
-    localStorage.setItem('hasSeenVotePopup', 'true');
-  }
-  window.onload = function() {
-    const hasVoted = localStorage.getItem('voterCode');
-    if (hasVoted) {
-      const heroBtn = document.getElementById('hero-vote-btn');
-      if (heroBtn) {
-        heroBtn.textContent = 'Thanks for voting!';
-        heroBtn.onclick = null;
-        heroBtn.style.cursor = 'default';
-        heroBtn.style.opacity = '0.7';
-      }
-      const navVote = document.getElementById('nav-vote-item');
-      if (navVote) navVote.style.display = 'none';
-    } else if (!localStorage.getItem('hasSeenVotePopup')) {
-      setTimeout(() => { document.getElementById('votePopup').style.display = 'flex'; }, 2000);
-    }
-  }
-  var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}</script>
 </body>
 </html>
