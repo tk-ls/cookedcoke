@@ -89,6 +89,11 @@
     }
     .nav-links a:hover, .back-btn:hover { color: var(--text); }
 
+    .external-link {
+      text-decoration: underline !important;
+      color: var(--text) !important;
+    }
+
     /* ─── HAMBURGER ─── */
     .menu-toggle {
       display: none;
@@ -224,7 +229,8 @@
     footer { border-top: 1px solid var(--border); padding: 3rem 2rem; margin-top: auto; }
     .footer-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
     .footer-text { font-size: 0.85rem; color: var(--text-muted); }
-    .footer-link { color: var(--text); text-decoration: none; font-weight: 500; }
+    .footer-link { color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+    .footer-link:hover { color: var(--text); }
 
     /* ─── POPUP ─── */
     .popup-overlay {
@@ -284,7 +290,7 @@
   <div id="nav-links-container">
     <ul class="nav-links" id="navLinks">
       <li><a href="#menu" onclick="toggleMenu()">Menu</a></li>
-      <li><a href="https://cookedcoke.square.site/s/shop" target="_blank" onclick="toggleMenu()">Order Online</a></li>
+      <li><a href="https://cookedcoke.square.site/s/shop" class="external-link" target="_blank" onclick="toggleMenu()">Order Online</a></li>
       <li id="nav-vote-item"><a href="#" onclick="showVote(); toggleMenu(); return false;">Vote</a></li>
       <li><a href="#find" onclick="toggleMenu()">Find us</a></li>
     </ul>
@@ -376,11 +382,11 @@
         <span class="nav-logo-main">Cooked Coke Co.</span>
         <span class="nav-logo-sub">Social Enterprise</span>
       </div>
-      <p class="footer-text">© 2026 | Part of the <a href="https://cookedcoke.org" style="color: var(--text); text-decoration: underline;">Cooked Coke Social Enterprise Initiative</a></p>
+      <p class="footer-text">© 2026 | Part of the <a href="https://cookedcoke.org" class="external-link" style="color: var(--text);">Cooked Coke Social Enterprise Initiative</a></p>
     </div>
     <div style="display: flex; gap: 2rem;">
-      <a href="https://cookedcoke.org" class="footer-link">Social Impact</a>
-      <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="footer-link">Order Now</a>
+      <a href="https://cookedcoke.org" class="footer-link external-link">Social Impact</a>
+      <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="footer-link external-link">Order Now</a>
     </div>
   </div>
 </footer>
