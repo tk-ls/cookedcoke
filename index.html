@@ -70,14 +70,21 @@
     nav {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
       background: rgba(11, 11, 11, 0.8);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
       padding: 0.8rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      transition: background 0.3s ease;
+    }
+    nav.active {
+      position: fixed;
+      width: 100%;
+      background: rgba(11, 11, 11, 0.95);
     }
     .nav-logo {
       display: flex;
@@ -85,7 +92,7 @@
       text-decoration: none;
       line-height: 1;
       position: relative;
-      z-index: 1001;
+      z-index: 1002;
     }
     .nav-logo-main {
       font-weight: 700;
@@ -122,8 +129,9 @@
       flex-direction: column;
       gap: 5px;
       cursor: pointer;
-      z-index: 1001;
+      z-index: 1002;
       padding: 5px;
+      position: relative;
     }
     .menu-toggle span {
       display: block;
@@ -275,9 +283,7 @@
         top: 0; right: 0;
         width: 100%;
         height: 100dvh;
-        background: rgba(11, 11, 11, 0.95);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        background: transparent;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -314,7 +320,7 @@
   </div>
 </div>
 
-<nav>
+<nav id="mainNav">
   <a href="#" onclick="hideVote(); return false;" class="nav-logo">
     <span class="nav-logo-main">Cooked Coke Co.</span>
     <span class="nav-logo-sub">Social Enterprise</span>
@@ -425,9 +431,11 @@
 
 <script>
   function toggleMenu() {
+    const nav = document.getElementById('mainNav');
     const toggle = document.getElementById('menuToggle');
     const links = document.getElementById('navLinks');
     if (window.innerWidth <= 860) {
+      nav.classList.toggle('active');
       toggle.classList.toggle('active');
       links.classList.toggle('active');
       document.body.style.overflow = links.classList.contains('active') ? 'hidden' : '';
