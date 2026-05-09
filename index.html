@@ -74,17 +74,30 @@
       background: rgba(11, 11, 11, 0.8);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 1rem 2rem;
+      padding: 0.8rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .nav-logo {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      line-height: 1;
+    }
+    .nav-logo-main {
       font-weight: 700;
       font-size: 1.1rem;
       color: var(--text);
-      text-decoration: none;
       letter-spacing: -0.02em;
+    }
+    .nav-logo-sub {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-top: 2px;
     }
     .nav-links {
       display: flex; gap: 1.5rem; list-style: none;
@@ -100,6 +113,27 @@
       border: none;
     }
     .nav-links a:hover, .back-btn:hover { color: var(--text); }
+
+    /* ─── HAMBURGER ─── */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      z-index: 1000;
+      padding: 5px;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+    .menu-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
     /* ─── HERO ─── */
     .hero {
@@ -233,6 +267,23 @@
     .poll-wrapper { width: 100%; max-width: 600px; }
 
     @media (max-width: 860px) {
+      .menu-toggle { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: 0; right: -100%;
+        width: 80%; max-width: 300px;
+        height: 100vh;
+        background: var(--surface);
+        border-left: 1px solid var(--border);
+        flex-direction: column;
+        padding: 8rem 2rem;
+        gap: 2rem;
+        transition: 0.3s ease;
+        z-index: 999;
+      }
+      .nav-links.active { right: 0; }
+      .nav-links a { font-size: 1.2rem; }
+
       .stats { grid-template-columns: 1fr; }
       .hero { padding: 4rem 1.5rem; }
       .footer-content { flex-direction: column; gap: 1.5rem; text-align: center; }
@@ -254,16 +305,24 @@
 </div>
 
 <nav>
-  <a href="#" onclick="hideVote(); return false;" class="nav-logo">Cooked Coke Co.</a>
+  <a href="#" onclick="hideVote(); return false;" class="nav-logo">
+    <span class="nav-logo-main">Cooked Coke Co.</span>
+    <span class="nav-logo-sub">Social Enterprise</span>
+  </a>
   <div id="nav-links-container">
-    <ul class="nav-links">
-      <li><a href="#menu">Menu</a></li>
-      <li><a href="https://cookedcoke.square.site/s/shop" target="_blank">Order Online</a></li>
-      <li id="nav-vote-item"><a href="#" onclick="showVote(); return false;">Vote</a></li>
-      <li><a href="#find">Find us</a></li>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#menu" onclick="toggleMenu()">Menu</a></li>
+      <li><a href="https://cookedcoke.square.site/s/shop" target="_blank" onclick="toggleMenu()">Order Online</a></li>
+      <li id="nav-vote-item"><a href="#" onclick="showVote(); toggleMenu(); return false;">Vote</a></li>
+      <li><a href="#find" onclick="toggleMenu()">Find us</a></li>
     </ul>
   </div>
   <button id="nav-back-btn" class="back-btn" style="display: none;" onclick="hideVote()">← Back to Menu</button>
+  <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </nav>
 
 <main id="page-content">
@@ -341,7 +400,10 @@
 <footer>
   <div class="footer-content">
     <div>
-      <div class="nav-logo" onclick="hideVote()" style="cursor: pointer; margin-bottom: 0.5rem;">Cooked Coke Co.</div>
+      <div class="nav-logo" onclick="hideVote()" style="cursor: pointer; margin-bottom: 0.5rem;">
+        <span class="nav-logo-main">Cooked Coke Co.</span>
+        <span class="nav-logo-sub">Social Enterprise</span>
+      </div>
       <p class="footer-text">© 2026 | Part of the <a href="https://cookedcoke.org" style="color: var(--text); text-decoration: underline;">Cooked Coke Social Enterprise Initiative</a></p>
     </div>
     <div style="display: flex; gap: 2rem;">
@@ -352,6 +414,16 @@
 </footer>
 
 <script>
+  function toggleMenu() {
+    const toggle = document.getElementById('menuToggle');
+    const links = document.getElementById('navLinks');
+    if (window.innerWidth <= 860) {
+      toggle.classList.toggle('active');
+      links.classList.toggle('active');
+      document.body.style.overflow = links.classList.contains('active') ? 'hidden' : '';
+    }
+  }
+
   function showVote() {
     document.getElementById('page-content').style.display = 'none';
     document.getElementById('vote-view').style.display = 'flex';
