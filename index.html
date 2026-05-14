@@ -249,7 +249,7 @@
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
     .banner-title {
-      font-size: 40px;
+      font-size: clamp(28px, 6vw, 40px);
       font-weight: 700;
       margin-bottom: 20px;
     }
@@ -320,7 +320,7 @@
     <a href="#" onclick="hideVote(); return false;" class="nav-logo">Cooked Coke Co.</a>
     <div class="nav-right">
       <ul class="nav-links" id="navLinks">
-        <li><a href="#catalog">Menu</a></li>
+        <li><a href="#catalog" onclick="hideVote()">Menu</a></li>
         <li><a href="https://cookedcoke.square.site/s/shop" target="_blank">Shop</a></li>
         <li><a href="#" onclick="showVote(); return false;">Vote</a></li>
       </ul>
