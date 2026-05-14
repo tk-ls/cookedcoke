@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -12,6 +12,8 @@
     (function() {
       const savedTheme = localStorage.getItem('theme_xyz') || 'dark';
       document.documentElement.setAttribute('data-theme', savedTheme);
+      // Add a class to prevent transitions on load
+      document.documentElement.classList.add('no-transition');
     })();
   </script>
   <style>
@@ -39,6 +41,10 @@
       --banner-bg: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
     }
 
+    .no-transition * {
+      transition: none !important;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
@@ -51,6 +57,9 @@
       letter-spacing: -0.022em;
       -webkit-font-smoothing: antialiased;
       transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* ─── NAV ─── */
@@ -146,7 +155,40 @@
       letter-spacing: .007em;
       color: var(--text-muted);
       max-width: 600px;
-      margin: 0 auto;
+      margin: 0 auto 40px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .btn {
+      padding: 12px 24px;
+      border-radius: 980px;
+      font-size: 17px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #ff453a;
+      transform: scale(1.05);
+    }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--bg);
+      transform: scale(1.05);
     }
 
     /* ─── CATALOG ─── */
@@ -197,8 +239,8 @@
       margin-bottom: auto;
     }
 
-    /* ─── LOYALTY ─── */
-    .loyalty-banner {
+    /* ─── LOYALTY / VOTE ─── */
+    .banner {
       background: var(--banner-bg);
       border: 1px solid var(--border);
       border-radius: 30px;
@@ -207,15 +249,32 @@
       margin: 40px 0;
       transition: background-color 0.3s ease, border-color 0.3s ease;
     }
-    .loyalty-title {
+    .banner-title {
       font-size: 40px;
       font-weight: 700;
       margin-bottom: 20px;
     }
-    .token-preview {
+    .banner-icon {
       font-size: 100px;
       margin: 30px 0;
-      filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+      filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
+    }
+
+    /* ─── VOTE VIEW ─── */
+    #vote-view {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 100px 22px;
+      text-align: center;
+    }
+    .poll-container {
+      width: 100%;
+      max-width: 600px;
+      background: var(--surface);
+      border-radius: 28px;
+      padding: 40px;
+      border: 1px solid var(--border);
     }
 
     /* ─── FOOTER ─── */
@@ -224,6 +283,7 @@
       font-size: 12px;
       color: var(--text-muted);
       text-align: center;
+      margin-top: auto;
     }
     .footer-content {
       max-width: 1024px;
@@ -247,6 +307,7 @@
       .product-grid { grid-template-columns: 1fr; }
       .product-card { min-height: 300px; padding: 30px; }
       .hero { padding: 80px 22px; }
+      .banner { padding: 40px 20px; }
     }
   </style>
 </head>
@@ -254,11 +315,12 @@
 
 <nav>
   <div class="nav-content">
-    <a href="#" class="nav-logo">Cooked Coke Co.</a>
+    <a href="#" onclick="hideVote(); return false;" class="nav-logo">Cooked Coke Co.</a>
     <div class="nav-right">
-      <ul class="nav-links">
+      <ul class="nav-links" id="navLinks">
         <li><a href="#catalog">Menu</a></li>
-        <li><a href="#loyalty">Tokens</a></li>
+        <li><a href="https://cookedcoke.square.site/s/shop" target="_blank">Shop</a></li>
+        <li><a href="#" onclick="showVote(); return false;">Vote</a></li>
       </ul>
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
         <span id="themeIcon">🌓</span>
@@ -267,51 +329,69 @@
   </div>
 </nav>
 
-<main>
-  <section class="hero">
-    <span class="hero-tag">Officially Licensed</span>
-    <h1 class="hero-title">High-altitude refreshment.</h1>
-    <p class="hero-sub">Visit us on Level 7. The student-led hub for healthy curated selections.</p>
-  </section>
+<main id="mainContent">
+  <div id="page-content">
+    <section class="hero">
+      <span class="hero-tag">Officially Licensed</span>
+      <h1 class="hero-title">High-altitude refreshment.</h1>
+      <p class="hero-sub">Visit us on Level 7. The student-led hub for healthy curated selections.</p>
+      <div class="btn-group">
+        <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="btn btn-primary">Order Online</a>
+        <a href="#" onclick="showVote(); return false;" class="btn btn-secondary">Vote & Save 10%</a>
+      </div>
+    </section>
 
-  <section id="catalog">
-    <div class="section-header">
-      <h2 class="section-title">Healthy. Curated.</h2>
-    </div>
-    <div class="product-grid">
-      <div class="product-card">
-        <div class="product-emoji">🥤</div>
-        <h3 class="product-name">Zero Classics.</h3>
-        <p class="product-desc">Coke Zero. Sprite Zero. All the flavor, zero compromise on school standards.</p>
+    <section id="catalog">
+      <div class="section-header">
+        <h2 class="section-title">Healthy. Curated.</h2>
       </div>
-      <div class="product-card">
-        <div class="product-emoji">🍵</div>
-        <h3 class="product-name">Botanical.</h3>
-        <p class="product-desc">Natural Chinese Black Teas and botanical infusions. Pure hydration.</p>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-emoji">🥤</div>
+          <h3 class="product-name">Zero Classics.</h3>
+          <p class="product-desc">Coke Zero. Sprite Zero. All the flavor, zero compromise on school standards.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-emoji">🍵</div>
+          <h3 class="product-name">Botanical.</h3>
+          <p class="product-desc">Natural Chinese Black Teas and botanical infusions. Pure hydration.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-emoji">🍑</div>
+          <h3 class="product-name">Chi Forest.</h3>
+          <p class="product-desc">Zero sugar sparkling water with natural Peach and Lychee essences.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-emoji">🥗</div>
+          <h3 class="product-name">Selected Snacks.</h3>
+          <p class="product-desc">Low-sodium, gluten-free curated selections. Better for you.</p>
+        </div>
       </div>
-      <div class="product-card">
-        <div class="product-emoji">🍑</div>
-        <h3 class="product-name">Chi Forest.</h3>
-        <p class="product-desc">Zero sugar sparkling water with natural Peach and Lychee essences.</p>
-      </div>
-      <div class="product-card">
-        <div class="product-emoji">🥗</div>
-        <h3 class="product-name">Selected Snacks.</h3>
-        <p class="product-desc">Low-sodium, gluten-free curated selections. Better for you.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="loyalty">
-    <div class="loyalty-banner">
-      <h2 class="loyalty-title">The Token System.</h2>
-      <div class="token-preview">🪙</div>
-      <p class="hero-sub">Bespoke 3D-printed loyalty tokens.</p>
-      <p class="product-desc" style="margin-top: 20px; max-width: 500px; margin-left: auto; margin-right: auto;">
-        Collect and redeem. Our exclusive internal reward system, designed and printed right here.
-      </p>
+    <section id="loyalty">
+      <div class="banner">
+        <h2 class="banner-title">The Token System.</h2>
+        <div class="banner-icon">🪙</div>
+        <p class="hero-sub" style="font-size: 21px;">Bespoke 3D-printed loyalty tokens.</p>
+        <p class="product-desc" style="margin-top: 20px; max-width: 500px; margin-left: auto; margin-right: auto;">
+          Collect and redeem. Our exclusive internal reward system, designed and printed right here on Level 7.
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <div id="vote-view">
+    <div class="poll-container">
+      <h2 class="banner-title">Community Poll.</h2>
+      <p class="product-desc" style="margin-bottom: 30px;">Vote for next month's healthy refreshment and receive a 10% discount code.</p>
+      <!-- Placeholder for poll system -->
+      <div style="padding: 40px; border: 2px dashed var(--border); border-radius: 20px;">
+        <p class="hero-sub" style="font-size: 17px;">[ Poll System Active ]</p>
+      </div>
+      <button onclick="hideVote()" class="btn btn-secondary" style="margin-top: 30px;">← Back to Menu</button>
     </div>
-  </section>
+  </div>
 </main>
 
 <footer>
@@ -328,6 +408,13 @@
   const themeToggle = document.getElementById('themeToggle');
   const htmlElement = document.documentElement;
 
+  // Restore transition after initial load
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      htmlElement.classList.remove('no-transition');
+    }, 100);
+  });
+
   themeToggle.addEventListener('click', () => {
     const currentTheme = htmlElement.getAttribute('data-theme');
     const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
@@ -335,6 +422,17 @@
     htmlElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme_xyz', newTheme);
   });
+
+  function showVote() {
+    document.getElementById('page-content').style.display = 'none';
+    document.getElementById('vote-view').style.display = 'flex';
+    window.scrollTo(0, 0);
+  }
+
+  function hideVote() {
+    document.getElementById('page-content').style.display = 'block';
+    document.getElementById('vote-view').style.display = 'none';
+  }
 </script>
 
 </body>
