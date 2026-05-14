@@ -18,6 +18,7 @@
       --surface: #1d1d1f;
       --nav-bg: rgba(0, 0, 0, 0.8);
       --hero-gradient: linear-gradient(180deg, #fff 0%, #86868b 100%);
+      --banner-bg: linear-gradient(135deg, #1d1d1f 0%, #000000 100%);
     }
 
     [data-theme="light"] {
@@ -29,6 +30,7 @@
       --surface: #f5f5f7;
       --nav-bg: rgba(255, 255, 255, 0.8);
       --hero-gradient: linear-gradient(180deg, #1d1d1f 0%, #86868b 100%);
+      --banner-bg: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -191,7 +193,7 @@
 
     /* ─── LOYALTY ─── */
     .loyalty-banner {
-      background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);
+      background: var(--banner-bg);
       border: 1px solid var(--border);
       border-radius: 30px;
       padding: 80px 40px;
