@@ -3,367 +3,276 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Cooked Coke | Social Enterprise Proposal</title>
+  <title>Level 7 | Cooked Coke Co.</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥤</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0B0B0B;
-      --surface: #141414;
-      --surface-hover: #1C1C1C;
-      --border: #2C2C2C;
-      --text: #FFFFFF;
-      --text-muted: #A0A0A0;
-      --accent: #E8001C;
-      --accent-soft: rgba(232, 0, 28, 0.1);
-      --radius: 8px;
+      --bg: #000000;
+      --text: #f5f5f7;
+      --text-muted: #86868b;
+      --accent: #ff3b30;
+      --border: #424245;
+      --surface: #1d1d1f;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
-    button, input, select, textarea, a {
-      font-family: inherit;
-    }
-
     body {
       background-color: var(--bg);
       color: var(--text);
-      font-family: 'Inter', sans-serif;
-      line-height: 1.5;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.47059;
+      font-weight: 400;
+      letter-spacing: -0.022em;
       -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
     }
 
     /* ─── NAV ─── */
     nav {
-      position: relative;
+      position: sticky;
+      top: 0;
       z-index: 1000;
-      background: rgba(11, 11, 11, 0.8);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid var(--border);
-      padding: 0.8rem 2rem;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-content {
+      width: 100%;
+      max-width: 1024px;
+      padding: 0 22px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
     .nav-logo {
-      display: flex;
-      flex-direction: column;
+      font-weight: 600;
+      font-size: 17px;
       text-decoration: none;
-      line-height: 1;
-      position: relative;
-      z-index: 1002;
-    }
-    .nav-logo-main {
-      font-weight: 700;
-      font-size: 1.1rem;
       color: var(--text);
-      letter-spacing: -0.02em;
-    }
-    .nav-logo-sub {
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-      margin-top: 2px;
     }
     .nav-links {
-      display: flex; gap: 1.5rem; list-style: none;
+      display: flex;
+      gap: 30px;
+      list-style: none;
     }
     .nav-links a {
-      color: var(--text-muted);
+      color: var(--text);
       text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: color 0.2s;
+      font-size: 12px;
+      opacity: 0.8;
+      transition: opacity 0.2s;
     }
-    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover { opacity: 1; }
 
     /* ─── HERO ─── */
     .hero {
-      padding: 8rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
+      padding: 120px 22px;
       text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
     }
     .hero-tag {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      background: var(--accent-soft);
-      color: var(--accent);
-      border-radius: 100px;
-      font-size: 0.75rem;
+      font-size: 21px;
       font-weight: 600;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: block;
+      letter-spacing: 0.011em;
     }
     .hero-title {
-      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-size: clamp(48px, 8vw, 80px);
+      line-height: 1.05;
       font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1.1;
-      margin-bottom: 1.5rem;
+      letter-spacing: -0.015em;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #fff 0%, #86868b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .hero-sub {
-      font-size: 1.1rem;
-      color: var(--text-muted);
-      max-width: 650px;
-      margin: 0 auto 2.5rem;
-    }
-    .hero-btn {
-      display: inline-block;
-      background: var(--text);
-      color: var(--bg);
-      padding: 0.8rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
+      font-size: clamp(21px, 3vw, 28px);
+      line-height: 1.14286;
       font-weight: 600;
-      font-size: 0.95rem;
-      transition: opacity 0.2s;
-      cursor: pointer;
-      border: none;
-    }
-    .hero-btn:hover { opacity: 0.9; }
-
-    /* ─── SECTION ─── */
-    section {
-      padding: 5rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .section-header {
-      margin-bottom: 3rem;
-      text-align: center;
-    }
-    .section-title {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 1rem;
-    }
-    .section-desc {
+      letter-spacing: .007em;
       color: var(--text-muted);
       max-width: 600px;
       margin: 0 auto;
     }
 
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
+    /* ─── CATALOG ─── */
+    section {
+      padding: 100px 22px;
+      max-width: 1024px;
+      margin: 0 auto;
     }
-    .card {
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-title {
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: -0.003em;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .product-card {
       background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      transition: all 0.2s ease;
+      border-radius: 28px;
+      padding: 50px;
       display: flex;
       flex-direction: column;
-      gap: 1rem;
+      justify-content: flex-end;
+      min-height: 400px;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .card:hover {
-      border-color: #444;
-      background: var(--surface-hover);
-      transform: translateY(-2px);
+    .product-card:hover {
+      transform: scale(1.02);
     }
-    .card-emoji {
-      font-size: 1.5rem;
-      width: 40px; height: 40px;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .card-name { font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
-    .card-desc { font-size: 0.9rem; color: var(--text-muted); flex-grow: 1; }
-    .card-btn {
-      background: var(--border);
-      color: var(--text-muted);
-      text-align: center;
-      padding: 0.6rem;
-      border-radius: 4px;
-      font-size: 0.8rem;
+    .product-name {
+      font-size: 32px;
       font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      cursor: default;
+      margin-bottom: 10px;
+    }
+    .product-desc {
+      font-size: 19px;
+      color: var(--text-muted);
+    }
+    .product-emoji {
+      font-size: 60px;
+      margin-bottom: auto;
     }
 
-    /* ─── STATS ─── */
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
-    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center; }
-    .stat-num { font-size: 2.2rem; font-weight: 700; letter-spacing: -0.04em; margin-bottom: 0.5rem; }
-    .stat-label { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
-
-    /* ─── LEADERSHIP ─── */
-    .leadership-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-    .leader-card {
-      background: var(--surface);
+    /* ─── LOYALTY ─── */
+    .loyalty-banner {
+      background: linear-gradient(135deg, #1d1d1f 0%, #000 100%);
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      text-align: left;
+      border-radius: 30px;
+      padding: 80px 40px;
+      text-align: center;
+      margin: 40px 0;
     }
-    .leader-name { font-weight: 600; font-size: 1.1rem; }
-    .leader-role { color: var(--accent); font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+    .loyalty-title {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .token-preview {
+      font-size: 100px;
+      margin: 30px 0;
+      filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
+    }
 
     /* ─── FOOTER ─── */
-    footer { border-top: 1px solid var(--border); padding: 4rem 2rem; margin-top: auto; }
-    .footer-content { max-width: 1200px; margin: 0 auto; text-align: center; }
-    .footer-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
-    .footer-tag { color: var(--text); font-weight: 600; display: block; margin-bottom: 1rem; }
+    footer {
+      padding: 80px 22px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .footer-content {
+      max-width: 1024px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+    }
+    .footer-links {
+      margin-top: 20px;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
 
-    @media (max-width: 860px) {
-      .stats { grid-template-columns: 1fr; }
-      .hero { padding: 5rem 1.5rem; }
+    @media (max-width: 734px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .product-card { min-height: 300px; padding: 30px; }
+      .hero { padding: 80px 22px; }
     }
   </style>
 </head>
 <body>
 
-<nav id="mainNav">
-  <a href="#" class="nav-logo">
-    <span class="nav-logo-main">Cooked Coke Co.</span>
-    <span class="nav-logo-sub">Social Enterprise</span>
-  </a>
-  <div id="nav-links-container">
-    <ul class="nav-links" id="navLinks">
-    </ul>
+<nav>
+  <div class="nav-content">
+    <a href="#" class="nav-logo">Cooked Coke Co.</a>
+    <div class="nav-links">
+      <a href="#catalog">Menu</a>
+      <a href="#loyalty">Tokens</a>
+    </div>
   </div>
 </nav>
 
-<main id="page-content">
+<main>
   <section class="hero">
-    <span class="hero-tag" style="background: var(--text); color: var(--bg); font-weight: 800; border: 1px solid var(--text);">OFFICIALLY LICENSED & OPERATIONAL</span>
-    <h1 class="hero-title">The Level 7<br>Refreshment Hub</h1>
-    <p class="hero-sub">Visit us on Level 7 — The High-Altitude Refreshment Hub. An official school social enterprise providing healthy vocational education through transparent enterprise management.</p>
-    <div style="display: flex; gap: 1rem; justify-content: center; margin-bottom: 3rem; flex-wrap: wrap;">
-      <a href="#mission" class="hero-btn" style="background: var(--accent); color: white;">The Initiative</a>
-      <a href="#catalog" class="hero-btn">Healthy Catalog</a>
+    <span class="hero-tag">Officially Licensed</span>
+    <h1 class="hero-title">High-altitude refreshment.</h1>
+    <p class="hero-sub">Visit us on Level 7. The student-led hub for healthy curated selections.</p>
+  </section>
+
+  <section id="catalog">
+    <div class="section-header">
+      <h2 class="section-title">Healthy. Curated.</h2>
     </div>
-    
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-num" style="color:var(--accent)">100%</div>
-        <div class="stat-label">Digital Transparency</div>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-emoji">🥤</div>
+        <h3 class="product-name">Zero Classics.</h3>
+        <p class="product-desc">Coke Zero. Sprite Zero. All the flavor, zero compromise on school standards.</p>
       </div>
-      <div class="stat-card">
-        <div class="stat-num" style="color:#FF6A00">Vocational</div>
-        <div class="stat-label">Learning Model</div>
+      <div class="product-card">
+        <div class="product-emoji">🍵</div>
+        <h3 class="product-name">Botanical.</h3>
+        <p class="product-desc">Natural Chinese Black Teas and botanical infusions. Pure hydration.</p>
       </div>
-      <div class="stat-card">
-        <div class="stat-num" style="color:#00B140">Philanthropy</div>
-        <div class="stat-label">Driven Success</div>
+      <div class="product-card">
+        <div class="product-emoji">🍑</div>
+        <h3 class="product-name">Chi Forest.</h3>
+        <p class="product-desc">Zero sugar sparkling water with natural Peach and Lychee essences.</p>
+      </div>
+      <div class="product-card">
+        <div class="product-emoji">🥗</div>
+        <h3 class="product-name">Selected Snacks.</h3>
+        <p class="product-desc">Low-sodium, gluten-free curated selections. Better for you.</p>
       </div>
     </div>
   </section>
 
-  <section id="mission">
-    <div class="section-header">
-      <h2 class="section-title">Our Foundation</h2>
-      <p class="section-desc">Establishing a practical learning environment for real-world enterprise management within the school community.</p>
-    </div>
-    <div class="menu-grid">
-      <div class="card">
-        <div class="card-emoji">⚖️</div>
-        <div class="card-name">Ethics & Responsibility</div>
-        <p class="card-desc">We emphasize fair pricing and responsible sourcing, focusing on the ethical implications of retail and the role of businesses in a school community.</p>
-      </div>
-      <div class="card">
-        <div class="card-emoji">📊</div>
-        <div class="card-name">Digital Accountability</div>
-        <p class="card-desc">Utilizing Square POS for all transactions ensures 100% digital transparency, allowing for verifiable financial audits and real-time management.</p>
-      </div>
-      <div class="card">
-        <div class="card-emoji">🌱</div>
-        <div class="card-name">Health Conscious</div>
-        <p class="card-desc">Our planned catalog prioritizes Zero-Sugar and wellness-oriented refreshments for both staff and students.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="catalog" style="background: rgba(255,255,255,0.02); border-radius: 24px; margin-top: 2rem;">
-    <div class="section-header">
-      <h2 class="section-title">Healthy Curated Selections</h2>
-      <p class="section-desc">A professional selection of school-compliant refreshments, featuring our 3D-printed loyalty token system.</p>
-    </div>
-    
-    <!-- Expanded: Low-Sugar Classics -->
-    <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
-      <h3 class="section-title" style="font-size: 1.25rem; color: var(--accent);">School-Healthy Range</h3>
-    </div>
-    <div class="menu-grid" style="margin-bottom: 3rem;">
-      <div class="card"><div class="card-emoji">🥤</div><div class="card-name">Zero-Sugar Classics</div><p class="card-desc">Coke Zero and Sprite Zero. All the flavor, compliant with school wellness standards.</p><div class="card-btn">Level 7 Exclusive</div></div>
-      <div class="card"><div class="card-emoji">🍵</div><div class="card-name">Botanical Teas</div><p class="card-desc">Low-calorie Chinese Black Teas and natural botanical refreshments.</p><div class="card-btn">Level 7 Exclusive</div></div>
-      <div class="card"><div class="card-emoji">🍑</div><div class="card-name">Chi Forest</div><p class="card-desc">Sparkling water with zero sugar and natural Peach/Lychee fruit essences.</p><div class="card-btn">Level 7 Exclusive</div></div>
-      <div class="card"><div class="card-emoji">🥥</div><div class="card-name">Pure Coconut Water</div><p class="card-desc">Natural electrolyte-rich hydration with no added sugars or preservatives.</p><div class="card-btn">Level 7 Exclusive</div></div>
-      <div class="card"><div class="card-emoji">🪙</div><div class="card-name">Loyalty Tokens</div><p class="card-desc">Bespoke 3D-printed tokens for our internal reward system. Collect and redeem.</p><div class="card-btn">System Active</div></div>
-    </div>
-
-    <!-- Core Categories -->
-    <div class="section-header" style="text-align: left; margin-bottom: 1.5rem;">
-      <h3 class="section-title" style="font-size: 1.25rem; color: var(--accent);">Nutritional Compliance</h3>
-    </div>
-    <div class="menu-grid">
-      <div class="card"><div class="card-emoji">🥗</div><div class="card-name">Healthy Snacks</div><p class="card-desc">Curated low-sodium and gluten-free snack options not found in the standard canteen.</p><div class="card-btn">Verified Selection</div></div>
-      <div class="card"><div class="card-emoji">⚖️</div><div class="card-name">Zero-Overlap Policy</div><p class="card-desc">Our catalog is strictly audited to ensure no inventory overlap with school canteen stocks.</p><div class="card-btn">Compliant</div></div>
-    </div>
-  </section>
-
-  <section id="impact">
-    <div class="section-header">
-      <h2 class="section-title">Philanthropic Commitment</h2>
-      <p class="section-desc">Our success is measured by the support we provide to our community.</p>
-    </div>
-    <div class="card" style="text-align: center; max-width: 800px; margin: 0 auto; border-color: var(--accent); padding: 3rem;">
-      <h3 class="card-title" style="font-size: 2.5rem; margin-bottom: 0.5rem; color: var(--accent);">$600 Annually</h3>
-      <p class="leader-role" style="margin-bottom: 1.5rem;">Targeted Community Contribution</p>
-      <p class="card-text" style="font-size: 1.1rem; color: var(--text-muted);">The Cooked Coke Initiative is committed to donating <strong>$50 per month</strong> to school-approved charities. We believe in a model where business success directly funds social good.</p>
-    </div>
-  </section>
-
-  <section id="governance">
-    <div class="section-header">
-      <h2 class="section-title">Leadership Team</h2>
-      <p class="section-desc">Directed by students, governed by professional vocational standards.</p>
-    </div>
-    <div class="leadership-grid">
-      <div class="leader-card">
-        <div class="leader-role">COO & Lead Designer</div>
-        <div class="leader-name">William Luk</div>
-      </div>
-      <div class="leader-card">
-        <div class="leader-role">Head of Sales</div>
-        <div class="leader-name">Mike Lu</div>
-      </div>
-      <div class="leader-card">
-        <div class="leader-role">Customer Relations</div>
-        <div class="leader-name">Frankie Huang</div>
-      </div>
+  <section id="loyalty">
+    <div class="loyalty-banner">
+      <h2 class="loyalty-title">The Token System.</h2>
+      <div class="token-preview">🪙</div>
+      <p class="hero-sub">Bespoke 3D-printed loyalty tokens.</p>
+      <p class="product-desc" style="margin-top: 20px; max-width: 500px; margin-left: auto; margin-right: auto;">
+        Collect and redeem. Our exclusive internal reward system, designed and printed right here.
+      </p>
     </div>
   </section>
 </main>
 
 <footer>
   <div class="footer-content">
-    <span class="footer-tag">Official Reddam House Social Enterprise — Level 7 Hub</span>
-    <p class="footer-text">
-      Developed by William Luk, Mike Lu, and Frankie Huang.<br>
-      © 2026 Cooked Coke Social Enterprise Initiative. All rights reserved.
-    </p>
+    <p>Copyright © 2026 Cooked Coke Social Enterprise. Level 7 Refreshment Hub.</p>
+    <div class="footer-links">
+      <a href="https://cookedcoke.org">Governance & Compliance</a>
+      <a href="mailto:contact@cookedcoke.xyz">Contact</a>
+    </div>
   </div>
 </footer>
 
