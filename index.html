@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -16,6 +16,19 @@
       --accent: #ff3b30;
       --border: #424245;
       --surface: #1d1d1f;
+      --nav-bg: rgba(0, 0, 0, 0.8);
+      --hero-gradient: linear-gradient(180deg, #fff 0%, #86868b 100%);
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #1d1d1f;
+      --text-muted: #86868b;
+      --accent: #ff3b30;
+      --border: #d2d2d7;
+      --surface: #f5f5f7;
+      --nav-bg: rgba(255, 255, 255, 0.8);
+      --hero-gradient: linear-gradient(180deg, #1d1d1f 0%, #86868b 100%);
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,6 +42,7 @@
       font-weight: 400;
       letter-spacing: -0.022em;
       -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     /* ─── NAV ─── */
@@ -36,7 +50,7 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: rgba(0, 0, 0, 0.8);
+      background: var(--nav-bg);
       backdrop-filter: saturate(180%) blur(20px);
       border-bottom: 1px solid var(--border);
       height: 44px;
@@ -58,6 +72,11 @@
       text-decoration: none;
       color: var(--text);
     }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
     .nav-links {
       display: flex;
       gap: 30px;
@@ -71,6 +90,21 @@
       transition: opacity 0.2s;
     }
     .nav-links a:hover { opacity: 1; }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .theme-toggle:hover { opacity: 1; }
 
     /* ─── HERO ─── */
     .hero {
@@ -93,7 +127,7 @@
       font-weight: 700;
       letter-spacing: -0.015em;
       margin-bottom: 20px;
-      background: linear-gradient(180deg, #fff 0%, #86868b 100%);
+      background: var(--hero-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -136,7 +170,7 @@
       flex-direction: column;
       justify-content: flex-end;
       min-height: 400px;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
     }
     .product-card:hover {
       transform: scale(1.02);
@@ -157,12 +191,13 @@
 
     /* ─── LOYALTY ─── */
     .loyalty-banner {
-      background: linear-gradient(135deg, #1d1d1f 0%, #000 100%);
+      background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%);
       border: 1px solid var(--border);
       border-radius: 30px;
       padding: 80px 40px;
       text-align: center;
       margin: 40px 0;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
     }
     .loyalty-title {
       font-size: 40px;
@@ -212,9 +247,14 @@
 <nav>
   <div class="nav-content">
     <a href="#" class="nav-logo">Cooked Coke Co.</a>
-    <div class="nav-links">
-      <a href="#catalog">Menu</a>
-      <a href="#loyalty">Tokens</a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#catalog">Menu</a></li>
+        <li><a href="#loyalty">Tokens</a></li>
+      </ul>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
+        <span id="themeIcon">🌓</span>
+      </button>
     </div>
   </div>
 </nav>
@@ -275,6 +315,23 @@
     </div>
   </div>
 </footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const htmlElement = document.documentElement;
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('theme_xyz') || 'dark';
+  htmlElement.setAttribute('data-theme', savedTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    htmlElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme_xyz', newTheme);
+  });
+</script>
 
 </body>
 </html>
