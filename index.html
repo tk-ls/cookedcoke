@@ -8,6 +8,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme_xyz') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    })();
+  </script>
   <style>
     :root {
       --bg: #000000;
@@ -321,10 +327,6 @@
 <script>
   const themeToggle = document.getElementById('themeToggle');
   const htmlElement = document.documentElement;
-
-  // Load saved theme
-  const savedTheme = localStorage.getItem('theme_xyz') || 'dark';
-  htmlElement.setAttribute('data-theme', savedTheme);
 
   themeToggle.addEventListener('click', () => {
     const currentTheme = htmlElement.getAttribute('data-theme');
