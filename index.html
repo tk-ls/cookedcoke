@@ -130,6 +130,9 @@
       height: 18px;
       width: auto;
     }
+    .theme-icon-dark { display: none; }
+    [data-theme="dark"] .theme-icon-light { display: none; }
+    [data-theme="dark"] .theme-icon-dark { display: block; }
 
     /* ─── HERO ─── */
     .hero {
@@ -336,7 +339,8 @@
         <li><a href="#" onclick="showVote(); return false;">Vote</a></li>
       </ul>
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
-        <img src="toggle.svg" alt="Toggle Theme">
+        <img src="light.svg" alt="Light Mode" class="theme-icon-light">
+        <img src="dark.svg" alt="Dark Mode" class="theme-icon-dark">
       </button>
     </div>
   </div>
