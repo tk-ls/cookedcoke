@@ -11,7 +11,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Level 7 | Cooked Coke Co.</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥤</text></svg>">
+  <link rel="icon" href="favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -83,11 +83,18 @@
       align-items: center;
     }
     .nav-logo {
-      font-weight: 600;
-      font-size: 17px;
+      display: flex;
+      align-items: center;
       text-decoration: none;
-      color: var(--text);
     }
+    .nav-logo img {
+      height: 22px;
+      width: auto;
+    }
+    .logo-dark { display: none; }
+    [data-theme="dark"] .logo-light { display: none; }
+    [data-theme="dark"] .logo-dark { display: block; }
+
     .nav-right {
       display: flex;
       align-items: center;
@@ -317,7 +324,10 @@
 
 <nav>
   <div class="nav-content">
-    <a href="#" onclick="hideVote(); return false;" class="nav-logo">Cooked Coke Co.</a>
+    <a href="#" onclick="hideVote(); return false;" class="nav-logo">
+      <img src="Logo Vantablack.svg" alt="Cooked Coke Co." class="logo-light">
+      <img src="Logo White.svg" alt="Cooked Coke Co." class="logo-dark">
+    </a>
     <div class="nav-right">
       <ul class="nav-links" id="navLinks">
         <li><a href="https://cookedcoke.square.site/s/shop" target="_blank">Shop</a></li>
