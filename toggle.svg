@@ -1,0 +1,16 @@
+<svg width="100%" viewBox="0 0 680 200" role="img" xmlns="http://www.w3.org/2000/svg" style="">
+  <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Dark/light mode toggle icon</title>
+  <desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(251, 251, 254);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">A circle split vertically — left half filled black with white outline, right half white with black outline.</desc>
+  <defs>
+    <clipPath id="lh">
+      <rect x="0" y="0" width="340" height="200"/>
+    </clipPath>
+    <clipPath id="rh">
+      <rect x="340" y="0" width="340" height="200"/>
+    </clipPath>
+  </defs>
+  <!-- left half: black fill, white stroke -->
+  <circle cx="340" cy="100" r="58" fill="black" stroke="white" stroke-width="2.5" clip-path="url(#lh)" style="fill:rgb(0, 0, 0);stroke:rgb(255, 255, 255);color:rgb(251, 251, 254);stroke-width:2.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <!-- right half: white fill, black stroke -->
+  <circle cx="340" cy="100" r="58" fill="white" stroke="black" stroke-width="2.5" clip-path="url(#rh)" style="fill:rgb(255, 255, 255);stroke:rgb(0, 0, 0);color:rgb(251, 251, 254);stroke-width:2.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+</svg>

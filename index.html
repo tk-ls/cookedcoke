@@ -119,8 +119,6 @@
       border: none;
       color: var(--text);
       cursor: pointer;
-      font-size: 16px;
-      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -128,6 +126,10 @@
       transition: opacity 0.2s;
     }
     .theme-toggle:hover { opacity: 1; }
+    .theme-toggle img {
+      height: 18px;
+      width: auto;
+    }
 
     /* ─── HERO ─── */
     .hero {
@@ -334,7 +336,7 @@
         <li><a href="#" onclick="showVote(); return false;">Vote</a></li>
       </ul>
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
-        <span id="themeIcon">🌓</span>
+        <img src="toggle.svg" alt="Toggle Theme">
       </button>
     </div>
   </div>
