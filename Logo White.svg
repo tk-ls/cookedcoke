@@ -26,15 +26,15 @@
        gradientTransform="matrix(1.8798364,0,0,1.8798364,-1461.3663,-2735.8963)" />
     <linearGradient
        inkscape:collect="always"
-       id="linearGradient4353">
+       id="linearGradient18299">
       <stop
-         style="stop-color:#020202;stop-opacity:1;"
+         style="stop-color:#ffffff;stop-opacity:1"
          offset="0"
-         id="stop4349" />
+         id="stop18295" />
       <stop
-         style="stop-color:#020202;stop-opacity:1;"
+         style="stop-color:#ffffff;stop-opacity:1"
          offset="1"
-         id="stop4351" />
+         id="stop18297" />
     </linearGradient>
     <linearGradient
        inkscape:collect="always"
