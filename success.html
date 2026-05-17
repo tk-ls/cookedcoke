@@ -82,11 +82,18 @@
       align-items: center;
     }
     .nav-logo {
-      font-weight: 600;
-      font-size: 17px;
+      display: flex;
+      align-items: center;
       text-decoration: none;
-      color: var(--text);
     }
+    .nav-logo img {
+      height: 22px;
+      width: auto;
+    }
+    .logo-dark { display: none; }
+    [data-theme="dark"] .logo-light { display: none; }
+    [data-theme="dark"] .logo-dark { display: block; }
+
     .nav-right {
       display: flex;
       align-items: center;
@@ -111,8 +118,6 @@
       border: none;
       color: var(--text);
       cursor: pointer;
-      font-size: 16px;
-      padding: 0;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -120,6 +125,13 @@
       transition: opacity 0.2s;
     }
     .theme-toggle:hover { opacity: 1; }
+    .theme-toggle img {
+      height: 18px;
+      width: auto;
+    }
+    .theme-icon-dark { display: none; }
+    [data-theme="dark"] .theme-icon-light { display: none; }
+    [data-theme="dark"] .theme-icon-dark { display: block; }
 
     /* ─── MAIN ─── */
     main {
@@ -236,14 +248,18 @@
 
 <nav>
   <div class="nav-content">
-    <a href="/" class="nav-logo">Cooked Coke Co.</a>
+    <a href="/" class="nav-logo">
+      <img src="Logo Vantablack.svg" alt="Cooked Coke Co." class="logo-light">
+      <img src="Logo White.svg" alt="Cooked Coke Co." class="logo-dark">
+    </a>
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="/">← Back</a></li>
+        <li><a href="/">◀ Back</a></li>
         <li><a href="https://cookedcoke.square.site/s/shop" target="_blank">Shop</a></li>
       </ul>
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
-        <span id="themeIcon">🌓</span>
+        <img src="light.svg" alt="Light Mode" class="theme-icon-light">
+        <img src="dark.svg" alt="Dark Mode" class="theme-icon-dark">
       </button>
     </div>
   </div>
