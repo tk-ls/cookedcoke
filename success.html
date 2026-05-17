@@ -318,6 +318,7 @@
     secretCode = generateCode();
     localStorage.setItem('voterCode', secretCode);
   }
+  localStorage.setItem('has_voted_xyz', 'true');
   document.getElementById('code').textContent = secretCode;
 
   function copyCode() {

@@ -337,7 +337,7 @@
     <div class="nav-right">
       <ul class="nav-links" id="navLinks">
         <li><a href="https://cookedcoke.square.site/s/shop" target="_blank">Shop</a></li>
-        <li><a href="#" onclick="showVote(); return false;">Vote</a></li>
+        <li><a href="#" id="navVote" onclick="showVote(); return false;">Vote</a></li>
       </ul>
       <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
         <img src="light.svg" alt="Light Mode" class="theme-icon-light">
@@ -355,7 +355,7 @@
       <p class="hero-sub">Visit us on Level 7. The student-led hub for healthy curated selections.</p>
       <div class="btn-group">
         <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="btn btn-primary">Order Online</a>
-        <a href="#" onclick="showVote(); return false;" class="btn btn-secondary">Vote & Save 10%</a>
+        <a href="#" id="voteBtn" onclick="showVote(); return false;" class="btn btn-secondary">Vote & Save 10%</a>
       </div>
     </section>
 
@@ -438,6 +438,25 @@
     setTimeout(() => {
       htmlElement.classList.remove('no-transition');
     }, 100);
+
+    // Check voting status
+    if (localStorage.getItem('has_voted_xyz') === 'true') {
+      const voteBtn = document.getElementById('voteBtn');
+      const navVote = document.getElementById('navVote');
+      
+      if (voteBtn) {
+        voteBtn.textContent = 'Thanks for voting';
+        voteBtn.style.opacity = '0.5';
+        voteBtn.style.pointerEvents = 'none';
+        voteBtn.onclick = null;
+      }
+      if (navVote) {
+        navVote.textContent = 'Voted';
+        navVote.style.opacity = '0.5';
+        navVote.style.pointerEvents = 'none';
+        navVote.onclick = null;
+      }
+    }
   });
 
   themeToggle.addEventListener('click', () => {
