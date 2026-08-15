@@ -5,7 +5,6 @@
     (function() {
       const savedTheme = localStorage.getItem('theme_xyz') || 'dark';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      // `js` gates the scroll reveal, so the case is never blank without JS.
       document.documentElement.classList.add('no-transition', 'js');
     })();
   </script>
@@ -13,16 +12,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="description" content="The student-run cold case on Level 7. Six shelves of zero-sugar drinks, energy, and snacks. Open at recess and lunch." />
   <meta name="theme-color" content="#05070c" media="(prefers-color-scheme: dark)" />
-  <meta name="theme-color" content="#eef4f8" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#dce9f2" media="(prefers-color-scheme: light)" />
 
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://cookedcoke.co/" />
   <meta property="og:title" content="Six shelves, Level seven | Cooked Coke Co." />
   <meta property="og:description" content="The student-run cold case on Level 7. Zero-sugar drinks, energy, and snacks. Open at recess and lunch." />
   <meta property="og:image" content="android-chrome-512x512.png" />
 
-  <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://cookedcoke.co/" />
   <meta property="twitter:title" content="Six shelves, Level seven | Cooked Coke Co." />
@@ -39,76 +36,97 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400..700&family=Martian+Mono:wdth,wght@75..112.5,300..700&display=swap" rel="stylesheet">
   <style>
-    /* ══════════════════════════════════════════════════
-       COOKED COKE CO. — the cold case
-       Shared token system with cookedcoke.org.
-       .co runs the loud voice: saturated shelves, red actions.
-       ══════════════════════════════════════════════════ */
+    /* ══════════════════════════════════════════════════════════
+       COOKED COKE CO.
+       The whole page sits inside the cooler: fixed door frame and
+       glass in front, lit interior behind, shelves scrolling past.
+       ══════════════════════════════════════════════════════════ */
 
     :root {
       color-scheme: dark;
 
-      /* case interior */
-      --void:   #05070c;
-      --deep:   #0a0f1a;
-      --shelf:  #0e1524;
-      --rail:   #16203200;
-      --rail-s: #141d2e;
-      --line:   #223049;
-      --frost:  #e9f4fb;
-      --haze:   #8298ae;
+      /* the box */
+      --void:    #05070c;
+      --back-hi: #16243a;
+      --back-lo: #050a12;
+      --wall:    rgba(150,195,225,.20);
+      --shelf:   #0e1524;
+      --rail-s:  #141d2e;
+      --line:    #223049;
+      --frost:   #eaf5fc;
+      --haze:    #8298ae;
 
-      /* signals */
       --chill:  #3fd8f7;
       --coke:   #ff2438;
       --warn:   #ffb01f;
 
-      /* material */
+      /* light in the box */
+      --led:      #d8f2ff;
+      --led-glow: rgba(190,236,255,.55);
+      --glass-hi: rgba(255,255,255,.055);
+      --plate-hi: rgba(255,255,255,.28);
+      --plate-bd: rgba(206,234,248,.22);
+      --drop:     rgba(255,255,255,.5);
+      --cast:     rgba(0,0,0,.78);
+
+      /* frame */
+      --frame-w: clamp(9px, 1.5vw, 18px);
+      --frame:   linear-gradient(148deg, #46566e 0%, #131a26 38%, #33405420 55%, #2b3646 72%, #0d131c 100%);
+      --gasket:  #05080e;
+
+      /* product material */
       --spec-hi: rgba(255,255,255,.34);
       --spec-md: rgba(255,255,255,.07);
       --spec-lo: rgba(0,0,0,.46);
-      --glass:   rgba(255,255,255,.05);
-      --lip:     rgba(63,216,247,.42);
-      --cast:    rgba(0,0,0,.55);
-      /* what a facing fades toward as it sits further back on the shelf */
       --backfill: #101827;
 
-      /* shelf accents, drawn from what is actually on them */
-      --sh-01: #ff2438;  /* zero classics */
-      --sh-02: #ff6f9c;  /* chi forest, white peach */
-      --sh-03: #21e07f;  /* energy */
-      --sh-04: #2bb3e8;  /* sparkling and tea */
-      --sh-05: #ffb01f;  /* snacks */
-      --sh-06: #ff6a1f;  /* crisps */
+      /* shelf accents, from what is actually on them */
+      --sh-01: #ff2438;
+      --sh-02: #ff6f9c;
+      --sh-03: #21e07f;
+      --sh-04: #2bb3e8;
+      --sh-05: #ffb01f;
+      --sh-06: #ff6a1f;
 
-      /* type */
       --display: 'Archivo', system-ui, sans-serif;
       --body: 'Instrument Sans', system-ui, sans-serif;
       --mono: 'Martian Mono', ui-monospace, 'SF Mono', monospace;
 
-      --gutter: clamp(18px, 4vw, 40px);
+      --gutter: clamp(16px, 3.4vw, 38px);
       --max: 1140px;
     }
 
+    /* doors open, lights on, daylight in the room */
     [data-theme="light"] {
       color-scheme: light;
-      --void:   #eaf1f7;
-      --deep:   #ffffff;
-      --shelf:  #ffffff;
-      --rail-s: #f2f7fb;
-      --line:   #cfdfeb;
-      --frost:  #071120;
-      --haze:   #566e85;
-      --chill:  #0083a6;
-      --coke:   #d20c22;
+      --void:    #dce9f2;
+      --back-hi: #ffffff;
+      --back-lo: #cbdde9;
+      --wall:    rgba(70,110,140,.16);
+      --shelf:   #ffffff;
+      --rail-s:  #eef5fa;
+      --line:    #b9cfdf;
+      --frost:   #06111f;
+      --haze:    #4d6579;
+
+      --chill:  #0079a0;
+      --coke:   #cf0b21;
       --warn:   #8a5600;
+
+      --led:      #ffffff;
+      --led-glow: rgba(120,190,220,.5);
+      --glass-hi: rgba(255,255,255,.5);
+      --plate-hi: rgba(255,255,255,.85);
+      --plate-bd: rgba(120,165,195,.3);
+      --drop:     rgba(255,255,255,.9);
+      --cast:     rgba(20,50,75,.26);
+
+      --frame:   linear-gradient(148deg, #cfdae6 0%, #7e8fa4 38%, #b9c6d6 55%, #8494a8 72%, #5d6b7e 100%);
+      --gasket:  #7d8ea1;
+
       --spec-hi: rgba(255,255,255,.74);
       --spec-md: rgba(255,255,255,.28);
-      --spec-lo: rgba(0,0,0,.26);
-      --glass:   rgba(255,255,255,.55);
-      --lip:     rgba(0,131,166,.28);
-      --cast:    rgba(11,40,64,.14);
-      /* a mid grey, not white — faded facings must stay visible on a light case */
+      --spec-lo: rgba(0,0,0,.24);
       --backfill: #93a8b8;
     }
 
@@ -130,74 +148,98 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      transition: background-color .4s ease, color .4s ease;
       overflow-x: hidden;
+      transition: background-color .4s ease, color .4s ease;
     }
 
-    /* cold spill from the top of the case */
-    body::before {
-      content: '';
+    ::selection { background: var(--chill); color: var(--void); }
+    :focus-visible { outline: 2px solid var(--chill); outline-offset: 3px; border-radius: 3px; }
+
+    /* ═══ THE UNIT ═══════════════════════════════════════════ */
+
+    /* lit interior: back panel, side walls in perspective, cold pooling low */
+    .interior {
       position: fixed;
-      inset: 0 0 auto 0;
-      height: 60vh;
-      background: radial-gradient(120% 100% at 50% -10%, var(--lip) 0%, transparent 62%);
-      opacity: .5;
-      pointer-events: none;
+      inset: 0;
       z-index: 0;
+      pointer-events: none;
+      background: linear-gradient(180deg, var(--back-hi) 0%, var(--back-lo) 55%, var(--void) 100%);
+    }
+    .interior::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg,  var(--wall) 0%, color-mix(in srgb, var(--wall) 25%, transparent) 6%, transparent 15%),
+        linear-gradient(270deg, var(--wall) 0%, color-mix(in srgb, var(--wall) 25%, transparent) 6%, transparent 15%);
+    }
+    .interior::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 46vh;
+      background: radial-gradient(130% 100% at 50% 125%, var(--led-glow), transparent 68%);
+      opacity: .5;
     }
 
-    /* the glass door */
-    .pane {
+    /* the glass: specular streaks, condensation, frost in the corners */
+    .glass {
       position: fixed;
       inset: 0;
       z-index: 900;
       pointer-events: none;
-      background: linear-gradient(104deg,
-        transparent 10%, var(--glass) 24%, transparent 38%,
-        transparent 64%, var(--glass) 74%, transparent 88%);
+      background: linear-gradient(102deg,
+        transparent 7%, var(--glass-hi) 19%, transparent 31%,
+        transparent 57%, var(--glass-hi) 69%, transparent 81%);
     }
-    [data-theme="dark"] .pane { mix-blend-mode: screen; }
-    [data-theme="light"] .pane { opacity: .5; }
-
-    ::selection { background: var(--chill); color: var(--void); }
-
-    :focus-visible {
-      outline: 2px solid var(--chill);
-      outline-offset: 3px;
-      border-radius: 3px;
+    .glass::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle at 50% 50%, var(--drop) 0 1px, transparent 1.5px);
+      background-size: 39px 47px;
+      opacity: .11;
     }
-
-    /* ─── type roles ─── */
-    .display {
-      font-family: var(--display);
-      font-variation-settings: 'wdth' 118, 'wght' 800;
-      text-transform: uppercase;
-      line-height: .87;
-      letter-spacing: -.022em;
-    }
-    .mono {
-      font-family: var(--mono);
-      font-variation-settings: 'wdth' 90;
-      text-transform: uppercase;
-      letter-spacing: .06em;
-    }
-    .eyebrow {
-      font-family: var(--mono);
-      font-variation-settings: 'wdth' 88;
-      font-size: 10.5px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: .17em;
-      color: var(--haze);
+    .glass::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(58% 38% at 0% 0%,     color-mix(in srgb, var(--led) 18%, transparent), transparent 70%),
+        radial-gradient(58% 38% at 100% 0%,   color-mix(in srgb, var(--led) 18%, transparent), transparent 70%),
+        radial-gradient(66% 42% at 0% 100%,   color-mix(in srgb, var(--led) 14%, transparent), transparent 70%),
+        radial-gradient(66% 42% at 100% 100%, color-mix(in srgb, var(--led) 14%, transparent), transparent 70%);
     }
 
-    /* ─── DEV NOTICE ─── */
+    /* the door frame and its rubber gasket */
+    .frame {
+      position: fixed;
+      inset: 0;
+      z-index: 950;
+      pointer-events: none;
+      border: var(--frame-w) solid;
+      border-image: var(--frame) 1;
+    }
+    .frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      box-shadow:
+        inset 0 0 0 2px var(--gasket),
+        inset 0 0 34px rgba(0,0,0,.55);
+    }
+    [data-theme="light"] .frame::after {
+      box-shadow: inset 0 0 0 2px var(--gasket), inset 0 0 34px rgba(70,110,140,.22);
+    }
+
+    /* ═══ DEV NOTICE ═══ */
     .devbar {
       position: relative;
       z-index: 901;
       background: var(--rail-s);
       border-bottom: 1px solid var(--line);
       box-shadow: inset 0 2px 0 var(--warn);
+      margin: var(--frame-w) var(--frame-w) 0;
     }
     .devbar-inner {
       max-width: var(--max);
@@ -224,16 +266,14 @@
       white-space: nowrap;
     }
     .devbar a:hover { color: var(--frost); }
-    @media (max-width: 560px) {
-      .devbar a { margin-left: 0; }
-    }
 
-    /* ─── NAV ─── */
+    /* ═══ FASCIA (nav) ═══ */
     nav {
       position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: color-mix(in srgb, var(--void) 78%, transparent);
+      top: var(--frame-w);
+      z-index: 902;
+      margin: 0 var(--frame-w);
+      background: color-mix(in srgb, var(--void) 76%, transparent);
       backdrop-filter: saturate(150%) blur(18px);
       -webkit-backdrop-filter: saturate(150%) blur(18px);
       border-bottom: 1px solid var(--line);
@@ -247,7 +287,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
     }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--frost); }
     /* no `display` here — it would outrank the .logo-* toggles below */
@@ -264,8 +304,8 @@
     [data-theme="dark"] .logo-light { display: none; }
     [data-theme="dark"] .logo-dark { display: block; }
 
-    .nav-right { display: flex; align-items: center; gap: clamp(14px, 3vw, 26px); }
-    .nav-links { display: flex; gap: clamp(14px, 3vw, 26px); list-style: none; }
+    .nav-right { display: flex; align-items: center; gap: clamp(12px, 2.6vw, 24px); }
+    .nav-links { display: flex; gap: clamp(12px, 2.6vw, 24px); list-style: none; }
     .nav-links a {
       font-family: var(--mono);
       font-variation-settings: 'wdth' 88;
@@ -292,27 +332,46 @@
     [data-theme="dark"] .theme-icon-light { display: none; }
     [data-theme="dark"] .theme-icon-dark { display: block; }
 
-    main { position: relative; z-index: 1; flex: 1; }
-    /* .wrap only ever owns the inline axis — block spacing belongs to the
-       section itself, so the two never fight over the padding shorthand. */
+    main { position: relative; z-index: 1; flex: 1; padding: 0 var(--frame-w); }
+    footer { position: relative; z-index: 1; margin: 0 var(--frame-w); }
     .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
 
-    /* ─── HERO ─── */
-    .hero { padding-block: clamp(56px, 10vw, 112px) clamp(40px, 7vw, 72px); }
-    .hero h1 {
-      font-size: clamp(2.9rem, 10vw, 7.4rem);
-      margin: 18px 0 0;
-    }
-    .hero h1 span { display: block; }
-    .hero h1 .seven { color: var(--chill); }
-    .hero-lede {
-      font-size: clamp(17px, 2.1vw, 21px);
+    .eyebrow {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 88;
+      font-size: 10.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .17em;
       color: var(--haze);
-      max-width: 46ch;
-      margin-top: 26px;
+      display: block;
     }
 
-    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+    /* ═══ HERO — vinyl decal on the door ═══ */
+    .decal { padding-block: clamp(40px, 7vw, 84px) clamp(28px, 4vw, 46px); }
+    .decal h1 {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 118, 'wght' 800;
+      text-transform: uppercase;
+      font-size: clamp(2.7rem, 9.6vw, 7rem);
+      line-height: .87;
+      letter-spacing: -.022em;
+      margin: 16px 0 0;
+      color: color-mix(in srgb, var(--frost) 96%, transparent);
+      text-shadow: 0 0 40px color-mix(in srgb, var(--led) 22%, transparent);
+    }
+    .decal h1 span { display: block; }
+    .decal h1 .seven { color: var(--chill); }
+    .decal p {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--haze);
+      max-width: 46ch;
+      margin-top: 22px;
+    }
+    /* the eyebrow is a <p> too, but must not inherit the measure above */
+    .decal .eyebrow { max-width: none; margin-top: 0; }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
     .btn {
       font-family: var(--mono);
       font-variation-settings: 'wdth' 90;
@@ -327,42 +386,44 @@
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 10px;
       transition: transform .18s ease, background-color .2s, border-color .2s, color .2s;
     }
     .btn-primary { background: var(--coke); color: #fff; }
     .btn-primary:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--coke) 86%, #fff); }
-    .btn-secondary { background: transparent; color: var(--frost); border-color: var(--line); }
+    .btn-secondary { background: color-mix(in srgb, var(--shelf) 55%, transparent); color: var(--frost); border-color: var(--line); }
     .btn-secondary:hover { transform: translateY(-2px); border-color: var(--chill); color: var(--chill); }
     .btn[aria-disabled="true"] { opacity: .4; pointer-events: none; }
 
-    /* ─── SIGNATURE: case status readout ─── */
-    .status {
-      margin-top: clamp(40px, 7vw, 64px);
+    /* ═══ LED STATUS PANEL, mounted in the case ═══ */
+    .panel {
+      margin-top: clamp(32px, 5vw, 52px);
       border: 1px solid var(--line);
       border-radius: 6px;
-      background: var(--shelf);
+      background: color-mix(in srgb, var(--shelf) 88%, transparent);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 18px 34px -20px var(--cast);
       display: grid;
       grid-template-columns: 1.5fr 1fr 1fr;
       overflow: hidden;
       position: relative;
     }
-    .status::before {
+    .panel::before {
       content: '';
       position: absolute; inset: 0 0 auto 0; height: 1px;
       background: linear-gradient(90deg, transparent, var(--chill), transparent);
       opacity: .8;
     }
-    .status-cell {
-      padding: 20px var(--gutter);
+    .panel-cell {
+      padding: 18px var(--gutter);
       border-right: 1px solid var(--line);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
       min-width: 0;
     }
-    .status-cell:last-child { border-right: 0; }
-    .status-label {
+    .panel-cell:last-child { border-right: 0; }
+    .panel-label {
       font-family: var(--mono);
       font-variation-settings: 'wdth' 86;
       font-size: 9.5px;
@@ -371,7 +432,7 @@
       letter-spacing: .18em;
       color: var(--haze);
     }
-    .status-value {
+    .panel-value {
       font-family: var(--display);
       font-variation-settings: 'wdth' 108, 'wght' 700;
       text-transform: uppercase;
@@ -382,7 +443,7 @@
       align-items: center;
       gap: 10px;
     }
-    .status-note {
+    .panel-note {
       font-family: var(--mono);
       font-variation-settings: 'wdth' 86;
       font-size: 11px;
@@ -390,34 +451,330 @@
       letter-spacing: .03em;
       line-height: 1.5;
     }
-    .dot {
-      width: 9px; height: 9px; border-radius: 50%;
-      background: var(--haze);
-      flex: 0 0 auto;
-    }
-    .status[data-state="open"] .dot { background: var(--chill); box-shadow: 0 0 0 0 var(--lip); animation: ping 2.4s ease-out infinite; }
-    .status[data-state="open"] .status-value { color: var(--chill); }
-    .status[data-state="soon"] .dot { background: var(--sh-05); }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--haze); flex: 0 0 auto; }
+    [data-state="open"] .dot { background: var(--chill); animation: ping 2.4s ease-out infinite; }
+    [data-state="open"] .panel-value { color: var(--chill); }
+    [data-state="soon"] .dot { background: var(--warn); }
     @keyframes ping {
-      0%   { box-shadow: 0 0 0 0 var(--lip); }
+      0%   { box-shadow: 0 0 0 0 var(--led-glow); }
       70%  { box-shadow: 0 0 0 9px transparent; }
       100% { box-shadow: 0 0 0 0 transparent; }
     }
 
-    /* ─── SECTION HEADS ─── */
-    section { padding-block: clamp(56px, 9vw, 104px); }
-    .head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 34px; flex-wrap: wrap; }
-    .head h2 {
-      font-family: var(--display);
-      font-variation-settings: 'wdth' 116, 'wght' 800;
-      text-transform: uppercase;
-      font-size: clamp(1.7rem, 4.6vw, 3rem);
-      line-height: .95;
-      letter-spacing: -.018em;
-    }
-    .head .eyebrow { flex: 0 0 auto; }
+    /* ═══ THE SHELVES ═══════════════════════════════════════ */
+    .case { margin-top: clamp(24px, 4vw, 44px); }
 
-    /* ─── SERVICE TIMETABLE ─── */
+    .bay {
+      position: relative;
+      padding-top: 30px;
+      --tag-h: 42px;
+      --shot-h: clamp(126px, 17vw, 178px);
+    }
+
+    /* the strip light under the shelf above */
+    .bay__led {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--led) 14%, #fff 50%, var(--led) 86%, transparent);
+      box-shadow: 0 0 16px 2px var(--led-glow);
+      opacity: 0;
+      transition: opacity .8s ease;
+    }
+    .bay__led::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: -6%; right: -6%;
+      height: 220px;
+      background: radial-gradient(78% 100% at 50% 0%,
+        color-mix(in srgb, var(--tint) 17%, transparent), transparent 72%);
+      pointer-events: none;
+    }
+    .bay.lit .bay__led { opacity: 1; }
+    html:not(.js) .bay__led { opacity: 1; }
+
+    /* the glass shelf the stock stands on; its front edge carries the tickets */
+    .bay__plate {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: var(--tag-h);
+      z-index: 0;
+      clip-path: polygon(1.2% 0, 98.8% 0, 100% 100%, 0 100%);
+      background: linear-gradient(180deg,
+        var(--plate-bd) 0%,
+        color-mix(in srgb, var(--plate-bd) 30%, transparent) 34%,
+        var(--plate-hi) 74%,
+        color-mix(in srgb, var(--plate-bd) 70%, transparent) 100%);
+      box-shadow: 0 18px 32px -14px var(--cast), inset 0 1px 0 rgba(255,255,255,.35);
+    }
+
+    .bay__rail {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .bay__no {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--tint);
+    }
+    .bay__name {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 114, 'wght' 800;
+      text-transform: uppercase;
+      font-size: clamp(1.3rem, 3.4vw, 2rem);
+      line-height: 1;
+      letter-spacing: -.015em;
+    }
+    .bay__count {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--haze);
+      margin-left: auto;
+    }
+    .bay__note {
+      position: relative;
+      z-index: 2;
+      font-size: 15px;
+      color: var(--haze);
+      margin-top: 8px;
+      max-width: 52ch;
+    }
+
+    .deck {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      gap: clamp(8px, 1.4vw, 18px);
+      margin-top: 22px;
+      padding: 12px 2px 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x proximity;
+      scrollbar-width: none;
+    }
+    .deck::-webkit-scrollbar { display: none; }
+
+    .facing {
+      flex: 0 0 auto;
+      width: clamp(86px, 9.4vw, 128px);
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      background: none;
+      border: 0;
+      padding: 0;
+      font: inherit;
+      color: inherit;
+      text-align: center;
+    }
+
+    /* the product itself: photo when there is one, drawn stand-in until then */
+    .shot {
+      position: relative;
+      height: var(--shot-h);
+      display: block;
+      transition: transform .3s cubic-bezier(.2,.7,.3,1);
+    }
+    /* contact shadow where it meets the glass */
+    .shot::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 14%; right: 14%;
+      height: 12px;
+      background: radial-gradient(50% 50% at 50% 50%, var(--cast), transparent 72%);
+      z-index: 0;
+    }
+    .facing:hover .shot, .facing:focus-visible .shot { transform: translateY(-7px); }
+
+    .shot img {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      filter: drop-shadow(0 12px 14px rgba(0,0,0,.42));
+    }
+    /* The drawn stand-in is the default so slots with no photo at all — the
+       unmarked cans — still render. JS adds .has-photo only once a real image
+       has actually loaded, and only then does the stand-in step aside. */
+    .shot:not(.has-photo) img { visibility: hidden; }
+    .shot.has-photo i { display: none; }
+
+    .shot i {
+      position: absolute;
+      z-index: 1;
+      left: 0; right: 0; bottom: 0;
+      margin-inline: auto;
+      --fill: color-mix(in oklab, var(--tint) calc(100% - var(--fade, 0%)), var(--backfill));
+      background:
+        linear-gradient(99deg,
+          var(--spec-lo) 0%, transparent 9%,
+          var(--spec-hi) 24%, var(--spec-md) 34%,
+          transparent 52%, rgba(0,0,0,.12) 74%,
+          var(--spec-lo) 100%),
+        var(--fill);
+      box-shadow: 0 16px 22px -14px var(--cast);
+    }
+
+    .facing[data-form="can"] i    { height: 88%; width: 68%; border-radius: 10px / 16px; }
+    .facing[data-form="bottle"] i {
+      height: 100%;
+      width: 80%;
+      clip-path: polygon(
+        38% 0%, 62% 0%, 62% 5%, 64% 9%, 64% 15%,
+        76% 24%, 82% 34%, 84% 44%, 84% 95%, 79% 100%,
+        21% 100%, 16% 95%, 16% 44%, 18% 34%, 24% 24%, 36% 15%, 36% 9%, 38% 5%
+      );
+      box-shadow: none;
+    }
+    .facing[data-form="pack"] i   { height: 66%; width: 96%; border-radius: 7px; }
+    .facing[data-form="round"] i  { height: 52%; aspect-ratio: 1; width: auto; border-radius: 50%; }
+
+    .facing[data-form="can"] i::before {
+      content: '';
+      position: absolute;
+      inset: 3px 7px auto 7px;
+      height: 8px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--frost) 34%, transparent);
+    }
+    .facing[data-form="bottle"] i::before {
+      content: '';
+      position: absolute;
+      inset: 0 36% auto 36%;
+      height: 14px;
+      background: color-mix(in srgb, var(--frost) 32%, transparent);
+    }
+
+    /* the shelf-edge ticket */
+    .tag {
+      position: relative;
+      z-index: 2;
+      height: var(--tag-h);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 84;
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--frost);
+      line-height: 1.35;
+      padding: 0 2px;
+      text-shadow: 0 1px 2px rgba(0,0,0,.55);
+    }
+    [data-theme="light"] .tag { text-shadow: 0 1px 0 rgba(255,255,255,.9); }
+    .facing:hover .tag { color: var(--tint); }
+
+    /* ═══ THE UNMARKED CANS ═══ */
+    .facing--mystery { cursor: pointer; }
+    .facing--mystery i {
+      --fill: none;
+      background:
+        radial-gradient(circle at 30% 22%, rgba(255,255,255,.5) 0 1px, transparent 1.6px) 0 0 / 13px 15px,
+        linear-gradient(99deg,
+          rgba(0,0,0,.34) 0%, transparent 10%,
+          rgba(255,255,255,.6) 26%, rgba(255,255,255,.22) 40%,
+          transparent 58%, rgba(0,0,0,.3) 100%),
+        linear-gradient(180deg, #cfe5f1 0%, #93b2c6 55%, #6d8da0 100%);
+      background-color: #a8c4d4;
+    }
+    .facing--mystery .shot::before {
+      content: '?';
+      position: absolute;
+      z-index: 2;
+      left: 0; right: 0;
+      top: 42%;
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 112, 'wght' 900;
+      font-size: clamp(20px, 3vw, 30px);
+      color: rgba(20,45,65,.5);
+      text-shadow: 0 1px 0 rgba(255,255,255,.5);
+    }
+    .facing--mystery .tag { color: var(--chill); }
+    .facing--mystery .shot i { animation: shimmer 5.5s ease-in-out infinite; }
+    @keyframes shimmer {
+      0%, 88%, 100% { filter: brightness(1); }
+      94%           { filter: brightness(1.22); }
+    }
+
+    /* ═══ REVEAL DIALOG ═══ */
+    dialog.reveal {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--shelf);
+      color: var(--frost);
+      padding: 0;
+      /* the global margin reset would otherwise pin the modal to the corner */
+      margin: auto;
+      width: min(440px, calc(100vw - 2.5rem));
+      box-shadow: 0 40px 80px -30px #000;
+    }
+    dialog.reveal::backdrop {
+      background: rgba(3, 8, 14, .68);
+      backdrop-filter: blur(4px);
+    }
+    .reveal__inner { padding: clamp(22px, 4vw, 32px); }
+    .reveal__inner h2 {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 114, 'wght' 800;
+      text-transform: uppercase;
+      font-size: clamp(1.35rem, 4vw, 1.9rem);
+      line-height: .96;
+      letter-spacing: -.018em;
+      margin: 10px 0 12px;
+    }
+    .reveal__inner p { color: var(--haze); font-size: 15px; }
+    .reveal__inner .btn { width: 100%; margin-top: 20px; }
+    .reveal__close {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--rail-s);
+      color: var(--haze);
+      font: inherit;
+      font-size: 15px;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .reveal__close:hover { color: var(--frost); }
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 10.5px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      margin-top: 16px;
+    }
+    .mini-table td {
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+      color: var(--haze);
+    }
+    .mini-table td + td { text-align: right; }
+    .mini-table tr[data-today] td { color: var(--chill); }
+
+    /* ═══ TIMETABLE ═══ */
     .timetable {
       width: 100%;
       border-collapse: collapse;
@@ -449,13 +806,7 @@
     .timetable .no  { opacity: .35; }
     .timetable tr[data-today] td { background: color-mix(in srgb, var(--chill) 8%, transparent); }
     .timetable tr[data-today] td:first-child { box-shadow: inset 2px 0 0 var(--chill); }
-    .today-flag {
-      display: none;
-      font-size: 8.5px;
-      letter-spacing: .16em;
-      color: var(--chill);
-      margin-left: 8px;
-    }
+    .today-flag { display: none; font-size: 8.5px; letter-spacing: .16em; color: var(--chill); margin-left: 8px; }
     tr[data-today] .today-flag { display: inline; }
     .timetable caption {
       caption-side: bottom;
@@ -467,210 +818,37 @@
       text-transform: none;
     }
 
-    /* ═══ THE CASE ═══ */
-    .case { display: flex; flex-direction: column; gap: 0; }
-
-    .shelf {
-      position: relative;
-      padding: 30px 0 34px;
-      border-top: 1px solid var(--line);
-    }
-    /* the lit front lip */
-    .shelf::before {
-      content: '';
-      position: absolute;
-      inset: -1px 0 auto 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--tint), transparent);
-      opacity: 0;
-      transition: opacity .7s ease;
-    }
-    /* light spilling down from the lip — radial so it has no hard edge anywhere */
-    .shelf::after {
-      content: '';
-      position: absolute;
-      inset: 0 -12% auto -12%;
-      height: 260px;
-      background: radial-gradient(90% 100% at 50% 0%,
-        color-mix(in srgb, var(--tint) 20%, transparent) 0%,
-        color-mix(in srgb, var(--tint) 7%, transparent) 38%,
-        transparent 76%);
-      opacity: 0;
-      transition: opacity .8s ease;
-      pointer-events: none;
-    }
-    .shelf.lit::before { opacity: .9; }
-    .shelf.lit::after  { opacity: 1; }
-    [data-theme="light"] .shelf.lit::after { opacity: .45; }
-
-    .shelf-rail {
-      display: flex;
-      align-items: baseline;
-      gap: 14px;
-      flex-wrap: wrap;
-      position: relative;
-      z-index: 1;
-    }
-    .shelf-no {
-      font-family: var(--mono);
-      font-variation-settings: 'wdth' 86;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: var(--tint);
-    }
-    .shelf-name {
+    section { padding-block: clamp(48px, 7vw, 88px); }
+    .head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 30px; flex-wrap: wrap; }
+    .head h2 {
       font-family: var(--display);
-      font-variation-settings: 'wdth' 114, 'wght' 800;
+      font-variation-settings: 'wdth' 116, 'wght' 800;
       text-transform: uppercase;
-      font-size: clamp(1.35rem, 3.6vw, 2.1rem);
-      line-height: 1;
-      letter-spacing: -.015em;
-    }
-    .shelf-count {
-      font-family: var(--mono);
-      font-variation-settings: 'wdth' 86;
-      font-size: 10px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: var(--haze);
-      margin-left: auto;
-    }
-    .shelf-note {
-      font-size: 15px;
-      color: var(--haze);
-      margin-top: 8px;
-      max-width: 52ch;
-      position: relative;
-      z-index: 1;
+      font-size: clamp(1.6rem, 4.2vw, 2.8rem);
+      line-height: .95;
+      letter-spacing: -.018em;
     }
 
-    /* the deck the products stand on */
-    .deck {
-      display: flex;
-      gap: 14px;
-      margin-top: 20px;
-      /* top room so the hover lift isn't clipped by the scroll container */
-      padding: 10px 2px 22px;
-      overflow-x: auto;
-      scroll-snap-type: x proximity;
-      scrollbar-width: thin;
-      scrollbar-color: var(--line) transparent;
-      position: relative;
-      z-index: 1;
-      /* the shelf floor: lit under the stock, falling off across the empty run */
-      background-image: linear-gradient(90deg,
-        color-mix(in srgb, var(--tint) 65%, transparent) 0%,
-        var(--line) 46%,
-        transparent 96%);
-      background-size: 100% 1px;
-      background-position: 0 100%;
-      background-repeat: no-repeat;
-    }
-    .deck::-webkit-scrollbar { height: 4px; }
-    .deck::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
-
-    .facing {
-      flex: 0 0 auto;
-      width: clamp(96px, 8vw, 124px);
-      scroll-snap-align: start;
-      display: flex;
-      flex-direction: column;
-      /* everything stands on the same shelf floor, whatever its height */
-      justify-content: flex-end;
-      align-items: center;
-      gap: 12px;
-      transition: transform .3s cubic-bezier(.2,.7,.3,1);
-    }
-    .facing:hover { transform: translateY(-6px); }
-
-    /* the product silhouette */
-    .facing i {
-      display: block;
-      width: 100%;
-      position: relative;
-      --fill: color-mix(in oklab, var(--tint) calc(100% - var(--fade, 0%)), var(--backfill));
-      background:
-        linear-gradient(99deg,
-          var(--spec-lo) 0%,
-          transparent 9%,
-          var(--spec-hi) 24%,
-          var(--spec-md) 34%,
-          transparent 52%,
-          rgba(0,0,0,.12) 74%,
-          var(--spec-lo) 100%),
-        var(--fill);
-      box-shadow: 0 16px 22px -14px var(--cast);
-      margin-inline: auto;
-    }
-    .facing[data-form="can"] i    { height: 152px; width: 70%; border-radius: 10px / 16px; }
-    /* neck, shoulder, body — a real bottle profile, not a rounder can */
-    .facing[data-form="bottle"] i {
-      height: 172px;
-      width: 84%;
-      border-radius: 0;
-      box-shadow: none;
-      clip-path: polygon(
-        38% 0%, 62% 0%, 62% 5%, 64% 9%, 64% 15%,
-        76% 24%, 82% 34%, 84% 44%,
-        84% 95%, 79% 100%, 21% 100%, 16% 95%,
-        16% 44%, 18% 34%, 24% 24%, 36% 15%, 36% 9%, 38% 5%
-      );
-    }
-    .facing[data-form="pack"] i   { height: 116px; border-radius: 7px; }
-    .facing[data-form="round"] i  { height: 88px; width: 88px; border-radius: 50%; }
-
-    /* the pull-tab lid on cans */
-    .facing[data-form="can"] i::before {
-      content: '';
-      position: absolute;
-      inset: 3px 7px auto 7px;
-      height: 8px;
-      border-radius: 50%;
-      background: color-mix(in srgb, var(--frost) 34%, transparent);
-    }
-    /* the cap band on bottles */
-    .facing[data-form="bottle"] i::before {
-      content: '';
-      position: absolute;
-      inset: 0 36% auto 36%;
-      height: 14px;
-      background: color-mix(in srgb, var(--frost) 32%, transparent);
-    }
-
-    .facing b {
-      font-family: var(--mono);
-      font-variation-settings: 'wdth' 84;
-      font-size: 9.5px;
-      font-weight: 500;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      color: var(--haze);
-      text-align: center;
-      line-height: 1.5;
-    }
-    .facing:hover b { color: var(--frost); }
-
-    /* ─── TOKEN ─── */
+    /* ═══ TOKEN ═══ */
     .token-band {
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: var(--shelf);
-      padding: clamp(32px, 6vw, 60px);
+      background: color-mix(in srgb, var(--shelf) 88%, transparent);
+      padding: clamp(28px, 5vw, 56px);
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: clamp(28px, 5vw, 60px);
+      gap: clamp(26px, 5vw, 56px);
       align-items: center;
+      box-shadow: 0 20px 40px -26px var(--cast);
     }
     .token-band h2 {
       font-family: var(--display);
       font-variation-settings: 'wdth' 116, 'wght' 800;
       text-transform: uppercase;
-      font-size: clamp(1.7rem, 4.4vw, 2.7rem);
+      font-size: clamp(1.6rem, 4.2vw, 2.5rem);
       line-height: .95;
       letter-spacing: -.018em;
-      margin: 14px 0 16px;
+      margin: 12px 0 14px;
     }
     .token-band p { color: var(--haze); max-width: 46ch; }
     .token-rate {
@@ -681,7 +859,7 @@
       letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--frost);
-      margin-top: 24px;
+      margin-top: 22px;
       display: inline-flex;
       align-items: center;
       gap: 12px;
@@ -690,10 +868,8 @@
       padding: 12px 18px;
     }
     .token-rate em { font-style: normal; color: var(--coke); }
-
-    /* the coin */
     .coin {
-      width: clamp(128px, 20vw, 176px);
+      width: clamp(118px, 18vw, 168px);
       aspect-ratio: 1;
       border-radius: 50%;
       display: grid;
@@ -718,7 +894,7 @@
     .coin span {
       font-family: var(--display);
       font-variation-settings: 'wdth' 108, 'wght' 900;
-      font-size: clamp(30px, 5vw, 44px);
+      font-size: clamp(28px, 4.6vw, 42px);
       color: #fff;
       text-shadow: 0 1px 0 rgba(0,0,0,.35);
     }
@@ -733,28 +909,27 @@
       color: rgba(255,255,255,.72);
     }
 
-    /* ─── VOTE VIEW ─── */
+    /* ═══ VOTE ═══ */
     #vote-view { display: none; }
     .poll-shell {
       max-width: 620px;
-      margin: clamp(48px, 9vw, 96px) auto;
+      margin: clamp(40px, 8vw, 84px) auto;
       border: 1px solid var(--line);
       border-radius: 8px;
       background: var(--shelf);
-      padding: clamp(26px, 5vw, 44px);
+      padding: clamp(24px, 5vw, 40px);
     }
-    .poll-shell .eyebrow { display: block; margin-bottom: 10px; }
     .poll-shell h2 {
       font-family: var(--display);
       font-variation-settings: 'wdth' 114, 'wght' 800;
       text-transform: uppercase;
-      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-size: clamp(1.4rem, 4vw, 2rem);
       line-height: .98;
-      margin-bottom: 8px;
+      margin: 8px 0;
     }
-    .poll-shell > p { color: var(--haze); font-size: 15px; margin-bottom: 24px; }
-    /* The Tally form itself is dark-themed and does not follow our toggle,
-       so this inset stays dark in both themes — a lit readout in the case. */
+    .poll-shell > p { color: var(--haze); font-size: 15px; margin-bottom: 22px; }
+    /* The Tally form is dark-themed and does not follow our toggle, so this
+       inset stays dark in both themes — a lit readout in the case. */
     .poll-frame {
       background: #0e1524;
       border: 1px solid #223049;
@@ -764,22 +939,20 @@
     }
     .poll-frame iframe { display: block; width: 100%; border: 0; }
 
-    /* ─── FOOTER ─── */
-    footer {
-      position: relative;
-      z-index: 1;
+    /* ═══ FOOTER ═══ */
+    .footer-in {
       border-top: 1px solid var(--line);
-      padding-block: 46px 60px;
-      margin-top: clamp(40px, 8vw, 90px);
+      padding-block: 40px 52px;
+      margin-top: clamp(30px, 6vw, 70px);
     }
     .footer-grid {
       display: flex;
       flex-wrap: wrap;
-      gap: 20px 40px;
+      gap: 18px 40px;
       justify-content: space-between;
       align-items: center;
     }
-    .footer-links { display: flex; gap: 26px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
     .footer-links a {
       font-family: var(--mono);
       font-variation-settings: 'wdth' 86;
@@ -801,33 +974,25 @@
       opacity: .7;
     }
 
-    /* ─── RESPONSIVE ─── */
+    /* ═══ RESPONSIVE ═══ */
     @media (max-width: 860px) {
-      .status { grid-template-columns: 1fr 1fr; }
-      .status-cell:nth-child(1) { grid-column: 1 / -1; border-right: 0; border-bottom: 1px solid var(--line); }
+      .panel { grid-template-columns: 1fr 1fr; }
+      .panel-cell:nth-child(1) { grid-column: 1 / -1; border-right: 0; border-bottom: 1px solid var(--line); }
       .token-band { grid-template-columns: 1fr; }
       .coin { order: -1; }
     }
     @media (max-width: 560px) {
       body { font-size: 16px; }
-      /* the mark alone carries the nav here; the wordmark would force a wrap */
       .nav-logo b { display: none; }
-      .hero .eyebrow { font-size: 9.5px; letter-spacing: .13em; }
-      .facing { width: 86px; }
-      .facing[data-form="can"] i { height: 124px; }
-      .facing[data-form="bottle"] i { height: 140px; }
-      .facing[data-form="pack"] i { height: 96px; }
-      .facing[data-form="round"] i { height: 74px; width: 74px; }
-      .shelf-count { margin-left: 0; width: 100%; }
+      .devbar a { margin-left: 0; }
+      .bay { --tag-h: 46px; }
+      .bay__count { margin-left: 0; width: 100%; }
       .timetable th, .timetable td { padding-left: 8px; padding-right: 8px; }
     }
 
-    /* ─── MOTION ─── */
+    /* ═══ MOTION ═══ */
     .js .rise { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
     .js .rise.lit { opacity: 1; transform: none; }
-    /* no JS means no reveal, so the lights are simply already on */
-    html:not(.js) .shelf::before { opacity: .9; }
-    html:not(.js) .shelf::after { opacity: 1; }
 
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -837,12 +1002,13 @@
         transition-duration: .001ms !important;
       }
       .js .rise { opacity: 1; transform: none; }
+      .bay__led { opacity: 1; }
     }
   </style>
 </head>
 <body>
 
-<div class="pane" aria-hidden="true"></div>
+<div class="interior" aria-hidden="true"></div>
 
 <div class="devbar">
   <div class="devbar-inner">
@@ -875,14 +1041,13 @@
 <main id="mainContent">
   <div id="page-content">
 
-    <!-- ═══ HERO ═══ -->
-    <header class="hero wrap">
+    <header class="decal wrap">
       <p class="eyebrow">Level 7 &nbsp;·&nbsp; Refreshment hub &nbsp;·&nbsp; Student run</p>
-      <h1 class="display">
+      <h1>
         <span>Six shelves.</span>
         <span class="seven">Level seven.</span>
       </h1>
-      <p class="hero-lede">
+      <p>
         Zero-sugar drinks, energy, and snacks, kept cold and sold by the students who stock them.
         Come up at recess or lunch.
       </p>
@@ -891,30 +1056,211 @@
         <a href="#" id="voteBtn" onclick="showVote(); return false;" class="btn btn-secondary">Vote, save 10%</a>
       </div>
 
-      <!-- signature: live case status -->
-      <div class="status" id="status" data-state="closed" role="status" aria-live="polite">
-        <div class="status-cell">
-          <span class="status-label">Case status</span>
-          <span class="status-value"><i class="dot"></i><span id="statusValue">Checking</span></span>
-          <span class="status-note" id="statusNote">Reading today's timetable.</span>
+      <div class="panel" data-state="closed" role="status" aria-live="polite">
+        <div class="panel-cell">
+          <span class="panel-label">Case status</span>
+          <span class="panel-value"><i class="dot"></i><span data-status="value">Checking</span></span>
+          <span class="panel-note" data-status="note">Reading today's timetable.</span>
         </div>
-        <div class="status-cell">
-          <span class="status-label">Next service</span>
-          <span class="status-value" id="nextValue">—</span>
-          <span class="status-note" id="nextNote">&nbsp;</span>
+        <div class="panel-cell">
+          <span class="panel-label">Next service</span>
+          <span class="panel-value" data-status="next">—</span>
+          <span class="panel-note" data-status="next-note">&nbsp;</span>
         </div>
-        <div class="status-cell">
-          <span class="status-label">Set point</span>
-          <span class="status-value">4&#8202;°C</span>
-          <span class="status-note">Six shelves, twenty facings.</span>
+        <div class="panel-cell">
+          <span class="panel-label">Set point</span>
+          <span class="panel-value">4&#8202;°C</span>
+          <span class="panel-note">Twenty facings, three unmarked.</span>
         </div>
       </div>
     </header>
 
+    <!-- ═══ THE CASE ═══ -->
+    <section id="catalog" class="wrap">
+      <div class="head">
+        <span class="eyebrow">01</span>
+        <h2>What's in the case</h2>
+      </div>
+
+      <div class="case">
+
+        <article class="bay" style="--tint: var(--sh-01)">
+          <div class="bay__led" aria-hidden="true"></div>
+          <div class="bay__rail">
+            <span class="bay__no">Shelf 01</span>
+            <h3 class="bay__name">Zero classics</h3>
+            <span class="bay__count">5 facings</span>
+          </div>
+          <p class="bay__note">The Red and the Black are ours alone. You won't find them downstairs.</p>
+          <div class="deck">
+            <div class="facing" data-form="can" style="--fade:0%">
+              <span class="shot"><i></i><img src="products/coke-zero.png" alt="" loading="lazy"></span>
+              <span class="tag">Coke Zero</span>
+            </div>
+            <div class="facing" data-form="can" style="--fade:22%">
+              <span class="shot"><i></i><img src="products/sprite-zero.png" alt="" loading="lazy"></span>
+              <span class="tag">Sprite Zero</span>
+            </div>
+            <button class="facing facing--mystery" data-form="can" data-mystery="hours" type="button" aria-haspopup="dialog">
+              <span class="shot"><i></i></span>
+              <span class="tag">Unmarked</span>
+            </button>
+            <div class="facing" data-form="can" style="--fade:40%">
+              <span class="shot"><i></i><img src="products/fanta-mini.png" alt="" loading="lazy"></span>
+              <span class="tag">Fanta Mini</span>
+            </div>
+            <div class="facing" data-form="can" style="--fade:10%">
+              <span class="shot"><i></i><img src="products/the-red.png" alt="" loading="lazy"></span>
+              <span class="tag">The Red</span>
+            </div>
+            <div class="facing" data-form="can" style="--fade:64%">
+              <span class="shot"><i></i><img src="products/the-black.png" alt="" loading="lazy"></span>
+              <span class="tag">The Black</span>
+            </div>
+          </div>
+          <div class="bay__plate" aria-hidden="true"></div>
+        </article>
+
+        <article class="bay" style="--tint: var(--sh-02)">
+          <div class="bay__led" aria-hidden="true"></div>
+          <div class="bay__rail">
+            <span class="bay__no">Shelf 02</span>
+            <h3 class="bay__name">Chi Forest</h3>
+            <span class="bay__count">4 facings</span>
+          </div>
+          <p class="bay__note">Zero-sugar sparkling water. Eight essences in rotation, three on the shelf at a time.</p>
+          <div class="deck">
+            <div class="facing" data-form="bottle" style="--fade:0%">
+              <span class="shot"><i></i><img src="products/chi-white-peach.png" alt="" loading="lazy"></span>
+              <span class="tag">White Peach</span>
+            </div>
+            <div class="facing" data-form="bottle" style="--fade:20%">
+              <span class="shot"><i></i><img src="products/chi-lychee.png" alt="" loading="lazy"></span>
+              <span class="tag">Lychee</span>
+            </div>
+            <div class="facing" data-form="bottle" style="--fade:42%">
+              <span class="shot"><i></i><img src="products/chi-grape.png" alt="" loading="lazy"></span>
+              <span class="tag">Grape Delight</span>
+            </div>
+            <div class="facing" data-form="bottle" style="--fade:66%">
+              <span class="shot"><i></i><img src="products/chi-rotating.png" alt="" loading="lazy"></span>
+              <span class="tag">This week's</span>
+            </div>
+          </div>
+          <div class="bay__plate" aria-hidden="true"></div>
+        </article>
+
+        <article class="bay" style="--tint: var(--sh-03)">
+          <div class="bay__led" aria-hidden="true"></div>
+          <div class="bay__rail">
+            <span class="bay__no">Shelf 03</span>
+            <h3 class="bay__name">Energy</h3>
+            <span class="bay__count">2 facings</span>
+          </div>
+          <p class="bay__note">Zero sugar, for the long afternoon.</p>
+          <div class="deck">
+            <div class="facing" data-form="can" style="--fade:0%">
+              <span class="shot"><i></i><img src="products/monster-zero.png" alt="" loading="lazy"></span>
+              <span class="tag">Monster Zero</span>
+            </div>
+            <button class="facing facing--mystery" data-form="can" data-mystery="vote" type="button" aria-haspopup="dialog">
+              <span class="shot"><i></i></span>
+              <span class="tag">Unmarked</span>
+            </button>
+            <div class="facing" data-form="can" style="--fade:34%">
+              <span class="shot"><i></i><img src="products/red-bull.png" alt="" loading="lazy"></span>
+              <span class="tag">Red Bull</span>
+            </div>
+          </div>
+          <div class="bay__plate" aria-hidden="true"></div>
+        </article>
+
+        <article class="bay" style="--tint: var(--sh-04)">
+          <div class="bay__led" aria-hidden="true"></div>
+          <div class="bay__rail">
+            <span class="bay__no">Shelf 04</span>
+            <h3 class="bay__name">Sparkling &amp; tea</h3>
+            <span class="bay__count">3 facings</span>
+          </div>
+          <p class="bay__note">Sparkling water and unsweetened tea. The quiet end of the case.</p>
+          <div class="deck">
+            <div class="facing" data-form="bottle" style="--fade:0%">
+              <span class="shot"><i></i><img src="products/pellegrino.png" alt="" loading="lazy"></span>
+              <span class="tag">S.Pellegrino</span>
+            </div>
+            <div class="facing" data-form="can" style="--fade:26%">
+              <span class="shot"><i></i><img src="products/sodaly.png" alt="" loading="lazy"></span>
+              <span class="tag">Sodaly</span>
+            </div>
+            <div class="facing" data-form="bottle" style="--fade:50%">
+              <span class="shot"><i></i><img src="products/lipton-peach.png" alt="" loading="lazy"></span>
+              <span class="tag">Lipton Peach</span>
+            </div>
+          </div>
+          <div class="bay__plate" aria-hidden="true"></div>
+        </article>
+
+        <article class="bay" style="--tint: var(--sh-05)">
+          <div class="bay__led" aria-hidden="true"></div>
+          <div class="bay__rail">
+            <span class="bay__no">Shelf 05</span>
+            <h3 class="bay__name">Snacks</h3>
+            <span class="bay__count">3 facings</span>
+          </div>
+          <p class="bay__note">Meant to be shared. Usually gone by 13:45.</p>
+          <div class="deck">
+            <div class="facing" data-form="pack" style="--fade:0%">
+              <span class="shot"><i></i><img src="products/pocky.png" alt="" loading="lazy"></span>
+              <span class="tag">Pocky</span>
+            </div>
+            <div class="facing" data-form="can" style="--fade:24%">
+              <span class="shot"><i></i><img src="products/pringles.png" alt="" loading="lazy"></span>
+              <span class="tag">Pringles</span>
+            </div>
+            <button class="facing facing--mystery" data-form="can" data-mystery="token" type="button" aria-haspopup="dialog">
+              <span class="shot"><i></i></span>
+              <span class="tag">Unmarked</span>
+            </button>
+            <div class="facing" data-form="pack" style="--fade:48%">
+              <span class="shot"><i></i><img src="products/party-mix.png" alt="" loading="lazy"></span>
+              <span class="tag">Party Mix</span>
+            </div>
+          </div>
+          <div class="bay__plate" aria-hidden="true"></div>
+        </article>
+
+        <article class="bay" style="--tint: var(--sh-06)">
+          <div class="bay__led" aria-hidden="true"></div>
+          <div class="bay__rail">
+            <span class="bay__no">Shelf 06</span>
+            <h3 class="bay__name">Crisps &amp; fruit</h3>
+            <span class="bay__count">3 facings</span>
+          </div>
+          <p class="bay__note">Low-sodium crisps, and whatever fruit came in this week.</p>
+          <div class="deck">
+            <div class="facing" data-form="pack" style="--fade:0%">
+              <span class="shot"><i></i><img src="products/smiths.png" alt="" loading="lazy"></span>
+              <span class="tag">Smith's</span>
+            </div>
+            <div class="facing" data-form="pack" style="--fade:28%">
+              <span class="shot"><i></i><img src="products/rrd-honey-soy.png" alt="" loading="lazy"></span>
+              <span class="tag">RRD Honey Soy</span>
+            </div>
+            <div class="facing" data-form="round" style="--fade:52%">
+              <span class="shot"><i></i><img src="products/apples.png" alt="" loading="lazy"></span>
+              <span class="tag">Apples</span>
+            </div>
+          </div>
+          <div class="bay__plate" aria-hidden="true"></div>
+        </article>
+
+      </div>
+    </section>
+
     <!-- ═══ TIMETABLE ═══ -->
     <section id="hours" class="wrap">
       <div class="head">
-        <span class="eyebrow">01</span>
+        <span class="eyebrow">02</span>
         <h2>When we're open</h2>
       </div>
       <table class="timetable">
@@ -934,104 +1280,6 @@
           <tr data-day="5"><td>Friday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
         </tbody>
       </table>
-    </section>
-
-    <!-- ═══ THE CASE ═══ -->
-    <section id="catalog" class="wrap">
-      <div class="head">
-        <span class="eyebrow">02</span>
-        <h2>What's in the case</h2>
-      </div>
-
-      <div class="case">
-
-        <article class="shelf rise" style="--tint: var(--sh-01)">
-          <div class="shelf-rail">
-            <span class="shelf-no">Shelf 01</span>
-            <h3 class="shelf-name">Zero classics</h3>
-            <span class="shelf-count">5 facings</span>
-          </div>
-          <p class="shelf-note">The Red and the Black are ours alone. You won't find them downstairs.</p>
-          <div class="deck">
-            <div class="facing" data-form="can" style="--fade:0%"><i></i><b>Coke Zero</b></div>
-            <div class="facing" data-form="can" style="--fade:22%"><i></i><b>Sprite Zero</b></div>
-            <div class="facing" data-form="can" style="--fade:40%"><i></i><b>Fanta Mini</b></div>
-            <div class="facing" data-form="can" style="--fade:10%"><i></i><b>The Red</b></div>
-            <div class="facing" data-form="can" style="--fade:64%"><i></i><b>The Black</b></div>
-          </div>
-        </article>
-
-        <article class="shelf rise" style="--tint: var(--sh-02)">
-          <div class="shelf-rail">
-            <span class="shelf-no">Shelf 02</span>
-            <h3 class="shelf-name">Chi Forest</h3>
-            <span class="shelf-count">4 facings</span>
-          </div>
-          <p class="shelf-note">Zero-sugar sparkling water. Eight essences in rotation, three on the shelf at a time.</p>
-          <div class="deck">
-            <div class="facing" data-form="bottle" style="--fade:0%"><i></i><b>White Peach</b></div>
-            <div class="facing" data-form="bottle" style="--fade:20%"><i></i><b>Lychee</b></div>
-            <div class="facing" data-form="bottle" style="--fade:42%"><i></i><b>Grape Delight</b></div>
-            <div class="facing" data-form="bottle" style="--fade:66%"><i></i><b>This week's</b></div>
-          </div>
-        </article>
-
-        <article class="shelf rise" style="--tint: var(--sh-03)">
-          <div class="shelf-rail">
-            <span class="shelf-no">Shelf 03</span>
-            <h3 class="shelf-name">Energy</h3>
-            <span class="shelf-count">2 facings</span>
-          </div>
-          <p class="shelf-note">Zero sugar, for the long afternoon. Sold to senior years only.</p>
-          <div class="deck">
-            <div class="facing" data-form="can" style="--fade:0%"><i></i><b>Monster Zero</b></div>
-            <div class="facing" data-form="can" style="--fade:34%"><i></i><b>Red Bull</b></div>
-          </div>
-        </article>
-
-        <article class="shelf rise" style="--tint: var(--sh-04)">
-          <div class="shelf-rail">
-            <span class="shelf-no">Shelf 04</span>
-            <h3 class="shelf-name">Sparkling &amp; tea</h3>
-            <span class="shelf-count">3 facings</span>
-          </div>
-          <p class="shelf-note">Sparkling water and unsweetened tea. The quiet end of the case.</p>
-          <div class="deck">
-            <div class="facing" data-form="bottle" style="--fade:0%"><i></i><b>S.Pellegrino</b></div>
-            <div class="facing" data-form="can" style="--fade:26%"><i></i><b>Sodaly</b></div>
-            <div class="facing" data-form="bottle" style="--fade:50%"><i></i><b>Lipton Peach</b></div>
-          </div>
-        </article>
-
-        <article class="shelf rise" style="--tint: var(--sh-05)">
-          <div class="shelf-rail">
-            <span class="shelf-no">Shelf 05</span>
-            <h3 class="shelf-name">Snacks</h3>
-            <span class="shelf-count">3 facings</span>
-          </div>
-          <p class="shelf-note">Meant to be shared. Usually gone by 13:45.</p>
-          <div class="deck">
-            <div class="facing" data-form="pack" style="--fade:0%"><i></i><b>Pocky</b></div>
-            <div class="facing" data-form="can" style="--fade:24%"><i></i><b>Pringles</b></div>
-            <div class="facing" data-form="pack" style="--fade:48%"><i></i><b>Party Mix</b></div>
-          </div>
-        </article>
-
-        <article class="shelf rise" style="--tint: var(--sh-06)">
-          <div class="shelf-rail">
-            <span class="shelf-no">Shelf 06</span>
-            <h3 class="shelf-name">Crisps &amp; fruit</h3>
-            <span class="shelf-count">3 facings</span>
-          </div>
-          <p class="shelf-note">Low-sodium crisps, and whatever fruit came in this week.</p>
-          <div class="deck">
-            <div class="facing" data-form="pack" style="--fade:0%"><i></i><b>Smith's</b></div>
-            <div class="facing" data-form="pack" style="--fade:28%"><i></i><b>RRD Honey Soy</b></div>
-            <div class="facing" data-form="round" style="--fade:52%"><i></i><b>Apples</b></div>
-          </div>
-        </article>
-
-      </div>
     </section>
 
     <!-- ═══ TOKEN ═══ -->
@@ -1064,21 +1312,62 @@
       <div class="poll-frame">
         <iframe data-tally-src="https://tally.so/embed/D4Dq6X?alignLeft=1&amp;transparentBackground=1&amp;dynamicHeight=1" loading="lazy" width="100%" height="225" frameborder="0" marginheight="0" marginwidth="0" title="Cooked Coke community poll"></iframe>
       </div>
-      <button onclick="hideVote()" class="btn btn-secondary" style="margin-top: 26px;">Back to the case</button>
+      <button onclick="hideVote()" class="btn btn-secondary" style="margin-top: 24px;">Back to the case</button>
     </div>
   </div>
 </main>
 
-<footer class="wrap">
-  <div class="footer-grid">
-    <p class="colophon">&copy; 2026 Cooked Coke Social Enterprise &nbsp;·&nbsp; Level 7 Refreshment Hub</p>
-    <div class="footer-links">
-      <a href="https://cookedcoke.org">Governance</a>
-      <a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener">Shop</a>
-      <a href="mailto:contact@cookedcoke.xyz">Contact</a>
+<footer>
+  <div class="footer-in wrap">
+    <div class="footer-grid">
+      <p class="colophon">&copy; 2026 Cooked Coke Social Enterprise &nbsp;·&nbsp; Level 7 Refreshment Hub</p>
+      <div class="footer-links">
+        <a href="https://cookedcoke.org">Governance</a>
+        <a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener">Shop</a>
+        <a href="mailto:contact@cookedcoke.xyz">Contact</a>
+      </div>
     </div>
   </div>
 </footer>
+
+<div class="glass" aria-hidden="true"></div>
+<div class="frame" aria-hidden="true"></div>
+
+<!-- ═══ WHAT THE UNMARKED CANS SAY ═══ -->
+<dialog class="reveal" id="reveal" aria-labelledby="revealTitle">
+  <button class="reveal__close" type="button" data-close aria-label="Close">&times;</button>
+  <div class="reveal__inner" id="revealBody"></div>
+</dialog>
+
+<template id="tpl-hours">
+  <span class="eyebrow">Unmarked can &nbsp;·&nbsp; 01</span>
+  <h2 id="revealTitle">Are we open?</h2>
+  <p data-status="note">Reading today's timetable.</p>
+  <table class="mini-table">
+    <tbody id="miniBody">
+      <tr data-day="1"><td>Monday</td><td>Recess + lunch</td></tr>
+      <tr data-day="2"><td>Tuesday</td><td>Recess only</td></tr>
+      <tr data-day="3"><td>Wednesday</td><td>Recess + lunch</td></tr>
+      <tr data-day="4"><td>Thursday</td><td>Recess + lunch</td></tr>
+      <tr data-day="5"><td>Friday</td><td>Recess + lunch</td></tr>
+    </tbody>
+  </table>
+  <a href="#hours" class="btn btn-secondary" data-close>See the full timetable</a>
+</template>
+
+<template id="tpl-vote">
+  <span class="eyebrow">Unmarked can &nbsp;·&nbsp; 02</span>
+  <h2 id="revealTitle">You pick the next one</h2>
+  <p>This slot is empty on purpose. Tell us what belongs in it and we'll take 10% off your next order.</p>
+  <button class="btn btn-primary" type="button" data-action="vote">Vote, save 10%</button>
+</template>
+
+<template id="tpl-token">
+  <span class="eyebrow">Unmarked can &nbsp;·&nbsp; 03</span>
+  <h2 id="revealTitle">Worth 50 cents</h2>
+  <p>Every item over $2 comes with a 3D-printed token. Six of them buy you most of a drink.</p>
+  <a href="#loyalty" class="btn btn-secondary" data-close>How tokens work</a>
+</template>
 
 <script>
   const htmlElement = document.documentElement;
@@ -1094,23 +1383,17 @@
      Recess every weekday. Lunch every weekday except Tuesday. */
   const RECESS = ['Recess', 11 * 60, 11 * 60 + 15];
   const LUNCH  = ['Lunch',  13 * 60 + 10, 13 * 60 + 45];
-  const SCHEDULE = {
-    1: [RECESS, LUNCH],
-    2: [RECESS],
-    3: [RECESS, LUNCH],
-    4: [RECESS, LUNCH],
-    5: [RECESS, LUNCH]
-  };
+  const SCHEDULE = { 1: [RECESS, LUNCH], 2: [RECESS], 3: [RECESS, LUNCH], 4: [RECESS, LUNCH], 5: [RECESS, LUNCH] };
   const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   const clock = m => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+  const setAll = (key, text) => document.querySelectorAll('[data-status="' + key + '"]')
+    .forEach(el => { el.textContent = text; });
 
   function findNext(day, minutes) {
-    // Walk forward up to a week to find the next session that starts after `minutes`.
     for (let step = 0; step < 8; step++) {
       const d = (day + step) % 7;
-      const sessions = SCHEDULE[d] || [];
-      for (const [name, start, end] of sessions) {
+      for (const [name, start, end] of (SCHEDULE[d] || [])) {
         if (step > 0 || start > minutes) {
           return { name, start, end, day: d, today: step === 0, tomorrow: step === 1 };
         }
@@ -1124,48 +1407,42 @@
     const day = now.getDay();
     const mins = now.getHours() * 60 + now.getMinutes();
 
-    const el    = document.getElementById('status');
-    const value = document.getElementById('statusValue');
-    const note  = document.getElementById('statusNote');
-    const nextV = document.getElementById('nextValue');
-    const nextN = document.getElementById('nextNote');
-
     const open = (SCHEDULE[day] || []).find(([, s, e]) => mins >= s && mins < e);
     const next = findNext(day, mins);
 
+    let state;
     if (open) {
-      const [name, , end] = open;
-      el.dataset.state = 'open';
-      value.textContent = 'Open now';
-      note.textContent  = name + ' service, closing at ' + clock(end) + '.';
+      state = 'open';
+      setAll('value', 'Open now');
+      setAll('note', open[0] + ' service, closing at ' + clock(open[2]) + '.');
     } else if (next && next.today && next.start - mins <= 45) {
-      el.dataset.state = 'soon';
-      value.textContent = 'Opening soon';
-      note.textContent  = next.name + ' starts in ' + (next.start - mins) + ' min.';
+      state = 'soon';
+      setAll('value', 'Opening soon');
+      setAll('note', next.name + ' starts in ' + (next.start - mins) + ' min.');
     } else {
-      el.dataset.state = 'closed';
-      value.textContent = 'Closed';
-      note.textContent  = 'The case is shut and the lights are off.';
+      state = 'closed';
+      setAll('value', 'Closed');
+      setAll('note', 'The case is shut and the lights are off.');
     }
+    document.querySelectorAll('.panel').forEach(p => { p.dataset.state = state; });
 
     if (next) {
-      nextV.textContent = next.name;
+      setAll('next', next.name);
       const when = next.today ? 'Today' : next.tomorrow ? 'Tomorrow' : DAY_NAMES[next.day];
-      nextN.textContent = when + ', ' + clock(next.start) + '–' + clock(next.end) + '.';
+      setAll('next-note', when + ', ' + clock(next.start) + '–' + clock(next.end) + '.');
     } else {
-      nextV.textContent = 'None';
-      nextN.textContent = 'Back next term.';
+      setAll('next', 'None');
+      setAll('next-note', 'Back next term.');
     }
 
-    const todayRow = document.querySelector('#timetableBody tr[data-day="' + day + '"]');
-    if (todayRow) todayRow.setAttribute('data-today', '');
+    document.querySelectorAll('tr[data-day="' + day + '"]').forEach(tr => tr.setAttribute('data-today', ''));
   }
 
   renderStatus();
   setInterval(renderStatus, 30000);
 
-  /* ─── shelf lights come up as you reach them ─── */
-  const shelves = document.querySelectorAll('.shelf');
+  /* ─── the strip lights come up as each shelf comes into view ─── */
+  const bays = document.querySelectorAll('.bay');
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1174,11 +1451,37 @@
           io.unobserve(entry.target);
         }
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: .12 });
-    shelves.forEach(s => io.observe(s));
+    }, { rootMargin: '0px 0px -10% 0px', threshold: .08 });
+    bays.forEach(b => io.observe(b));
   } else {
-    shelves.forEach(s => s.classList.add('lit'));
+    bays.forEach(b => b.classList.add('lit'));
   }
+
+  /* ─── the unmarked cans ─── */
+  const reveal = document.getElementById('reveal');
+  const revealBody = document.getElementById('revealBody');
+
+  document.querySelectorAll('[data-mystery]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tpl = document.getElementById('tpl-' + btn.dataset.mystery);
+      if (!tpl) return;
+      revealBody.replaceChildren(tpl.content.cloneNode(true));
+      renderStatus();
+      if (typeof reveal.showModal === 'function') reveal.showModal();
+      else reveal.setAttribute('open', '');
+    });
+  });
+
+  reveal.addEventListener('click', (e) => {
+    const hit = e.target.closest('[data-close], [data-action="vote"]');
+    if (hit) {
+      reveal.close();
+      if (hit.dataset.action === 'vote') showVote();
+      return;
+    }
+    // clicking the backdrop closes it
+    if (e.target === reveal) reveal.close();
+  });
 
   /* ─── vote ─── */
   function showVote() {
@@ -1195,6 +1498,13 @@
 
   window.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => htmlElement.classList.remove('no-transition'), 60);
+
+    // a product photo that actually loads replaces its drawn stand-in
+    document.querySelectorAll('.shot img').forEach(img => {
+      const mark = () => img.closest('.shot').classList.add('has-photo');
+      if (img.complete && img.naturalWidth > 0) mark();
+      else img.addEventListener('load', mark);
+    });
 
     if (localStorage.getItem('has_voted_xyz') === 'true') {
       const voteBtn = document.getElementById('voteBtn');
