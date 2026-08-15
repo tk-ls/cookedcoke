@@ -10,23 +10,23 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="The student-run cold case on Level 7. Four shelves of soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
+  <meta name="description" content="The student-run cold case on Level 7. The Level 7 cold case: soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
   <meta name="theme-color" content="#05070c" media="(prefers-color-scheme: dark)" />
   <meta name="theme-color" content="#dce9f2" media="(prefers-color-scheme: light)" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://cookedcoke.co/" />
-  <meta property="og:title" content="Four shelves, Level seven | Cooked Coke Co." />
+  <meta property="og:title" content="Cooked Coke Co. · Level 7 Refreshment Hub" />
   <meta property="og:description" content="The student-run cold case on Level 7. Soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
   <meta property="og:image" content="android-chrome-512x512.png" />
 
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://cookedcoke.co/" />
-  <meta property="twitter:title" content="Four shelves, Level seven | Cooked Coke Co." />
+  <meta property="twitter:title" content="Cooked Coke Co. · Level 7 Refreshment Hub" />
   <meta property="twitter:description" content="The student-run cold case on Level 7. Soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
   <meta property="twitter:image" content="android-chrome-512x512.png" />
 
-  <title>Four shelves, Level seven | Cooked Coke Co.</title>
+  <title>Cooked Coke Co. · Level 7 Refreshment Hub</title>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -215,6 +215,10 @@
         radial-gradient(66% 42% at 0% 100%,   color-mix(in srgb, var(--led) 14%, transparent), transparent 70%),
         radial-gradient(66% 42% at 100% 100%, color-mix(in srgb, var(--led) 14%, transparent), transparent 70%);
     }
+    /* white frost over a dark case reads as frost; over a light one it just
+       fogs the stock, so pull both overlays back when the lights are on */
+    [data-theme="light"] .glass::before { opacity: .05; }
+    [data-theme="light"] .glass::after  { opacity: .3; }
 
     /* the door frame and its rubber gasket */
     .frame {
@@ -352,31 +356,86 @@
       display: block;
     }
 
-    /* ═══ HERO — vinyl decal on the door ═══ */
-    .decal { padding-block: clamp(40px, 7vw, 84px) clamp(28px, 4vw, 46px); }
-    .decal h1 {
+    /* ═══ FASCIA — the cooler's lit header panel ═══
+       A branded lightbox, so it stays illuminated in both themes. */
+    .fascia {
+      position: relative;
+      z-index: 2;
+      margin: 0 var(--frame-w);
+      overflow: hidden;
+      color: #08131f;
+      background: linear-gradient(180deg, #fcfeff 0%, #e8f4fb 44%, #c2d8e8 100%);
+      /* the steel divider between the header panel and the door below it —
+         without it the lit panel dissolves into a light interior */
+      border-bottom: 3px solid var(--gasket);
+      box-shadow: 0 24px 48px -26px rgba(0,0,0,.9);
+    }
+    /* the tube behind the panel, and the shadow it throws into the case */
+    .fascia::before {
+      content: '';
+      position: absolute; inset: 0 0 auto 0; height: 3px;
+      background: linear-gradient(90deg, transparent, #fff 18%, #fff 82%, transparent);
+    }
+    .fascia::after {
+      content: '';
+      position: absolute; inset: auto 0 0 0; height: 5px;
+      background: linear-gradient(180deg, rgba(4,12,22,.34), transparent);
+    }
+    .fascia__inner {
+      padding-block: clamp(22px, 4.2vw, 42px) clamp(16px, 2.6vw, 26px);
+      display: flex;
+      flex-direction: column;
+      gap: clamp(10px, 1.6vw, 16px);
+    }
+    .fascia__brand {
+      display: flex;
+      align-items: center;
+      gap: clamp(10px, 1.6vw, 20px);
+    }
+    .fascia__mark { height: clamp(28px, 4.8vw, 52px); width: auto; }
+    .fascia__word {
       font-family: var(--display);
-      font-variation-settings: 'wdth' 118, 'wght' 800;
+      font-variation-settings: 'wdth' 122, 'wght' 800;
       text-transform: uppercase;
-      font-size: clamp(2.7rem, 9.6vw, 7rem);
-      line-height: .87;
-      letter-spacing: -.022em;
-      margin: 16px 0 0;
-      color: color-mix(in srgb, var(--frost) 96%, transparent);
-      text-shadow: 0 0 40px color-mix(in srgb, var(--led) 22%, transparent);
+      font-size: clamp(1.9rem, 7.4vw, 4.8rem);
+      line-height: .84;
+      letter-spacing: -.03em;
     }
-    .decal h1 span { display: block; }
-    .decal h1 .seven { color: var(--chill); }
-    .decal p {
-      font-size: clamp(16px, 2vw, 20px);
-      color: var(--haze);
-      max-width: 46ch;
-      margin-top: 22px;
+    /* the spec plate, the way an appliance carries its model details */
+    .fascia__plate {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 84;
+      font-size: clamp(8.5px, 1vw, 10px);
+      text-transform: uppercase;
+      letter-spacing: .17em;
+      color: #41586c;
+      line-height: 2;
     }
-    /* the eyebrow is a <p> too, but must not inherit the measure above */
-    .decal .eyebrow { max-width: none; margin-top: 0; }
 
-    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+    /* the thermostat readout, inset into the lit panel.
+       Redefining tokens locally keeps it dark in both themes. */
+    .fascia .panel {
+      --shelf: #0a1220;
+      --line:  #1e2c40;
+      --frost: #eaf5fc;
+      --haze:  #8098ae;
+      margin-top: clamp(12px, 2vw, 20px);
+      background: var(--shelf);
+      /* explicit, or .panel-value inherits the fascia's dark ink and vanishes */
+      color: var(--frost);
+      box-shadow: inset 0 2px 10px rgba(0,0,0,.6);
+    }
+
+    /* appliance controls, sitting on the interior below the panel */
+    .ctas {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding-block: clamp(20px, 3.4vw, 34px) 0;
+    }
+
     .btn {
       font-family: var(--mono);
       font-variation-settings: 'wdth' 90;
@@ -465,6 +524,8 @@
       70%  { box-shadow: 0 0 0 9px transparent; }
       100% { box-shadow: 0 0 0 0 transparent; }
     }
+
+    #catalog { padding-block-start: 0; }
 
     /* ═══ THE SHELVES ═══════════════════════════════════════ */
     .case { margin-top: clamp(24px, 4vw, 44px); }
@@ -1060,12 +1121,42 @@
   </div>
 </div>
 
+<header class="fascia">
+  <div class="fascia__inner wrap">
+    <div class="fascia__brand">
+      <img src="Logo Vantablack.svg" alt="" class="fascia__mark">
+      <span class="fascia__word">Cooked Coke</span>
+    </div>
+    <p class="fascia__plate">
+      Model L7 &nbsp;·&nbsp; Refreshment Hub &nbsp;·&nbsp; Reddam House &nbsp;·&nbsp; Student operated<br>
+      Soft drinks &nbsp;·&nbsp; Sparkling water &nbsp;·&nbsp; Instant noodles &nbsp;·&nbsp; Snacks
+    </p>
+
+    <div class="panel" data-state="closed" role="status" aria-live="polite">
+      <div class="panel-cell">
+        <span class="panel-label">Case status</span>
+        <span class="panel-value"><i class="dot"></i><span data-status="value">Checking</span></span>
+        <span class="panel-note" data-status="note">Reading today's timetable.</span>
+      </div>
+      <div class="panel-cell">
+        <span class="panel-label">Next service</span>
+        <span class="panel-value" data-status="next">—</span>
+        <span class="panel-note" data-status="next-note">&nbsp;</span>
+      </div>
+      <div class="panel-cell">
+        <span class="panel-label">Set point</span>
+        <span class="panel-value">4&#8202;°C</span>
+        <span class="panel-note">Twenty-six facings across four shelves.</span>
+      </div>
+    </div>
+  </div>
+</header>
+
 <nav>
   <div class="nav-content">
     <a href="#" onclick="hideVote(); return false;" class="nav-logo">
       <img src="Logo Vantablack.svg" alt="" class="logo-light">
       <img src="Logo White.svg" alt="" class="logo-dark">
-      <b>Cooked Coke</b>
     </a>
     <div class="nav-right">
       <ul class="nav-links">
@@ -1084,45 +1175,12 @@
 <main id="mainContent">
   <div id="page-content">
 
-    <header class="decal wrap">
-      <p class="eyebrow">Level 7 &nbsp;·&nbsp; Refreshment hub &nbsp;·&nbsp; Student run</p>
-      <h1>
-        <span>Four shelves.</span>
-        <span class="seven">Level seven.</span>
-      </h1>
-      <p>
-        Soft drinks, sparkling water, instant noodles and snacks, kept cold and sold by the students who stock them.
-        Come up at recess or lunch.
-      </p>
-      <div class="cta-row">
-        <a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener" class="btn btn-primary">Order for pickup</a>
-        <a href="#" id="voteBtn" onclick="showVote(); return false;" class="btn btn-secondary">Vote, save 10%</a>
-      </div>
-
-      <div class="panel" data-state="closed" role="status" aria-live="polite">
-        <div class="panel-cell">
-          <span class="panel-label">Case status</span>
-          <span class="panel-value"><i class="dot"></i><span data-status="value">Checking</span></span>
-          <span class="panel-note" data-status="note">Reading today's timetable.</span>
-        </div>
-        <div class="panel-cell">
-          <span class="panel-label">Next service</span>
-          <span class="panel-value" data-status="next">—</span>
-          <span class="panel-note" data-status="next-note">&nbsp;</span>
-        </div>
-        <div class="panel-cell">
-          <span class="panel-label">Set point</span>
-          <span class="panel-value">4&#8202;°C</span>
-          <span class="panel-note">Twenty-six facings across four shelves.</span>
-        </div>
-      </div>
-    </header>
 
     <!-- ═══ THE CASE ═══ -->
     <section id="catalog" class="wrap">
-      <div class="head">
-        <span class="eyebrow">01</span>
-        <h2>What's in the case</h2>
+      <div class="ctas">
+        <a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener" class="btn btn-primary">Order for pickup</a>
+        <a href="#" id="voteBtn" onclick="showVote(); return false;" class="btn btn-secondary">Vote, save 10%</a>
       </div>
 
       <div class="case">
@@ -1301,7 +1359,6 @@
     <!-- ═══ TIMETABLE ═══ -->
     <section id="hours" class="wrap">
       <div class="head">
-        <span class="eyebrow">02</span>
         <h2>When we're open</h2>
       </div>
       <table class="timetable">
@@ -1327,7 +1384,7 @@
     <section id="loyalty" class="wrap">
       <div class="token-band">
         <div>
-          <span class="eyebrow">03 &nbsp;·&nbsp; Loyalty</span>
+          <span class="eyebrow">Loyalty</span>
           <h2>Tokens</h2>
           <p>
             Spend more than $2 and you get a token, printed on the Level 7 3D printer.
