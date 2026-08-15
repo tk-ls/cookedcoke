@@ -15,9 +15,16 @@ Usage, from the repo root:
 
     python3 tools/normalize.py products/*.png
 
+Every image is scaled to the same height, which would flatten the difference
+between a full-size can and a mini. Do the minis separately:
+
+    python3 tools/normalize.py --tall-ratio 0.62 products/*-mini.png
+
 Files are rewritten in place, so work on copies or commit first. Pass
 --dry-run to see what it would do without writing anything.
 """
+
+from __future__ import annotations  # so `Image.Image` hints don't need Pillow imported
 
 import argparse
 import sys
@@ -26,10 +33,13 @@ from pathlib import Path
 try:
     from PIL import Image
 except ImportError:
-    sys.exit(
-        "Pillow is not installed. Run:\n"
-        "    python3 -m pip install --user pillow"
-    )
+    # Deferred so --help still works on a machine without Pillow.
+    Image = None
+
+MISSING_PILLOW = (
+    "Pillow is not installed. Run:\n"
+    "    python3 -m pip install --user pillow"
+)
 
 # The canvas every product lands on. Cans end up near full height; snack packs
 # and apples stay short, which is correct — they really are shorter.
@@ -50,7 +60,7 @@ def trim(img: Image.Image) -> Image.Image:
     return img.crop(box)
 
 
-def normalize(path: Path, dry_run: bool = False) -> str:
+def normalize(path: Path, tall_ratio: float = TALL_RATIO, dry_run: bool = False) -> str:
     img = Image.open(path).convert("RGBA")
     before = img.size
 
@@ -58,7 +68,7 @@ def normalize(path: Path, dry_run: bool = False) -> str:
     tw, th = img.size
 
     # Scale to the target height, then pull back if that makes it too wide.
-    target_h = int(CANVAS_H * TALL_RATIO)
+    target_h = int(CANVAS_H * tall_ratio)
     scale = target_h / th
     max_w = int(CANVAS_W * (1 - 2 * SIDE_PAD))
     if tw * scale > max_w:
@@ -83,15 +93,21 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("files", nargs="+", type=Path, help="PNG files to normalize, in place")
+    ap.add_argument("--tall-ratio", type=float, default=TALL_RATIO,
+                    help=f"fraction of canvas height a full-height item fills (default {TALL_RATIO}). "
+                         "Lower it when processing minis so they stay visibly shorter.")
     ap.add_argument("--dry-run", action="store_true", help="report without writing")
     args = ap.parse_args()
+
+    if Image is None:
+        sys.exit(MISSING_PILLOW)
 
     failures = 0
     for path in args.files:
         if path.name.lower() == "readme.md":
             continue
         try:
-            print(normalize(path, args.dry_run))
+            print(normalize(path, args.tall_ratio, args.dry_run))
         except Exception as exc:  # noqa: BLE001 - report and keep going
             print(f"{path.name}: SKIPPED — {exc}", file=sys.stderr)
             failures += 1

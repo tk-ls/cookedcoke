@@ -10,20 +10,20 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="The student-run cold case on Level 7. Six shelves of zero-sugar drinks, energy, and snacks. Open at recess and lunch." />
+  <meta name="description" content="The student-run cold case on Level 7. Six shelves of soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
   <meta name="theme-color" content="#05070c" media="(prefers-color-scheme: dark)" />
   <meta name="theme-color" content="#dce9f2" media="(prefers-color-scheme: light)" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://cookedcoke.co/" />
   <meta property="og:title" content="Six shelves, Level seven | Cooked Coke Co." />
-  <meta property="og:description" content="The student-run cold case on Level 7. Zero-sugar drinks, energy, and snacks. Open at recess and lunch." />
+  <meta property="og:description" content="The student-run cold case on Level 7. Soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
   <meta property="og:image" content="android-chrome-512x512.png" />
 
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://cookedcoke.co/" />
   <meta property="twitter:title" content="Six shelves, Level seven | Cooked Coke Co." />
-  <meta property="twitter:description" content="The student-run cold case on Level 7. Zero-sugar drinks, energy, and snacks. Open at recess and lunch." />
+  <meta property="twitter:description" content="The student-run cold case on Level 7. Soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
   <meta property="twitter:image" content="android-chrome-512x512.png" />
 
   <title>Six shelves, Level seven | Cooked Coke Co.</title>
@@ -81,12 +81,12 @@
       --backfill: #101827;
 
       /* shelf accents, from what is actually on them */
-      --sh-01: #ff2438;
-      --sh-02: #ff6f9c;
-      --sh-03: #21e07f;
-      --sh-04: #2bb3e8;
-      --sh-05: #ffb01f;
-      --sh-06: #ff6a1f;
+      --sh-01: #ff2438;  /* classics — Coke red */
+      --sh-02: #ff8a1f;  /* minis — Fanta orange */
+      --sh-03: #ff6f9c;  /* Chi Forest — white peach */
+      --sh-04: #2bb3e8;  /* tea and Yoosh */
+      --sh-05: #ffb01f;  /* Chef Kang */
+      --sh-06: #35d98a;  /* snacks */
 
       --display: 'Archivo', system-ui, sans-serif;
       --body: 'Instrument Sans', system-ui, sans-serif;
@@ -631,6 +631,8 @@
     }
 
     .facing[data-form="can"] i    { height: 88%; width: 68%; border-radius: 10px / 16px; }
+    /* the 250ml cans really are shorter, so the shelf should show that */
+    .facing[data-form="mini"] i   { height: 58%; width: 60%; border-radius: 9px / 14px; }
     .facing[data-form="bottle"] i {
       height: 100%;
       width: 80%;
@@ -644,7 +646,8 @@
     .facing[data-form="pack"] i   { height: 66%; width: 96%; border-radius: 7px; }
     .facing[data-form="round"] i  { height: 52%; aspect-ratio: 1; width: auto; border-radius: 50%; }
 
-    .facing[data-form="can"] i::before {
+    .facing[data-form="can"] i::before,
+    .facing[data-form="mini"] i::before {
       content: '';
       position: absolute;
       inset: 3px 7px auto 7px;
@@ -1048,7 +1051,7 @@
         <span class="seven">Level seven.</span>
       </h1>
       <p>
-        Zero-sugar drinks, energy, and snacks, kept cold and sold by the students who stock them.
+        Soft drinks, sparkling water, instant noodles and snacks, kept cold and sold by the students who stock them.
         Come up at recess or lunch.
       </p>
       <div class="cta-row">
@@ -1070,7 +1073,7 @@
         <div class="panel-cell">
           <span class="panel-label">Set point</span>
           <span class="panel-value">4&#8202;°C</span>
-          <span class="panel-note">Twenty facings across six shelves.</span>
+          <span class="panel-note">Twenty-six facings across six shelves.</span>
         </div>
       </div>
     </header>
@@ -1088,34 +1091,30 @@
           <div class="bay__led" aria-hidden="true"></div>
           <div class="bay__rail">
             <span class="bay__no">Shelf 01</span>
-            <h3 class="bay__name">Zero classics</h3>
-            <span class="bay__count">5 facings</span>
+            <h3 class="bay__name">Classics</h3>
+            <span class="bay__count">4 facings</span>
           </div>
-          <p class="bay__note">The Red and the Black are ours alone. You won't find them downstairs.</p>
+          <p class="bay__note">The four we always have in.</p>
           <div class="deck">
             <div class="facing" data-form="can" style="--fade:0%">
-              <span class="shot"><i></i><img src="products/coke-zero.png" alt="" loading="lazy"></span>
-              <span class="tag">Coke Zero</span>
+              <span class="shot"><i></i><img src="products/coke.png" alt="" loading="lazy"></span>
+              <span class="tag">Coke</span>
             </div>
-            <div class="facing" data-form="can" style="--fade:22%">
-              <span class="shot"><i></i><img src="products/sprite-zero.png" alt="" loading="lazy"></span>
-              <span class="tag">Sprite Zero</span>
+            <div class="facing" data-form="can" style="--fade:26%">
+              <span class="shot"><i></i><img src="products/fanta.png" alt="" loading="lazy"></span>
+              <span class="tag">Fanta</span>
             </div>
             <button class="facing facing--mystery" data-form="can" data-mystery="hours" type="button" aria-haspopup="dialog">
               <span class="shot"><i></i></span>
               <span class="tag">Hours</span>
             </button>
-            <div class="facing" data-form="can" style="--fade:40%">
-              <span class="shot"><i></i><img src="products/fanta-mini.png" alt="" loading="lazy"></span>
-              <span class="tag">Fanta Mini</span>
+            <div class="facing" data-form="can" style="--fade:46%">
+              <span class="shot"><i></i><img src="products/sprite.png" alt="" loading="lazy"></span>
+              <span class="tag">Sprite</span>
             </div>
-            <div class="facing" data-form="can" style="--fade:10%">
-              <span class="shot"><i></i><img src="products/the-red.png" alt="" loading="lazy"></span>
-              <span class="tag">The Red</span>
-            </div>
-            <div class="facing" data-form="can" style="--fade:64%">
-              <span class="shot"><i></i><img src="products/the-black.png" alt="" loading="lazy"></span>
-              <span class="tag">The Black</span>
+            <div class="facing" data-form="can" style="--fade:66%">
+              <span class="shot"><i></i><img src="products/solo.png" alt="" loading="lazy"></span>
+              <span class="tag">Solo</span>
             </div>
           </div>
           <div class="bay__plate" aria-hidden="true"></div>
@@ -1125,26 +1124,22 @@
           <div class="bay__led" aria-hidden="true"></div>
           <div class="bay__rail">
             <span class="bay__no">Shelf 02</span>
-            <h3 class="bay__name">Chi Forest</h3>
-            <span class="bay__count">4 facings</span>
+            <h3 class="bay__name">Minis</h3>
+            <span class="bay__count">3 facings</span>
           </div>
-          <p class="bay__note">Zero-sugar sparkling water. Eight essences in rotation, three on the shelf at a time.</p>
+          <p class="bay__note">Same drinks, smaller can. Solo only comes in the one size.</p>
           <div class="deck">
-            <div class="facing" data-form="bottle" style="--fade:0%">
-              <span class="shot"><i></i><img src="products/chi-white-peach.png" alt="" loading="lazy"></span>
-              <span class="tag">White Peach</span>
+            <div class="facing" data-form="mini" style="--fade:0%">
+              <span class="shot"><i></i><img src="products/coke-mini.png" alt="" loading="lazy"></span>
+              <span class="tag">Coke Mini</span>
             </div>
-            <div class="facing" data-form="bottle" style="--fade:20%">
-              <span class="shot"><i></i><img src="products/chi-lychee.png" alt="" loading="lazy"></span>
-              <span class="tag">Lychee</span>
+            <div class="facing" data-form="mini" style="--fade:28%">
+              <span class="shot"><i></i><img src="products/fanta-mini.png" alt="" loading="lazy"></span>
+              <span class="tag">Fanta Mini</span>
             </div>
-            <div class="facing" data-form="bottle" style="--fade:42%">
-              <span class="shot"><i></i><img src="products/chi-grape.png" alt="" loading="lazy"></span>
-              <span class="tag">Grape Delight</span>
-            </div>
-            <div class="facing" data-form="bottle" style="--fade:66%">
-              <span class="shot"><i></i><img src="products/chi-rotating.png" alt="" loading="lazy"></span>
-              <span class="tag">This week's</span>
+            <div class="facing" data-form="mini" style="--fade:52%">
+              <span class="shot"><i></i><img src="products/sprite-mini.png" alt="" loading="lazy"></span>
+              <span class="tag">Sprite Mini</span>
             </div>
           </div>
           <div class="bay__plate" aria-hidden="true"></div>
@@ -1154,22 +1149,50 @@
           <div class="bay__led" aria-hidden="true"></div>
           <div class="bay__rail">
             <span class="bay__no">Shelf 03</span>
-            <h3 class="bay__name">Energy</h3>
-            <span class="bay__count">2 facings</span>
+            <h3 class="bay__name">Chi Forest</h3>
+            <span class="bay__count">9 facings</span>
           </div>
-          <p class="bay__note">Zero sugar, for the long afternoon.</p>
+          <p class="bay__note">Zero-sugar sparkling water, and the longest shelf in the case.</p>
           <div class="deck">
-            <div class="facing" data-form="can" style="--fade:0%">
-              <span class="shot"><i></i><img src="products/monster-zero.png" alt="" loading="lazy"></span>
-              <span class="tag">Monster Zero</span>
+            <div class="facing" data-form="bottle" style="--fade:0%">
+              <span class="shot"><i></i><img src="products/chi-white-peach.png" alt="" loading="lazy"></span>
+              <span class="tag">White Peach</span>
             </div>
-            <button class="facing facing--mystery" data-form="can" data-mystery="vote" type="button" aria-haspopup="dialog">
+            <div class="facing" data-form="bottle" style="--fade:10%">
+              <span class="shot"><i></i><img src="products/chi-lychee-fizzy.png" alt="" loading="lazy"></span>
+              <span class="tag">Lychee Fizzy</span>
+            </div>
+            <div class="facing" data-form="bottle" style="--fade:20%">
+              <span class="shot"><i></i><img src="products/chi-grape-delight.png" alt="" loading="lazy"></span>
+              <span class="tag">Grape Delight</span>
+            </div>
+            <button class="facing facing--mystery" data-form="bottle" data-mystery="vote" type="button" aria-haspopup="dialog">
               <span class="shot"><i></i></span>
               <span class="tag">Vote</span>
             </button>
-            <div class="facing" data-form="can" style="--fade:34%">
-              <span class="shot"><i></i><img src="products/red-bull.png" alt="" loading="lazy"></span>
-              <span class="tag">Red Bull</span>
+            <div class="facing" data-form="bottle" style="--fade:30%">
+              <span class="shot"><i></i><img src="products/chi-green-apple.png" alt="" loading="lazy"></span>
+              <span class="tag">Green Apple</span>
+            </div>
+            <div class="facing" data-form="bottle" style="--fade:40%">
+              <span class="shot"><i></i><img src="products/chi-watermelon.png" alt="" loading="lazy"></span>
+              <span class="tag">Watermelon</span>
+            </div>
+            <div class="facing" data-form="bottle" style="--fade:50%">
+              <span class="shot"><i></i><img src="products/chi-guava.png" alt="" loading="lazy"></span>
+              <span class="tag">Guava</span>
+            </div>
+            <div class="facing" data-form="bottle" style="--fade:60%">
+              <span class="shot"><i></i><img src="products/chi-orange.png" alt="" loading="lazy"></span>
+              <span class="tag">Orange</span>
+            </div>
+            <div class="facing" data-form="bottle" style="--fade:70%">
+              <span class="shot"><i></i><img src="products/chi-bamboo-grapefruit.png" alt="" loading="lazy"></span>
+              <span class="tag">Bamboo Grapefruit</span>
+            </div>
+            <div class="facing" data-form="bottle" style="--fade:80%">
+              <span class="shot"><i></i><img src="products/chi-pomelo-zest.png" alt="" loading="lazy"></span>
+              <span class="tag">Pomelo Zest</span>
             </div>
           </div>
           <div class="bay__plate" aria-hidden="true"></div>
@@ -1179,22 +1202,22 @@
           <div class="bay__led" aria-hidden="true"></div>
           <div class="bay__rail">
             <span class="bay__no">Shelf 04</span>
-            <h3 class="bay__name">Sparkling &amp; tea</h3>
+            <h3 class="bay__name">Tea &amp; Yoosh</h3>
             <span class="bay__count">3 facings</span>
           </div>
-          <p class="bay__note">Sparkling water and unsweetened tea. The quiet end of the case.</p>
+          <p class="bay__note">Unsweetened tea, and Yoosh in two flavours.</p>
           <div class="deck">
             <div class="facing" data-form="bottle" style="--fade:0%">
-              <span class="shot"><i></i><img src="products/pellegrino.png" alt="" loading="lazy"></span>
-              <span class="tag">S.Pellegrino</span>
+              <span class="shot"><i></i><img src="products/iced-black-tea.png" alt="" loading="lazy"></span>
+              <span class="tag">Iced Black Tea</span>
             </div>
-            <div class="facing" data-form="can" style="--fade:26%">
-              <span class="shot"><i></i><img src="products/sodaly.png" alt="" loading="lazy"></span>
-              <span class="tag">Sodaly</span>
+            <div class="facing" data-form="bottle" style="--fade:28%">
+              <span class="shot"><i></i><img src="products/yoosh.png" alt="" loading="lazy"></span>
+              <span class="tag">Yoosh</span>
             </div>
-            <div class="facing" data-form="bottle" style="--fade:50%">
-              <span class="shot"><i></i><img src="products/lipton-peach.png" alt="" loading="lazy"></span>
-              <span class="tag">Lipton Peach</span>
+            <div class="facing" data-form="bottle" style="--fade:52%">
+              <span class="shot"><i></i><img src="products/yoosh-lychee.png" alt="" loading="lazy"></span>
+              <span class="tag">Yoosh Lychee</span>
             </div>
           </div>
           <div class="bay__plate" aria-hidden="true"></div>
@@ -1204,26 +1227,34 @@
           <div class="bay__led" aria-hidden="true"></div>
           <div class="bay__rail">
             <span class="bay__no">Shelf 05</span>
-            <h3 class="bay__name">Snacks</h3>
-            <span class="bay__count">3 facings</span>
+            <h3 class="bay__name">Chef Kang</h3>
+            <span class="bay__count">5 facings</span>
           </div>
-          <p class="bay__note">Meant to be shared. Usually gone by 13:45.</p>
+          <p class="bay__note">Instant noodles, the whole range.</p>
           <div class="deck">
             <div class="facing" data-form="pack" style="--fade:0%">
-              <span class="shot"><i></i><img src="products/pocky.png" alt="" loading="lazy"></span>
-              <span class="tag">Pocky</span>
+              <span class="shot"><i></i><img src="products/chef-kang-regular.png" alt="" loading="lazy"></span>
+              <span class="tag">Regular</span>
             </div>
-            <div class="facing" data-form="can" style="--fade:24%">
-              <span class="shot"><i></i><img src="products/pringles.png" alt="" loading="lazy"></span>
-              <span class="tag">Pringles</span>
+            <div class="facing" data-form="pack" style="--fade:16%">
+              <span class="shot"><i></i><img src="products/chef-kang-hot-spicy-beef.png" alt="" loading="lazy"></span>
+              <span class="tag">Hot &amp; Spicy Beef</span>
             </div>
-            <button class="facing facing--mystery" data-form="can" data-mystery="token" type="button" aria-haspopup="dialog">
+            <div class="facing" data-form="pack" style="--fade:32%">
+              <span class="shot"><i></i><img src="products/chef-kang-seafood.png" alt="" loading="lazy"></span>
+              <span class="tag">Seafood</span>
+            </div>
+            <button class="facing facing--mystery" data-form="pack" data-mystery="token" type="button" aria-haspopup="dialog">
               <span class="shot"><i></i></span>
               <span class="tag">Tokens</span>
             </button>
             <div class="facing" data-form="pack" style="--fade:48%">
-              <span class="shot"><i></i><img src="products/party-mix.png" alt="" loading="lazy"></span>
-              <span class="tag">Party Mix</span>
+              <span class="shot"><i></i><img src="products/chef-kang-pickled-veg-beef.png" alt="" loading="lazy"></span>
+              <span class="tag">Pickled Veg Beef</span>
+            </div>
+            <div class="facing" data-form="pack" style="--fade:64%">
+              <span class="shot"><i></i><img src="products/chef-kang-pork-shallots.png" alt="" loading="lazy"></span>
+              <span class="tag">Pork &amp; Fried Shallots</span>
             </div>
           </div>
           <div class="bay__plate" aria-hidden="true"></div>
@@ -1233,22 +1264,18 @@
           <div class="bay__led" aria-hidden="true"></div>
           <div class="bay__rail">
             <span class="bay__no">Shelf 06</span>
-            <h3 class="bay__name">Crisps &amp; fruit</h3>
-            <span class="bay__count">3 facings</span>
+            <h3 class="bay__name">Snacks</h3>
+            <span class="bay__count">2 facings</span>
           </div>
-          <p class="bay__note">Low-sodium crisps, and whatever fruit came in this week.</p>
+          <p class="bay__note">Chips and Mamee, kept in the fridge with everything else.</p>
           <div class="deck">
             <div class="facing" data-form="pack" style="--fade:0%">
-              <span class="shot"><i></i><img src="products/smiths.png" alt="" loading="lazy"></span>
-              <span class="tag">Smith's</span>
+              <span class="shot"><i></i><img src="products/red-rock-deli.png" alt="" loading="lazy"></span>
+              <span class="tag">Red Rock Deli</span>
             </div>
-            <div class="facing" data-form="pack" style="--fade:28%">
-              <span class="shot"><i></i><img src="products/rrd-honey-soy.png" alt="" loading="lazy"></span>
-              <span class="tag">RRD Honey Soy</span>
-            </div>
-            <div class="facing" data-form="round" style="--fade:52%">
-              <span class="shot"><i></i><img src="products/apples.png" alt="" loading="lazy"></span>
-              <span class="tag">Apples</span>
+            <div class="facing" data-form="pack" style="--fade:38%">
+              <span class="shot"><i></i><img src="products/mamee-bbq.png" alt="" loading="lazy"></span>
+              <span class="tag">Mamee BBQ</span>
             </div>
           </div>
           <div class="bay__plate" aria-hidden="true"></div>
