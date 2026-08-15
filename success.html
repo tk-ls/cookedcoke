@@ -5,12 +5,17 @@
     (function() {
       const savedTheme = localStorage.getItem('theme_xyz') || 'dark';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      document.documentElement.classList.add('no-transition');
+      document.documentElement.classList.add('no-transition', 'js');
     })();
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Your Reward | Cooked Coke Co.</title>
+  <meta name="description" content="Your 10% discount code for voting. Show it at the Level 7 Refreshment Hub." />
+  <meta name="robots" content="noindex" />
+  <meta name="theme-color" content="#05070c" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#eef4f8" media="(prefers-color-scheme: light)" />
+
+  <title>Your code | Cooked Coke Co.</title>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -18,50 +23,95 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400..700&family=Martian+Mono:wdth,wght@75..112.5,300..700&display=swap" rel="stylesheet">
   <style>
+    /* ══════════════════════════════════════════════════
+       COOKED COKE CO. — voter reward
+       Same tokens as the case. The code is presented as a
+       shelf-edge price tag: the one object you came for.
+       ══════════════════════════════════════════════════ */
+
     :root {
-      --bg: #000000;
-      --text: #f5f5f7;
-      --text-muted: #86868b;
-      --accent: #ff3b30;
-      --border: #424245;
-      --surface: #1d1d1f;
-      --nav-bg: rgba(0, 0, 0, 0.8);
-      --banner-bg: linear-gradient(135deg, #1d1d1f 0%, #000000 100%);
+      color-scheme: dark;
+      --void:   #05070c;
+      --shelf:  #0e1524;
+      --rail-s: #141d2e;
+      --line:   #223049;
+      --frost:  #e9f4fb;
+      --haze:   #8298ae;
+      --chill:  #3fd8f7;
+      --coke:   #ff2438;
+      --good:   #21e07f;
+      --glass:  rgba(255,255,255,.05);
+      --lip:    rgba(63,216,247,.42);
+
+      --display: 'Archivo', system-ui, sans-serif;
+      --body: 'Instrument Sans', system-ui, sans-serif;
+      --mono: 'Martian Mono', ui-monospace, 'SF Mono', monospace;
+
+      --gutter: clamp(18px, 4vw, 40px);
+      --max: 1140px;
     }
 
     [data-theme="light"] {
-      --bg: #ffffff;
-      --text: #1d1d1f;
-      --text-muted: #86868b;
-      --accent: #ff3b30;
-      --border: #d2d2d7;
-      --surface: #f5f5f7;
-      --nav-bg: rgba(255, 255, 255, 0.8);
-      --hero-gradient: linear-gradient(180deg, #1d1d1f 0%, #86868b 100%);
-      --banner-bg: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
+      color-scheme: light;
+      --void:   #eaf1f7;
+      --shelf:  #ffffff;
+      --rail-s: #f2f7fb;
+      --line:   #cfdfeb;
+      --frost:  #071120;
+      --haze:   #566e85;
+      --chill:  #0083a6;
+      --coke:   #d20c22;
+      --good:   #0b8f4d;
+      --glass:  rgba(255,255,255,.55);
+      --lip:    rgba(0,131,166,.28);
     }
 
-    .no-transition * {
+    .no-transition *, .no-transition *::before, .no-transition *::after {
       transition: none !important;
+      animation: none !important;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.47059;
-      font-weight: 400;
-      letter-spacing: -0.022em;
+      background: var(--void);
+      color: var(--frost);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
-      transition: background-color 0.3s ease, color 0.3s ease;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      transition: background-color .4s ease, color .4s ease;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 60vh;
+      background: radial-gradient(120% 100% at 50% -10%, var(--lip) 0%, transparent 62%);
+      opacity: .45;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    ::selection { background: var(--chill); color: var(--void); }
+    :focus-visible { outline: 2px solid var(--chill); outline-offset: 3px; border-radius: 3px; }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 88;
+      font-size: 10.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .17em;
+      color: var(--haze);
+      display: block;
     }
 
     /* ─── NAV ─── */
@@ -69,182 +119,240 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: var(--nav-bg);
-      backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--border);
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: color-mix(in srgb, var(--void) 78%, transparent);
+      backdrop-filter: saturate(150%) blur(18px);
+      -webkit-backdrop-filter: saturate(150%) blur(18px);
+      border-bottom: 1px solid var(--line);
     }
     .nav-content {
       width: 100%;
-      max-width: 1024px;
-      padding: 0 22px;
+      max-width: var(--max);
+      margin: 0 auto;
+      height: 56px;
+      padding: 0 var(--gutter);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 20px;
     }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-    }
-    .nav-logo img {
-      height: 22px;
-      width: auto;
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--frost); }
+    /* no `display` here — it would outrank the .logo-* toggles below */
+    .nav-logo img { height: 24px; width: auto; }
+    .nav-logo b {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 112, 'wght' 700;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: .02em;
+      white-space: nowrap;
     }
     .logo-dark { display: none; }
     [data-theme="dark"] .logo-light { display: none; }
     [data-theme="dark"] .logo-dark { display: block; }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      list-style: none;
-    }
+    .nav-right { display: flex; align-items: center; gap: clamp(14px, 3vw, 26px); }
+    .nav-links { display: flex; gap: clamp(14px, 3vw, 26px); list-style: none; }
     .nav-links a {
-      color: var(--text);
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 88;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--haze);
       text-decoration: none;
-      font-size: 12px;
-      opacity: 0.8;
-      transition: opacity 0.2s;
+      transition: color .2s;
+      padding: 6px 0;
     }
-    .nav-links a:hover { opacity: 1; }
+    .nav-links a:hover { color: var(--frost); }
 
     .theme-toggle {
-      background: none;
-      border: none;
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.8;
-      transition: opacity 0.2s;
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px; border-radius: 50%;
+      opacity: .7; transition: opacity .2s, background-color .2s;
     }
-    .theme-toggle:hover { opacity: 1; }
-    .theme-toggle img {
-      height: 18px;
-      width: auto;
-    }
+    .theme-toggle:hover { opacity: 1; background: var(--rail-s); }
+    .theme-toggle img { height: 17px; width: auto; }
     .theme-icon-dark { display: none; }
     [data-theme="dark"] .theme-icon-light { display: none; }
     [data-theme="dark"] .theme-icon-dark { display: block; }
 
     /* ─── MAIN ─── */
     main {
+      position: relative;
+      z-index: 1;
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 60px 22px;
+      padding: clamp(40px, 8vw, 80px) var(--gutter);
     }
 
-    .card {
-      background: var(--surface);
-      border-radius: 28px;
-      padding: 50px;
-      max-width: 500px;
+    .tag {
       width: 100%;
-      border: 1px solid var(--border);
-      text-align: center;
-      transition: background-color 0.3s ease;
+      max-width: 520px;
+      background: var(--shelf);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: clamp(28px, 5vw, 44px);
+      position: relative;
+      overflow: hidden;
+    }
+    .tag::before {
+      content: '';
+      position: absolute; inset: 0 0 auto 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--chill), transparent);
     }
 
-    .card-tag {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--accent);
+    .tag h1 {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 116, 'wght' 800;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 15px;
-      display: block;
+      font-size: clamp(1.9rem, 6vw, 2.9rem);
+      line-height: .92;
+      letter-spacing: -.02em;
+      margin: 14px 0 12px;
     }
+    .tag > p { color: var(--haze); font-size: 16px; }
 
-    .card-title {
-      font-size: clamp(28px, 6vw, 40px);
+    /* ─── THE CODE ─── */
+    .code-rail {
+      margin: 28px 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--void);
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+    }
+    .code-value {
+      flex: 1;
+      min-width: 0;
+      padding: 18px 20px;
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 100;
+      font-size: clamp(22px, 6vw, 32px);
       font-weight: 700;
-      letter-spacing: -0.015em;
-      margin-bottom: 20px;
-    }
-
-    .card-sub {
-      font-size: 17px;
-      color: var(--text-muted);
-      margin-bottom: 30px;
-      line-height: 1.5;
-    }
-
-    /* ─── CODE BOX ─── */
-    .code-box {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 20px;
+      letter-spacing: .16em;
+      color: var(--chill);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 30px;
-      transition: background-color 0.3s ease;
-    }
-    .code-text {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: var(--accent);
-      font-family: 'Inter', monospace;
     }
     .btn-copy {
-      background: var(--text);
-      color: var(--bg);
-      border: none;
-      padding: 8px 16px;
-      border-radius: 980px;
-      font-size: 14px;
+      flex: 0 0 auto;
+      border: 0;
+      border-left: 1px solid var(--line);
+      background: var(--rail-s);
+      color: var(--frost);
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 88;
+      font-size: 11px;
       font-weight: 600;
-      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      padding: 0 22px;
       cursor: pointer;
-      transition: opacity 0.2s;
+      transition: background-color .2s, color .2s;
     }
-    .btn-copy:hover { opacity: 0.8; }
-    .btn-copy.copied { background: #34c759; color: #fff; }
+    .btn-copy:hover { background: var(--line); }
+    .btn-copy.copied { background: var(--good); color: #04120a; }
+    [data-theme="light"] .btn-copy.copied { color: #fff; }
 
-    .btn-primary {
-      display: block;
-      background: var(--accent);
-      color: #fff;
-      text-decoration: none;
-      padding: 16px;
-      border-radius: 980px;
-      font-weight: 600;
-      font-size: 17px;
-      transition: transform 0.3s ease;
+    .code-note {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 10px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--haze);
+      margin-bottom: 26px;
     }
-    .btn-primary:hover { transform: scale(1.02); }
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 90;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      text-decoration: none;
+      padding: 16px 24px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      transition: transform .18s ease, background-color .2s, border-color .2s, color .2s;
+    }
+    .btn-primary { background: var(--coke); color: #fff; }
+    .btn-primary:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--coke) 86%, #fff); }
+    .btn-secondary { background: transparent; color: var(--frost); border-color: var(--line); margin-top: 10px; }
+    .btn-secondary:hover { transform: translateY(-2px); border-color: var(--chill); color: var(--chill); }
+
+    .pickup {
+      margin-top: 26px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 10px;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--haze);
+    }
 
     /* ─── FOOTER ─── */
     footer {
-      padding: 80px 22px;
-      font-size: 12px;
-      color: var(--text-muted);
-      text-align: center;
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--line);
+      padding-block: 34px 44px;
     }
-    .footer-content {
-      max-width: 1024px;
+    .footer-grid {
+      width: 100%;
+      max-width: var(--max);
       margin: 0 auto;
-      border-top: 1px solid var(--border);
-      padding-top: 40px;
+      padding-inline: var(--gutter);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 40px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-links { display: flex; gap: 26px; flex-wrap: wrap; }
+    .footer-links a {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 10.5px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--haze);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--chill); }
+    .colophon {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 84;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--haze);
+      opacity: .7;
     }
 
-    @media (max-width: 734px) {
-      .card { padding: 30px; }
+    @media (max-width: 560px) {
+      body { font-size: 16px; }
+      /* the mark alone carries the nav here; the wordmark would force a wrap */
+      .nav-logo b { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        transition-duration: .001ms !important;
+      }
     }
   </style>
 </head>
@@ -253,62 +361,66 @@
 <nav>
   <div class="nav-content">
     <a href="/" class="nav-logo">
-      <img src="Logo Vantablack.svg" alt="Cooked Coke Co." class="logo-light">
-      <img src="Logo White.svg" alt="Cooked Coke Co." class="logo-dark">
+      <img src="Logo Vantablack.svg" alt="" class="logo-light">
+      <img src="Logo White.svg" alt="" class="logo-dark">
+      <b>Cooked Coke</b>
     </a>
     <div class="nav-right">
       <ul class="nav-links">
-        <li><a href="/">◀ Back</a></li>
-        <li><a href="https://cookedcoke.square.site/s/shop" target="_blank">Shop</a></li>
+        <li><a href="/">The case</a></li>
+        <li><a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener">Shop</a></li>
       </ul>
-      <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
-        <img src="light.svg" alt="Light Mode" class="theme-icon-light">
-        <img src="dark.svg" alt="Dark Mode" class="theme-icon-dark">
+      <button id="themeToggle" class="theme-toggle" aria-label="Switch between the lit and unlit case">
+        <img src="light.svg" alt="" class="theme-icon-light">
+        <img src="dark.svg" alt="" class="theme-icon-dark">
       </button>
     </div>
   </div>
 </nav>
 
 <main>
-  <div class="card">
-    <span class="card-tag">Voter Reward</span>
-    <h2 class="card-title">Success.</h2>
-    <p class="card-sub">Use the code below during checkout for a 10% discount on your next refreshment.</p>
-    
-    <div class="code-box">
-      <span class="code-text" id="code">......</span>
-      <button class="btn-copy" id="copyBtn" onclick="copyCode()">Copy</button>
-    </div>
+  <div class="tag">
+    <span class="eyebrow">Thanks for voting</span>
+    <h1>Here's your code</h1>
+    <p>It takes 10% off your next order. Enter it at checkout, or read it out at the counter.</p>
 
-    <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="btn-primary">Order Now</a>
-    <p class="card-sub" style="margin-top: 20px; font-size: 12px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.05em;">Pickup only · Level 7 Hub</p>
+    <div class="code-rail">
+      <span class="code-value" id="code">······</span>
+      <button class="btn-copy" id="copyBtn" type="button">Copy</button>
+    </div>
+    <p class="code-note" id="codeNote">One code per person &nbsp;·&nbsp; Saved to this device</p>
+
+    <a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener" class="btn btn-primary">Order for pickup</a>
+    <a href="/" class="btn btn-secondary">Back to the case</a>
+
+    <p class="pickup">Pickup only &nbsp;·&nbsp; Level 7 Refreshment Hub</p>
   </div>
 </main>
 
 <footer>
-  <div class="footer-content">
-    <p>Copyright © 2026 Cooked Coke Social Enterprise. Level 7 Refreshment Hub.</p>
+  <div class="footer-grid">
+    <p class="colophon">&copy; 2026 Cooked Coke Social Enterprise &nbsp;·&nbsp; Level 7 Refreshment Hub</p>
+    <div class="footer-links">
+      <a href="https://cookedcoke.org">Governance</a>
+      <a href="mailto:contact@cookedcoke.xyz">Contact</a>
+    </div>
   </div>
 </footer>
 
 <script>
-  const themeToggle = document.getElementById('themeToggle');
   const htmlElement = document.documentElement;
 
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const next = htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    htmlElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme_xyz', next);
+  });
+
   window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      htmlElement.classList.remove('no-transition');
-    }, 100);
+    setTimeout(() => htmlElement.classList.remove('no-transition'), 60);
   });
 
-  themeToggle.addEventListener('click', () => {
-    const currentTheme = htmlElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    htmlElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme_xyz', newTheme);
-  });
-
-  // RULE: First Digit + Last Digit = 10
+  // RULE: first digit + last digit = 10
   function generateCode() {
     const first = Math.floor(Math.random() * 9) + 1;
     const last = 10 - first;
@@ -325,18 +437,27 @@
   localStorage.setItem('has_voted_xyz', 'true');
   document.getElementById('code').textContent = secretCode;
 
-  function copyCode() {
+  const copyBtn = document.getElementById('copyBtn');
+  const codeNote = document.getElementById('codeNote');
+
+  copyBtn.addEventListener('click', () => {
     const code = document.getElementById('code').textContent;
-    const btn = document.getElementById('copyBtn');
-    navigator.clipboard.writeText(code).then(() => {
-      btn.textContent = 'Copied!';
-      btn.classList.add('copied');
+    const done = () => {
+      copyBtn.textContent = 'Copied';
+      copyBtn.classList.add('copied');
       setTimeout(() => {
-        btn.textContent = 'Copy';
-        btn.classList.remove('copied');
+        copyBtn.textContent = 'Copy';
+        copyBtn.classList.remove('copied');
       }, 2000);
-    });
-  }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(done).catch(() => {
+        codeNote.textContent = 'Copying is blocked here — write the code down instead.';
+      });
+    } else {
+      codeNote.textContent = 'Copying is blocked here — write the code down instead.';
+    }
+  });
 </script>
 
 </body>

@@ -5,29 +5,31 @@
     (function() {
       const savedTheme = localStorage.getItem('theme_xyz') || 'dark';
       document.documentElement.setAttribute('data-theme', savedTheme);
-      document.documentElement.classList.add('no-transition');
+      // `js` gates the scroll reveal, so the case is never blank without JS.
+      document.documentElement.classList.add('no-transition', 'js');
     })();
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="Level 7 Refreshment Hub. The student-led hub for healthy curated selections, energy drinks, and premium snacks." />
-  <meta name="theme-color" content="#000000" />
-  
+  <meta name="description" content="The student-run cold case on Level 7. Six shelves of zero-sugar drinks, energy, and snacks. Open at recess and lunch." />
+  <meta name="theme-color" content="#05070c" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#eef4f8" media="(prefers-color-scheme: light)" />
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://cookedcoke.co/" />
-  <meta property="og:title" content="Level 7 | Cooked Coke Co." />
-  <meta property="og:description" content="High-altitude refreshment. Visit us on Level 7 for curated healthy selections and our exclusive token reward system." />
+  <meta property="og:title" content="Six shelves, Level seven | Cooked Coke Co." />
+  <meta property="og:description" content="The student-run cold case on Level 7. Zero-sugar drinks, energy, and snacks. Open at recess and lunch." />
   <meta property="og:image" content="android-chrome-512x512.png" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://cookedcoke.co/" />
-  <meta property="twitter:title" content="Level 7 | Cooked Coke Co." />
-  <meta property="twitter:description" content="High-altitude refreshment. Visit us on Level 7 for curated healthy selections and our exclusive token reward system." />
+  <meta property="twitter:title" content="Six shelves, Level seven | Cooked Coke Co." />
+  <meta property="twitter:description" content="The student-run cold case on Level 7. Zero-sugar drinks, energy, and snacks. Open at recess and lunch." />
   <meta property="twitter:image" content="android-chrome-512x512.png" />
 
-  <title>Level 7 | Cooked Coke Co.</title>
+  <title>Six shelves, Level seven | Cooked Coke Co.</title>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -35,51 +37,195 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400..700&family=Martian+Mono:wdth,wght@75..112.5,300..700&display=swap" rel="stylesheet">
   <style>
+    /* ══════════════════════════════════════════════════
+       COOKED COKE CO. — the cold case
+       Shared token system with cookedcoke.org.
+       .co runs the loud voice: saturated shelves, red actions.
+       ══════════════════════════════════════════════════ */
+
     :root {
-      --bg: #000000;
-      --text: #f5f5f7;
-      --text-muted: #86868b;
-      --accent: #ff3b30;
-      --border: #424245;
-      --surface: #1d1d1f;
-      --nav-bg: rgba(0, 0, 0, 0.8);
-      --hero-gradient: linear-gradient(180deg, #fff 0%, #86868b 100%);
-      --banner-bg: linear-gradient(135deg, #1d1d1f 0%, #000000 100%);
+      color-scheme: dark;
+
+      /* case interior */
+      --void:   #05070c;
+      --deep:   #0a0f1a;
+      --shelf:  #0e1524;
+      --rail:   #16203200;
+      --rail-s: #141d2e;
+      --line:   #223049;
+      --frost:  #e9f4fb;
+      --haze:   #8298ae;
+
+      /* signals */
+      --chill:  #3fd8f7;
+      --coke:   #ff2438;
+      --warn:   #ffb01f;
+
+      /* material */
+      --spec-hi: rgba(255,255,255,.34);
+      --spec-md: rgba(255,255,255,.07);
+      --spec-lo: rgba(0,0,0,.46);
+      --glass:   rgba(255,255,255,.05);
+      --lip:     rgba(63,216,247,.42);
+      --cast:    rgba(0,0,0,.55);
+      /* what a facing fades toward as it sits further back on the shelf */
+      --backfill: #101827;
+
+      /* shelf accents, drawn from what is actually on them */
+      --sh-01: #ff2438;  /* zero classics */
+      --sh-02: #ff6f9c;  /* chi forest, white peach */
+      --sh-03: #21e07f;  /* energy */
+      --sh-04: #2bb3e8;  /* sparkling and tea */
+      --sh-05: #ffb01f;  /* snacks */
+      --sh-06: #ff6a1f;  /* crisps */
+
+      /* type */
+      --display: 'Archivo', system-ui, sans-serif;
+      --body: 'Instrument Sans', system-ui, sans-serif;
+      --mono: 'Martian Mono', ui-monospace, 'SF Mono', monospace;
+
+      --gutter: clamp(18px, 4vw, 40px);
+      --max: 1140px;
     }
 
     [data-theme="light"] {
-      --bg: #ffffff;
-      --text: #1d1d1f;
-      --text-muted: #86868b;
-      --accent: #ff3b30;
-      --border: #d2d2d7;
-      --surface: #f5f5f7;
-      --nav-bg: rgba(255, 255, 255, 0.8);
-      --hero-gradient: linear-gradient(180deg, #1d1d1f 0%, #86868b 100%);
-      --banner-bg: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
+      color-scheme: light;
+      --void:   #eaf1f7;
+      --deep:   #ffffff;
+      --shelf:  #ffffff;
+      --rail-s: #f2f7fb;
+      --line:   #cfdfeb;
+      --frost:  #071120;
+      --haze:   #566e85;
+      --chill:  #0083a6;
+      --coke:   #d20c22;
+      --warn:   #8a5600;
+      --spec-hi: rgba(255,255,255,.74);
+      --spec-md: rgba(255,255,255,.28);
+      --spec-lo: rgba(0,0,0,.26);
+      --glass:   rgba(255,255,255,.55);
+      --lip:     rgba(0,131,166,.28);
+      --cast:    rgba(11,40,64,.14);
+      /* a mid grey, not white — faded facings must stay visible on a light case */
+      --backfill: #93a8b8;
     }
 
-    .no-transition * {
+    .no-transition *, .no-transition *::before, .no-transition *::after {
       transition: none !important;
+      animation: none !important;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
     body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      line-height: 1.47059;
-      font-weight: 400;
-      letter-spacing: -0.022em;
+      background: var(--void);
+      color: var(--frost);
+      font-family: var(--body);
+      font-size: 17px;
+      line-height: 1.55;
       -webkit-font-smoothing: antialiased;
-      transition: background-color 0.3s ease, color 0.3s ease;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      transition: background-color .4s ease, color .4s ease;
+      overflow-x: hidden;
+    }
+
+    /* cold spill from the top of the case */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0 0 auto 0;
+      height: 60vh;
+      background: radial-gradient(120% 100% at 50% -10%, var(--lip) 0%, transparent 62%);
+      opacity: .5;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* the glass door */
+    .pane {
+      position: fixed;
+      inset: 0;
+      z-index: 900;
+      pointer-events: none;
+      background: linear-gradient(104deg,
+        transparent 10%, var(--glass) 24%, transparent 38%,
+        transparent 64%, var(--glass) 74%, transparent 88%);
+    }
+    [data-theme="dark"] .pane { mix-blend-mode: screen; }
+    [data-theme="light"] .pane { opacity: .5; }
+
+    ::selection { background: var(--chill); color: var(--void); }
+
+    :focus-visible {
+      outline: 2px solid var(--chill);
+      outline-offset: 3px;
+      border-radius: 3px;
+    }
+
+    /* ─── type roles ─── */
+    .display {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 118, 'wght' 800;
+      text-transform: uppercase;
+      line-height: .87;
+      letter-spacing: -.022em;
+    }
+    .mono {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 90;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 88;
+      font-size: 10.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .17em;
+      color: var(--haze);
+    }
+
+    /* ─── DEV NOTICE ─── */
+    .devbar {
+      position: relative;
+      z-index: 901;
+      background: var(--rail-s);
+      border-bottom: 1px solid var(--line);
+      box-shadow: inset 0 2px 0 var(--warn);
+    }
+    .devbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 11px var(--gutter);
+      display: flex;
+      align-items: center;
+      gap: 10px 16px;
+      flex-wrap: wrap;
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 10.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+    .devbar p { color: var(--frost); }
+    .devbar a {
+      color: var(--warn);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+    .devbar a:hover { color: var(--frost); }
+    @media (max-width: 560px) {
+      .devbar a { margin-left: 0; }
     }
 
     /* ─── NAV ─── */
@@ -87,286 +233,640 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: var(--nav-bg);
-      backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--border);
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: color-mix(in srgb, var(--void) 78%, transparent);
+      backdrop-filter: saturate(150%) blur(18px);
+      -webkit-backdrop-filter: saturate(150%) blur(18px);
+      border-bottom: 1px solid var(--line);
     }
     .nav-content {
       width: 100%;
-      max-width: 1024px;
-      padding: 0 22px;
+      max-width: var(--max);
+      margin: 0 auto;
+      height: 56px;
+      padding: 0 var(--gutter);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 20px;
     }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-    }
-    .nav-logo img {
-      height: 22px;
-      width: auto;
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--frost); }
+    /* no `display` here — it would outrank the .logo-* toggles below */
+    .nav-logo img { height: 24px; width: auto; }
+    .nav-logo b {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 112, 'wght' 700;
+      text-transform: uppercase;
+      font-size: 13px;
+      letter-spacing: .02em;
+      white-space: nowrap;
     }
     .logo-dark { display: none; }
     [data-theme="dark"] .logo-light { display: none; }
     [data-theme="dark"] .logo-dark { display: block; }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 30px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 30px;
-      list-style: none;
-    }
+    .nav-right { display: flex; align-items: center; gap: clamp(14px, 3vw, 26px); }
+    .nav-links { display: flex; gap: clamp(14px, 3vw, 26px); list-style: none; }
     .nav-links a {
-      color: var(--text);
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 88;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--haze);
       text-decoration: none;
-      font-size: 12px;
-      opacity: 0.8;
-      transition: opacity 0.2s;
+      transition: color .2s;
+      padding: 6px 0;
     }
-    .nav-links a:hover { opacity: 1; }
+    .nav-links a:hover { color: var(--frost); }
 
     .theme-toggle {
-      background: none;
-      border: none;
-      color: var(--text);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0.8;
-      transition: opacity 0.2s;
+      background: none; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px; border-radius: 50%;
+      opacity: .7; transition: opacity .2s, background-color .2s;
     }
-    .theme-toggle:hover { opacity: 1; }
-    .theme-toggle img {
-      height: 18px;
-      width: auto;
-    }
+    .theme-toggle:hover { opacity: 1; background: var(--rail-s); }
+    .theme-toggle img { height: 17px; width: auto; }
     .theme-icon-dark { display: none; }
     [data-theme="dark"] .theme-icon-light { display: none; }
     [data-theme="dark"] .theme-icon-dark { display: block; }
 
+    main { position: relative; z-index: 1; flex: 1; }
+    /* .wrap only ever owns the inline axis — block spacing belongs to the
+       section itself, so the two never fight over the padding shorthand. */
+    .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding-inline: var(--gutter); }
+
     /* ─── HERO ─── */
-    .hero {
-      padding: 120px 22px;
-      text-align: center;
-      max-width: 900px;
-      margin: 0 auto;
+    .hero { padding-block: clamp(56px, 10vw, 112px) clamp(40px, 7vw, 72px); }
+    .hero h1 {
+      font-size: clamp(2.9rem, 10vw, 7.4rem);
+      margin: 18px 0 0;
     }
-    .hero-tag {
-      font-size: 21px;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 10px;
-      display: block;
-      letter-spacing: 0.011em;
-    }
-    .hero-title {
-      font-size: clamp(48px, 8vw, 80px);
-      line-height: 1.05;
-      font-weight: 700;
-      letter-spacing: -0.015em;
-      margin-bottom: 20px;
-      background: var(--hero-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-sub {
-      font-size: clamp(21px, 3vw, 28px);
-      line-height: 1.14286;
-      font-weight: 600;
-      letter-spacing: .007em;
-      color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto 40px;
+    .hero h1 span { display: block; }
+    .hero h1 .seven { color: var(--chill); }
+    .hero-lede {
+      font-size: clamp(17px, 2.1vw, 21px);
+      color: var(--haze);
+      max-width: 46ch;
+      margin-top: 26px;
     }
 
-    .btn-group {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
     .btn {
-      padding: 12px 24px;
-      border-radius: 980px;
-      font-size: 17px;
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 90;
+      font-size: 12px;
       font-weight: 600;
-      font-family: inherit;
+      text-transform: uppercase;
+      letter-spacing: .1em;
       text-decoration: none;
-      transition: all 0.3s ease;
+      padding: 15px 24px;
+      border-radius: 4px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: transform .18s ease, background-color .2s, border-color .2s, color .2s;
     }
-    .btn-primary {
-      background: var(--accent);
+    .btn-primary { background: var(--coke); color: #fff; }
+    .btn-primary:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--coke) 86%, #fff); }
+    .btn-secondary { background: transparent; color: var(--frost); border-color: var(--line); }
+    .btn-secondary:hover { transform: translateY(-2px); border-color: var(--chill); color: var(--chill); }
+    .btn[aria-disabled="true"] { opacity: .4; pointer-events: none; }
+
+    /* ─── SIGNATURE: case status readout ─── */
+    .status {
+      margin-top: clamp(40px, 7vw, 64px);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--shelf);
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      overflow: hidden;
+      position: relative;
+    }
+    .status::before {
+      content: '';
+      position: absolute; inset: 0 0 auto 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--chill), transparent);
+      opacity: .8;
+    }
+    .status-cell {
+      padding: 20px var(--gutter);
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-width: 0;
+    }
+    .status-cell:last-child { border-right: 0; }
+    .status-label {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 9.5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: .18em;
+      color: var(--haze);
+    }
+    .status-value {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 108, 'wght' 700;
+      text-transform: uppercase;
+      font-size: clamp(15px, 2.2vw, 21px);
+      letter-spacing: -.005em;
+      line-height: 1.1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-note {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 11px;
+      color: var(--haze);
+      letter-spacing: .03em;
+      line-height: 1.5;
+    }
+    .dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: var(--haze);
+      flex: 0 0 auto;
+    }
+    .status[data-state="open"] .dot { background: var(--chill); box-shadow: 0 0 0 0 var(--lip); animation: ping 2.4s ease-out infinite; }
+    .status[data-state="open"] .status-value { color: var(--chill); }
+    .status[data-state="soon"] .dot { background: var(--sh-05); }
+    @keyframes ping {
+      0%   { box-shadow: 0 0 0 0 var(--lip); }
+      70%  { box-shadow: 0 0 0 9px transparent; }
+      100% { box-shadow: 0 0 0 0 transparent; }
+    }
+
+    /* ─── SECTION HEADS ─── */
+    section { padding-block: clamp(56px, 9vw, 104px); }
+    .head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 34px; flex-wrap: wrap; }
+    .head h2 {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 116, 'wght' 800;
+      text-transform: uppercase;
+      font-size: clamp(1.7rem, 4.6vw, 3rem);
+      line-height: .95;
+      letter-spacing: -.018em;
+    }
+    .head .eyebrow { flex: 0 0 auto; }
+
+    /* ─── SERVICE TIMETABLE ─── */
+    .timetable {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 88;
+      font-size: 12px;
+      letter-spacing: .05em;
+    }
+    .timetable th {
+      text-align: left;
+      padding: 12px 14px;
+      font-weight: 500;
+      font-size: 9.5px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--haze);
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .timetable th + th, .timetable td + td { text-align: center; }
+    .timetable td {
+      padding: 15px 14px;
+      border-bottom: 1px solid var(--line);
+      text-transform: uppercase;
+      color: var(--haze);
+    }
+    .timetable td:first-child { color: var(--frost); font-weight: 500; }
+    .timetable .yes { color: var(--chill); }
+    .timetable .no  { opacity: .35; }
+    .timetable tr[data-today] td { background: color-mix(in srgb, var(--chill) 8%, transparent); }
+    .timetable tr[data-today] td:first-child { box-shadow: inset 2px 0 0 var(--chill); }
+    .today-flag {
+      display: none;
+      font-size: 8.5px;
+      letter-spacing: .16em;
+      color: var(--chill);
+      margin-left: 8px;
+    }
+    tr[data-today] .today-flag { display: inline; }
+    .timetable caption {
+      caption-side: bottom;
+      text-align: left;
+      padding-top: 18px;
+      font-size: 11px;
+      color: var(--haze);
+      letter-spacing: .04em;
+      text-transform: none;
+    }
+
+    /* ═══ THE CASE ═══ */
+    .case { display: flex; flex-direction: column; gap: 0; }
+
+    .shelf {
+      position: relative;
+      padding: 30px 0 34px;
+      border-top: 1px solid var(--line);
+    }
+    /* the lit front lip */
+    .shelf::before {
+      content: '';
+      position: absolute;
+      inset: -1px 0 auto 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--tint), transparent);
+      opacity: 0;
+      transition: opacity .7s ease;
+    }
+    /* light spilling down from the lip — radial so it has no hard edge anywhere */
+    .shelf::after {
+      content: '';
+      position: absolute;
+      inset: 0 -12% auto -12%;
+      height: 260px;
+      background: radial-gradient(90% 100% at 50% 0%,
+        color-mix(in srgb, var(--tint) 20%, transparent) 0%,
+        color-mix(in srgb, var(--tint) 7%, transparent) 38%,
+        transparent 76%);
+      opacity: 0;
+      transition: opacity .8s ease;
+      pointer-events: none;
+    }
+    .shelf.lit::before { opacity: .9; }
+    .shelf.lit::after  { opacity: 1; }
+    [data-theme="light"] .shelf.lit::after { opacity: .45; }
+
+    .shelf-rail {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+    .shelf-no {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--tint);
+    }
+    .shelf-name {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 114, 'wght' 800;
+      text-transform: uppercase;
+      font-size: clamp(1.35rem, 3.6vw, 2.1rem);
+      line-height: 1;
+      letter-spacing: -.015em;
+    }
+    .shelf-count {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--haze);
+      margin-left: auto;
+    }
+    .shelf-note {
+      font-size: 15px;
+      color: var(--haze);
+      margin-top: 8px;
+      max-width: 52ch;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* the deck the products stand on */
+    .deck {
+      display: flex;
+      gap: 14px;
+      margin-top: 20px;
+      /* top room so the hover lift isn't clipped by the scroll container */
+      padding: 10px 2px 22px;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin;
+      scrollbar-color: var(--line) transparent;
+      position: relative;
+      z-index: 1;
+      /* the shelf floor: lit under the stock, falling off across the empty run */
+      background-image: linear-gradient(90deg,
+        color-mix(in srgb, var(--tint) 65%, transparent) 0%,
+        var(--line) 46%,
+        transparent 96%);
+      background-size: 100% 1px;
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+    }
+    .deck::-webkit-scrollbar { height: 4px; }
+    .deck::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+
+    .facing {
+      flex: 0 0 auto;
+      width: clamp(96px, 8vw, 124px);
+      scroll-snap-align: start;
+      display: flex;
+      flex-direction: column;
+      /* everything stands on the same shelf floor, whatever its height */
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+      transition: transform .3s cubic-bezier(.2,.7,.3,1);
+    }
+    .facing:hover { transform: translateY(-6px); }
+
+    /* the product silhouette */
+    .facing i {
+      display: block;
+      width: 100%;
+      position: relative;
+      --fill: color-mix(in oklab, var(--tint) calc(100% - var(--fade, 0%)), var(--backfill));
+      background:
+        linear-gradient(99deg,
+          var(--spec-lo) 0%,
+          transparent 9%,
+          var(--spec-hi) 24%,
+          var(--spec-md) 34%,
+          transparent 52%,
+          rgba(0,0,0,.12) 74%,
+          var(--spec-lo) 100%),
+        var(--fill);
+      box-shadow: 0 16px 22px -14px var(--cast);
+      margin-inline: auto;
+    }
+    .facing[data-form="can"] i    { height: 152px; width: 70%; border-radius: 10px / 16px; }
+    /* neck, shoulder, body — a real bottle profile, not a rounder can */
+    .facing[data-form="bottle"] i {
+      height: 172px;
+      width: 84%;
+      border-radius: 0;
+      box-shadow: none;
+      clip-path: polygon(
+        38% 0%, 62% 0%, 62% 5%, 64% 9%, 64% 15%,
+        76% 24%, 82% 34%, 84% 44%,
+        84% 95%, 79% 100%, 21% 100%, 16% 95%,
+        16% 44%, 18% 34%, 24% 24%, 36% 15%, 36% 9%, 38% 5%
+      );
+    }
+    .facing[data-form="pack"] i   { height: 116px; border-radius: 7px; }
+    .facing[data-form="round"] i  { height: 88px; width: 88px; border-radius: 50%; }
+
+    /* the pull-tab lid on cans */
+    .facing[data-form="can"] i::before {
+      content: '';
+      position: absolute;
+      inset: 3px 7px auto 7px;
+      height: 8px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--frost) 34%, transparent);
+    }
+    /* the cap band on bottles */
+    .facing[data-form="bottle"] i::before {
+      content: '';
+      position: absolute;
+      inset: 0 36% auto 36%;
+      height: 14px;
+      background: color-mix(in srgb, var(--frost) 32%, transparent);
+    }
+
+    .facing b {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 84;
+      font-size: 9.5px;
+      font-weight: 500;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--haze);
+      text-align: center;
+      line-height: 1.5;
+    }
+    .facing:hover b { color: var(--frost); }
+
+    /* ─── TOKEN ─── */
+    .token-band {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--shelf);
+      padding: clamp(32px, 6vw, 60px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: clamp(28px, 5vw, 60px);
+      align-items: center;
+    }
+    .token-band h2 {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 116, 'wght' 800;
+      text-transform: uppercase;
+      font-size: clamp(1.7rem, 4.4vw, 2.7rem);
+      line-height: .95;
+      letter-spacing: -.018em;
+      margin: 14px 0 16px;
+    }
+    .token-band p { color: var(--haze); max-width: 46ch; }
+    .token-rate {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 92;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--frost);
+      margin-top: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      padding: 12px 18px;
+    }
+    .token-rate em { font-style: normal; color: var(--coke); }
+
+    /* the coin */
+    .coin {
+      width: clamp(128px, 20vw, 176px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      position: relative;
+      background:
+        conic-gradient(from 210deg,
+          color-mix(in srgb, var(--coke) 62%, #000) 0deg,
+          color-mix(in srgb, var(--coke) 100%, #fff) 70deg,
+          color-mix(in srgb, var(--coke) 48%, #000) 150deg,
+          color-mix(in srgb, var(--coke) 92%, #fff) 250deg,
+          color-mix(in srgb, var(--coke) 58%, #000) 360deg);
+      box-shadow: 0 20px 40px -18px var(--coke), inset 0 0 0 1px rgba(255,255,255,.18);
+    }
+    .coin::before {
+      content: '';
+      position: absolute;
+      inset: 11px;
+      border-radius: 50%;
+      border: 1px dashed rgba(255,255,255,.32);
+    }
+    .coin span {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 108, 'wght' 900;
+      font-size: clamp(30px, 5vw, 44px);
       color: #fff;
+      text-shadow: 0 1px 0 rgba(0,0,0,.35);
     }
-    .btn-primary:hover {
-      background: #ff453a;
-      transform: scale(1.05);
-    }
-    .btn-secondary {
-      background: var(--surface);
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-secondary:hover {
-      background: var(--bg);
-      transform: scale(1.05);
-    }
-
-    /* ─── CATALOG ─── */
-    section {
-      padding: 100px 22px;
-      max-width: 1024px;
-      margin: 0 auto;
-    }
-    .section-header {
-      text-align: center;
-      margin-bottom: 60px;
-    }
-    .section-title {
-      font-size: 48px;
-      font-weight: 600;
-      letter-spacing: -0.003em;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-    .product-card {
-      background: var(--surface);
-      border-radius: 28px;
-      padding: 50px;
-      display: grid;
-      grid-template-rows: 50% auto auto;
-      min-height: 400px;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
-    }
-    .product-card:hover {
-      transform: scale(1.02);
-    }
-    .product-name {
-      font-size: 32px;
-      font-weight: 600;
-      grid-row: 2;
-      align-self: start;
-      margin-bottom: 10px;
-    }
-    .product-desc {
-      font-size: 19px;
-      color: var(--text-muted);
-      grid-row: 3;
-      align-self: start;
-    }
-    .product-emoji {
-      font-size: 60px;
-      grid-row: 1;
-      align-self: start;
-    }
-
-    /* ─── BANNERS ─── */
-    .banner {
-      background: var(--banner-bg);
-      border: 1px solid var(--border);
-      border-radius: 30px;
-      padding: 80px 40px;
-      text-align: center;
-      margin: 40px 0;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
-    }
-    .banner-title {
-      font-size: clamp(28px, 6vw, 40px);
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-    .banner-icon {
-      font-size: 100px;
-      margin: 30px 0;
-      filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
+    .coin small {
+      position: absolute;
+      bottom: 22%;
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 84;
+      font-size: 8px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.72);
     }
 
     /* ─── VOTE VIEW ─── */
-    #vote-view {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      padding: 100px 22px;
-      text-align: center;
+    #vote-view { display: none; }
+    .poll-shell {
+      max-width: 620px;
+      margin: clamp(48px, 9vw, 96px) auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--shelf);
+      padding: clamp(26px, 5vw, 44px);
     }
-    .poll-container {
-      width: 100%;
-      max-width: 600px;
-      background: #1d1d1f !important; /* Forced dark for Tally visibility */
-      color: #f5f5f7 !important;
-      border-radius: 28px;
-      padding: 40px;
-      border: 1px solid #424245;
+    .poll-shell .eyebrow { display: block; margin-bottom: 10px; }
+    .poll-shell h2 {
+      font-family: var(--display);
+      font-variation-settings: 'wdth' 114, 'wght' 800;
+      text-transform: uppercase;
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      line-height: .98;
+      margin-bottom: 8px;
     }
-    .poll-container .banner-title { color: #ffffff !important; }
-    .poll-container .product-desc { color: #86868b !important; }
+    .poll-shell > p { color: var(--haze); font-size: 15px; margin-bottom: 24px; }
+    /* The Tally form itself is dark-themed and does not follow our toggle,
+       so this inset stays dark in both themes — a lit readout in the case. */
+    .poll-frame {
+      background: #0e1524;
+      border: 1px solid #223049;
+      border-radius: 6px;
+      padding: 6px 14px;
+      color-scheme: dark;
+    }
+    .poll-frame iframe { display: block; width: 100%; border: 0; }
 
     /* ─── FOOTER ─── */
     footer {
-      padding: 80px 22px;
-      font-size: 12px;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: auto;
+      position: relative;
+      z-index: 1;
+      border-top: 1px solid var(--line);
+      padding-block: 46px 60px;
+      margin-top: clamp(40px, 8vw, 90px);
     }
-    .footer-content {
-      max-width: 1024px;
-      margin: 0 auto;
-      border-top: 1px solid var(--border);
-      padding-top: 40px;
-    }
-    .footer-links {
-      margin-top: 20px;
+    .footer-grid {
       display: flex;
-      gap: 30px;
-      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px 40px;
+      justify-content: space-between;
+      align-items: center;
     }
+    .footer-links { display: flex; gap: 26px; flex-wrap: wrap; }
     .footer-links a {
-      color: var(--text-muted);
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 86;
+      font-size: 10.5px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--haze);
       text-decoration: none;
+      transition: color .2s;
     }
-    .footer-links a:hover { text-decoration: underline; }
+    .footer-links a:hover { color: var(--chill); }
+    .colophon {
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 84;
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--haze);
+      opacity: .7;
+    }
 
-    @media (max-width: 734px) {
-      .product-grid { grid-template-columns: 1fr; }
-      .product-card { min-height: 300px; padding: 30px; }
-      .hero { padding: 80px 22px; }
-      .banner { padding: 40px 20px; }
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      .status { grid-template-columns: 1fr 1fr; }
+      .status-cell:nth-child(1) { grid-column: 1 / -1; border-right: 0; border-bottom: 1px solid var(--line); }
+      .token-band { grid-template-columns: 1fr; }
+      .coin { order: -1; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 16px; }
+      /* the mark alone carries the nav here; the wordmark would force a wrap */
+      .nav-logo b { display: none; }
+      .hero .eyebrow { font-size: 9.5px; letter-spacing: .13em; }
+      .facing { width: 86px; }
+      .facing[data-form="can"] i { height: 124px; }
+      .facing[data-form="bottle"] i { height: 140px; }
+      .facing[data-form="pack"] i { height: 96px; }
+      .facing[data-form="round"] i { height: 74px; width: 74px; }
+      .shelf-count { margin-left: 0; width: 100%; }
+      .timetable th, .timetable td { padding-left: 8px; padding-right: 8px; }
+    }
+
+    /* ─── MOTION ─── */
+    .js .rise { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.3,1); }
+    .js .rise.lit { opacity: 1; transform: none; }
+    /* no JS means no reveal, so the lights are simply already on */
+    html:not(.js) .shelf::before { opacity: .9; }
+    html:not(.js) .shelf::after { opacity: 1; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+      .js .rise { opacity: 1; transform: none; }
     }
   </style>
 </head>
 <body>
 
+<div class="pane" aria-hidden="true"></div>
+
+<div class="devbar">
+  <div class="devbar-inner">
+    <p>This site is under development.</p>
+    <a href="old/index.html">Go to the old site &rarr;</a>
+  </div>
+</div>
+
 <nav>
   <div class="nav-content">
     <a href="#" onclick="hideVote(); return false;" class="nav-logo">
-      <img src="Logo Vantablack.svg" alt="Cooked Coke Co." class="logo-light">
-      <img src="Logo White.svg" alt="Cooked Coke Co." class="logo-dark">
+      <img src="Logo Vantablack.svg" alt="" class="logo-light">
+      <img src="Logo White.svg" alt="" class="logo-dark">
+      <b>Cooked Coke</b>
     </a>
     <div class="nav-right">
-      <ul class="nav-links" id="navLinks">
-        <li><a href="https://cookedcoke.square.site/s/shop" target="_blank">Shop</a></li>
+      <ul class="nav-links">
+        <li><a href="#catalog">Shelves</a></li>
+        <li><a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener">Shop</a></li>
         <li><a href="#" id="navVote" onclick="showVote(); return false;">Vote</a></li>
       </ul>
-      <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
-        <img src="light.svg" alt="Light Mode" class="theme-icon-light">
-        <img src="dark.svg" alt="Dark Mode" class="theme-icon-dark">
+      <button id="themeToggle" class="theme-toggle" aria-label="Switch between the lit and unlit case">
+        <img src="light.svg" alt="" class="theme-icon-light">
+        <img src="dark.svg" alt="" class="theme-icon-dark">
       </button>
     </div>
   </div>
@@ -374,185 +874,316 @@
 
 <main id="mainContent">
   <div id="page-content">
-    <section class="hero">
-      <span class="hero-tag">Officially Licensed</span>
-      <h1 class="hero-title">High-altitude refreshment.</h1>
-      <p class="hero-sub">Visit us on Level 7. The student-led hub for healthy curated selections.</p>
-      <div class="btn-group">
-        <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="btn btn-primary">Order Online</a>
-        <a href="#" id="voteBtn" onclick="showVote(); return false;" class="btn btn-secondary">Vote & Save 10%</a>
+
+    <!-- ═══ HERO ═══ -->
+    <header class="hero wrap">
+      <p class="eyebrow">Level 7 &nbsp;·&nbsp; Refreshment hub &nbsp;·&nbsp; Student run</p>
+      <h1 class="display">
+        <span>Six shelves.</span>
+        <span class="seven">Level seven.</span>
+      </h1>
+      <p class="hero-lede">
+        Zero-sugar drinks, energy, and snacks, kept cold and sold by the students who stock them.
+        Come up at recess or lunch.
+      </p>
+      <div class="cta-row">
+        <a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener" class="btn btn-primary">Order for pickup</a>
+        <a href="#" id="voteBtn" onclick="showVote(); return false;" class="btn btn-secondary">Vote, save 10%</a>
+      </div>
+
+      <!-- signature: live case status -->
+      <div class="status" id="status" data-state="closed" role="status" aria-live="polite">
+        <div class="status-cell">
+          <span class="status-label">Case status</span>
+          <span class="status-value"><i class="dot"></i><span id="statusValue">Checking</span></span>
+          <span class="status-note" id="statusNote">Reading today's timetable.</span>
+        </div>
+        <div class="status-cell">
+          <span class="status-label">Next service</span>
+          <span class="status-value" id="nextValue">—</span>
+          <span class="status-note" id="nextNote">&nbsp;</span>
+        </div>
+        <div class="status-cell">
+          <span class="status-label">Set point</span>
+          <span class="status-value">4&#8202;°C</span>
+          <span class="status-note">Six shelves, twenty facings.</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- ═══ TIMETABLE ═══ -->
+    <section id="hours" class="wrap">
+      <div class="head">
+        <span class="eyebrow">01</span>
+        <h2>When we're open</h2>
+      </div>
+      <table class="timetable">
+        <caption>Recess runs 11:00&ndash;11:15. Lunch runs 13:10&ndash;13:45. We close on the bell.</caption>
+        <thead>
+          <tr>
+            <th scope="col">Day</th>
+            <th scope="col">Recess</th>
+            <th scope="col">Lunch</th>
+          </tr>
+        </thead>
+        <tbody id="timetableBody">
+          <tr data-day="1"><td>Monday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
+          <tr data-day="2"><td>Tuesday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="no">Closed</td></tr>
+          <tr data-day="3"><td>Wednesday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
+          <tr data-day="4"><td>Thursday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
+          <tr data-day="5"><td>Friday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ═══ THE CASE ═══ -->
+    <section id="catalog" class="wrap">
+      <div class="head">
+        <span class="eyebrow">02</span>
+        <h2>What's in the case</h2>
+      </div>
+
+      <div class="case">
+
+        <article class="shelf rise" style="--tint: var(--sh-01)">
+          <div class="shelf-rail">
+            <span class="shelf-no">Shelf 01</span>
+            <h3 class="shelf-name">Zero classics</h3>
+            <span class="shelf-count">5 facings</span>
+          </div>
+          <p class="shelf-note">The Red and the Black are ours alone. You won't find them downstairs.</p>
+          <div class="deck">
+            <div class="facing" data-form="can" style="--fade:0%"><i></i><b>Coke Zero</b></div>
+            <div class="facing" data-form="can" style="--fade:22%"><i></i><b>Sprite Zero</b></div>
+            <div class="facing" data-form="can" style="--fade:40%"><i></i><b>Fanta Mini</b></div>
+            <div class="facing" data-form="can" style="--fade:10%"><i></i><b>The Red</b></div>
+            <div class="facing" data-form="can" style="--fade:64%"><i></i><b>The Black</b></div>
+          </div>
+        </article>
+
+        <article class="shelf rise" style="--tint: var(--sh-02)">
+          <div class="shelf-rail">
+            <span class="shelf-no">Shelf 02</span>
+            <h3 class="shelf-name">Chi Forest</h3>
+            <span class="shelf-count">4 facings</span>
+          </div>
+          <p class="shelf-note">Zero-sugar sparkling water. Eight essences in rotation, three on the shelf at a time.</p>
+          <div class="deck">
+            <div class="facing" data-form="bottle" style="--fade:0%"><i></i><b>White Peach</b></div>
+            <div class="facing" data-form="bottle" style="--fade:20%"><i></i><b>Lychee</b></div>
+            <div class="facing" data-form="bottle" style="--fade:42%"><i></i><b>Grape Delight</b></div>
+            <div class="facing" data-form="bottle" style="--fade:66%"><i></i><b>This week's</b></div>
+          </div>
+        </article>
+
+        <article class="shelf rise" style="--tint: var(--sh-03)">
+          <div class="shelf-rail">
+            <span class="shelf-no">Shelf 03</span>
+            <h3 class="shelf-name">Energy</h3>
+            <span class="shelf-count">2 facings</span>
+          </div>
+          <p class="shelf-note">Zero sugar, for the long afternoon. Sold to senior years only.</p>
+          <div class="deck">
+            <div class="facing" data-form="can" style="--fade:0%"><i></i><b>Monster Zero</b></div>
+            <div class="facing" data-form="can" style="--fade:34%"><i></i><b>Red Bull</b></div>
+          </div>
+        </article>
+
+        <article class="shelf rise" style="--tint: var(--sh-04)">
+          <div class="shelf-rail">
+            <span class="shelf-no">Shelf 04</span>
+            <h3 class="shelf-name">Sparkling &amp; tea</h3>
+            <span class="shelf-count">3 facings</span>
+          </div>
+          <p class="shelf-note">Sparkling water and unsweetened tea. The quiet end of the case.</p>
+          <div class="deck">
+            <div class="facing" data-form="bottle" style="--fade:0%"><i></i><b>S.Pellegrino</b></div>
+            <div class="facing" data-form="can" style="--fade:26%"><i></i><b>Sodaly</b></div>
+            <div class="facing" data-form="bottle" style="--fade:50%"><i></i><b>Lipton Peach</b></div>
+          </div>
+        </article>
+
+        <article class="shelf rise" style="--tint: var(--sh-05)">
+          <div class="shelf-rail">
+            <span class="shelf-no">Shelf 05</span>
+            <h3 class="shelf-name">Snacks</h3>
+            <span class="shelf-count">3 facings</span>
+          </div>
+          <p class="shelf-note">Meant to be shared. Usually gone by 13:45.</p>
+          <div class="deck">
+            <div class="facing" data-form="pack" style="--fade:0%"><i></i><b>Pocky</b></div>
+            <div class="facing" data-form="can" style="--fade:24%"><i></i><b>Pringles</b></div>
+            <div class="facing" data-form="pack" style="--fade:48%"><i></i><b>Party Mix</b></div>
+          </div>
+        </article>
+
+        <article class="shelf rise" style="--tint: var(--sh-06)">
+          <div class="shelf-rail">
+            <span class="shelf-no">Shelf 06</span>
+            <h3 class="shelf-name">Crisps &amp; fruit</h3>
+            <span class="shelf-count">3 facings</span>
+          </div>
+          <p class="shelf-note">Low-sodium crisps, and whatever fruit came in this week.</p>
+          <div class="deck">
+            <div class="facing" data-form="pack" style="--fade:0%"><i></i><b>Smith's</b></div>
+            <div class="facing" data-form="pack" style="--fade:28%"><i></i><b>RRD Honey Soy</b></div>
+            <div class="facing" data-form="round" style="--fade:52%"><i></i><b>Apples</b></div>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <section id="hours">
-      <div class="section-header">
-        <h2 class="section-title">Availability.</h2>
-        <p class="product-desc" style="margin-top: 10px;">Visit us on Level 7 during these daily sessions.</p>
-      </div>
-      <div style="max-width: 600px; margin: 0 auto;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left;">
-          <thead>
-            <tr style="border-bottom: 2px solid var(--border);">
-              <th style="padding: 15px 0; font-weight: 700; font-size: 18px;">Day</th>
-              <th style="padding: 15px 0; font-weight: 700; font-size: 18px; text-align: center;">Recess</th>
-              <th style="padding: 15px 0; font-weight: 700; font-size: 18px; text-align: center;">Lunch</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 15px 0; font-weight: 600;">Monday</td>
-              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
-              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
-            </tr>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 15px 0; font-weight: 600; color: var(--accent);">Tuesday</td>
-              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
-              <td style="padding: 15px 0; text-align: center; opacity: 0.2;">—</td>
-            </tr>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 15px 0; font-weight: 600;">Wednesday</td>
-              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
-              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
-            </tr>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 15px 0; font-weight: 600;">Thursday</td>
-              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
-              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
-            </tr>
-            <tr style="border-bottom: 1px solid var(--border);">
-              <td style="padding: 15px 0; font-weight: 600;">Friday</td>
-              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
-              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
-            </tr>
-          </tbody>
-        </table>
-        <p style="margin-top: 25px; font-size: 14px; color: var(--text-muted); text-align: center;">
-          Recess: 11:00 – 11:15 &nbsp;·&nbsp; Lunch: 13:10 – 13:45
-        </p>
-      </div>
-    </section>
-
-    <section id="catalog">
-      <div class="section-header">
-        <h2 class="section-title">Healthy. Curated.</h2>
-      </div>
-      <div class="product-grid">
-        <div class="product-card">
-          <div class="product-emoji">🥤</div>
-          <h3 class="product-name">Zero Classics.</h3>
-          <p class="product-desc">Coke Zero, Sprite Zero, and Fanta Minis. Plus our exclusive Red and Black specialty selections.</p>
+    <!-- ═══ TOKEN ═══ -->
+    <section id="loyalty" class="wrap">
+      <div class="token-band">
+        <div>
+          <span class="eyebrow">03 &nbsp;·&nbsp; Loyalty</span>
+          <h2>Tokens</h2>
+          <p>
+            Spend more than $2 and you get a token, printed on the Level 7 3D printer.
+            Bring them back and they come off your total.
+          </p>
+          <p class="token-rate">1 token <em>=</em> 50&cent; credit</p>
         </div>
-        <div class="product-card">
-          <div class="product-emoji">🍑</div>
-          <h3 class="product-name">Chi Forest.</h3>
-          <p class="product-desc">Zero sugar sparkling water. White Peach, Lychee, Grape Delight, and 5+ more essences.</p>
-        </div>
-        <div class="product-card">
-          <div class="product-emoji">⚡</div>
-          <h3 class="product-name">Energy & Vitality.</h3>
-          <p class="product-desc">Monster Zero Sugar and Red Bull. Maximum performance for high-altitude study sessions.</p>
-        </div>
-        <div class="product-card">
-          <div class="product-emoji">🫧</div>
-          <h3 class="product-name">Sparkling & Tea.</h3>
-          <p class="product-desc">S.Pellegrino, Sodaly, and Lipton No Sugar Peach. Pure, crisp hydration.</p>
-        </div>
-        <div class="product-card">
-          <div class="product-emoji">🍪</div>
-          <h3 class="product-name">Premium Snacks.</h3>
-          <p class="product-desc">Pocky, Pringles, and The Natural Party Mix. Curated for the perfect break.</p>
-        </div>
-        <div class="product-card">
-          <div class="product-emoji">🍟</div>
-          <h3 class="product-name">Selected Crisps.</h3>
-          <p class="product-desc">Smith's, RRD Honey Soy, and fresh seasonal apples. Low-sodium, curated selections.</p>
+        <div class="coin" aria-hidden="true">
+          <span>50&cent;</span>
+          <small>Level 7</small>
         </div>
       </div>
     </section>
 
-    <section id="loyalty">
-      <div class="banner">
-        <h2 class="banner-title" style="color: var(--accent);">The Token System.</h2>
-        <div class="banner-icon">🪙</div>
-        <p class="hero-sub" style="font-size: 24px; color: var(--text); margin-bottom: 30px;">Bespoke 3D-printed loyalty tokens.</p>
-        
-        <div style="max-width: 600px; margin: 0 auto; text-align: center;">
-          <p class="product-desc" style="font-size: 21px; color: var(--text); line-height: 1.6;">
-            Get a <span style="color: var(--accent); font-weight: 700;">FREE TOKEN</span> with any item over $2.
-          </p>
-          <p class="product-desc" style="font-size: 21px; color: var(--text); line-height: 1.6; margin-top: 15px;">
-            Collect and redeem:<br>
-            <span style="font-size: 32px; font-weight: 800; color: var(--text); letter-spacing: -0.02em;">1 Token = <span style="color: var(--accent);">50¢</span> Credit</span>
-          </p>
-          <p class="product-desc" style="margin-top: 40px; font-size: 16px; color: var(--text-muted); max-width: 500px; margin-left: auto; margin-right: auto;">
-            Our exclusive internal reward system, designed and printed right here on Level 7.
-          </p>
-        </div>
-      </div>
-    </section>
   </div>
 
-  <div id="vote-view">
-    <div class="poll-container">
-      <div class="poll-wrapper" style="width: 100%; max-width: 600px; margin: 0 auto;">
-        <iframe data-tally-src="https://tally.so/embed/D4Dq6X?alignLeft=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="225" frameborder="0" marginheight="0" marginwidth="0" title="Should we add chips to the menu?"></iframe>
+  <!-- ═══ VOTE ═══ -->
+  <div id="vote-view" class="wrap">
+    <div class="poll-shell">
+      <span class="eyebrow">Have a say</span>
+      <h2>What goes on the shelf next?</h2>
+      <p>One vote each. Answer it and we'll hand you a 10% code on the way out.</p>
+      <div class="poll-frame">
+        <iframe data-tally-src="https://tally.so/embed/D4Dq6X?alignLeft=1&amp;transparentBackground=1&amp;dynamicHeight=1" loading="lazy" width="100%" height="225" frameborder="0" marginheight="0" marginwidth="0" title="Cooked Coke community poll"></iframe>
       </div>
-      <button onclick="hideVote()" class="btn btn-secondary" style="margin-top: 30px; border-color: #424245; background: #2c2c2e; color: #ffffff;">◀ Back to Menu</button>
+      <button onclick="hideVote()" class="btn btn-secondary" style="margin-top: 26px;">Back to the case</button>
     </div>
   </div>
 </main>
 
-<footer>
-  <div class="footer-content">
-    <p>Copyright © 2026 Cooked Coke Social Enterprise. Level 7 Refreshment Hub.</p>
+<footer class="wrap">
+  <div class="footer-grid">
+    <p class="colophon">&copy; 2026 Cooked Coke Social Enterprise &nbsp;·&nbsp; Level 7 Refreshment Hub</p>
     <div class="footer-links">
-      <a href="https://cookedcoke.org">Governance & Compliance</a>
+      <a href="https://cookedcoke.org">Governance</a>
+      <a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener">Shop</a>
       <a href="mailto:contact@cookedcoke.xyz">Contact</a>
     </div>
   </div>
 </footer>
 
 <script>
-  const themeToggle = document.getElementById('themeToggle');
   const htmlElement = document.documentElement;
 
-  // Restore transition after initial load
-  window.addEventListener('DOMContentLoaded', () => {
-    setTimeout(() => {
-      htmlElement.classList.remove('no-transition');
-    }, 100);
+  /* ─── theme ─── */
+  document.getElementById('themeToggle').addEventListener('click', () => {
+    const next = htmlElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    htmlElement.setAttribute('data-theme', next);
+    localStorage.setItem('theme_xyz', next);
+  });
 
-    // Check voting status
-    if (localStorage.getItem('has_voted_xyz') === 'true') {
-      const voteBtn = document.getElementById('voteBtn');
-      const navVote = document.getElementById('navVote');
-      
-      if (voteBtn) {
-        voteBtn.textContent = 'Thanks for voting';
-        voteBtn.style.opacity = '0.5';
-        voteBtn.style.pointerEvents = 'none';
-        voteBtn.onclick = null;
-      }
-      if (navVote) {
-        navVote.textContent = 'Voted';
-        navVote.style.opacity = '0.5';
-        navVote.style.pointerEvents = 'none';
-        navVote.onclick = null;
+  /* ─── service timetable ───
+     Recess every weekday. Lunch every weekday except Tuesday. */
+  const RECESS = ['Recess', 11 * 60, 11 * 60 + 15];
+  const LUNCH  = ['Lunch',  13 * 60 + 10, 13 * 60 + 45];
+  const SCHEDULE = {
+    1: [RECESS, LUNCH],
+    2: [RECESS],
+    3: [RECESS, LUNCH],
+    4: [RECESS, LUNCH],
+    5: [RECESS, LUNCH]
+  };
+  const DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+  const clock = m => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+
+  function findNext(day, minutes) {
+    // Walk forward up to a week to find the next session that starts after `minutes`.
+    for (let step = 0; step < 8; step++) {
+      const d = (day + step) % 7;
+      const sessions = SCHEDULE[d] || [];
+      for (const [name, start, end] of sessions) {
+        if (step > 0 || start > minutes) {
+          return { name, start, end, day: d, today: step === 0, tomorrow: step === 1 };
+        }
       }
     }
-  });
+    return null;
+  }
 
-  themeToggle.addEventListener('click', () => {
-    const currentTheme = htmlElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    
-    htmlElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme_xyz', newTheme);
-  });
+  function renderStatus() {
+    const now = new Date();
+    const day = now.getDay();
+    const mins = now.getHours() * 60 + now.getMinutes();
 
+    const el    = document.getElementById('status');
+    const value = document.getElementById('statusValue');
+    const note  = document.getElementById('statusNote');
+    const nextV = document.getElementById('nextValue');
+    const nextN = document.getElementById('nextNote');
+
+    const open = (SCHEDULE[day] || []).find(([, s, e]) => mins >= s && mins < e);
+    const next = findNext(day, mins);
+
+    if (open) {
+      const [name, , end] = open;
+      el.dataset.state = 'open';
+      value.textContent = 'Open now';
+      note.textContent  = name + ' service, closing at ' + clock(end) + '.';
+    } else if (next && next.today && next.start - mins <= 45) {
+      el.dataset.state = 'soon';
+      value.textContent = 'Opening soon';
+      note.textContent  = next.name + ' starts in ' + (next.start - mins) + ' min.';
+    } else {
+      el.dataset.state = 'closed';
+      value.textContent = 'Closed';
+      note.textContent  = 'The case is shut and the lights are off.';
+    }
+
+    if (next) {
+      nextV.textContent = next.name;
+      const when = next.today ? 'Today' : next.tomorrow ? 'Tomorrow' : DAY_NAMES[next.day];
+      nextN.textContent = when + ', ' + clock(next.start) + '–' + clock(next.end) + '.';
+    } else {
+      nextV.textContent = 'None';
+      nextN.textContent = 'Back next term.';
+    }
+
+    const todayRow = document.querySelector('#timetableBody tr[data-day="' + day + '"]');
+    if (todayRow) todayRow.setAttribute('data-today', '');
+  }
+
+  renderStatus();
+  setInterval(renderStatus, 30000);
+
+  /* ─── shelf lights come up as you reach them ─── */
+  const shelves = document.querySelectorAll('.shelf');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('lit');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: .12 });
+    shelves.forEach(s => io.observe(s));
+  } else {
+    shelves.forEach(s => s.classList.add('lit'));
+  }
+
+  /* ─── vote ─── */
   function showVote() {
     document.getElementById('page-content').style.display = 'none';
-    document.getElementById('vote-view').style.display = 'flex';
+    document.getElementById('vote-view').style.display = 'block';
     window.scrollTo(0, 0);
     if (window.Tally) Tally.loadEmbeds();
   }
@@ -562,7 +1193,27 @@
     document.getElementById('vote-view').style.display = 'none';
   }
 
-  // Tally Embed Script
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => htmlElement.classList.remove('no-transition'), 60);
+
+    if (localStorage.getItem('has_voted_xyz') === 'true') {
+      const voteBtn = document.getElementById('voteBtn');
+      const navVote = document.getElementById('navVote');
+      if (voteBtn) {
+        voteBtn.textContent = 'Voted, thank you';
+        voteBtn.setAttribute('aria-disabled', 'true');
+        voteBtn.onclick = null;
+      }
+      if (navVote) {
+        navVote.textContent = 'Voted';
+        navVote.style.opacity = '.4';
+        navVote.style.pointerEvents = 'none';
+        navVote.onclick = null;
+      }
+    }
+  });
+
+  // Tally embed
   var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
 </script>
 

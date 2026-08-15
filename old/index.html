@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('theme_xyz') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      document.documentElement.classList.add('no-transition');
+    })();
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="description" content="Level 7 Refreshment Hub. The student-led hub for healthy curated selections, energy drinks, and premium snacks." />
+  <meta name="theme-color" content="#000000" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://cookedcoke.co/" />
+  <meta property="og:title" content="Level 7 | Cooked Coke Co." />
+  <meta property="og:description" content="High-altitude refreshment. Visit us on Level 7 for curated healthy selections and our exclusive token reward system." />
+  <meta property="og:image" content="../android-chrome-512x512.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content="https://cookedcoke.co/" />
+  <meta property="twitter:title" content="Level 7 | Cooked Coke Co." />
+  <meta property="twitter:description" content="High-altitude refreshment. Visit us on Level 7 for curated healthy selections and our exclusive token reward system." />
+  <meta property="twitter:image" content="../android-chrome-512x512.png" />
+
+  <title>Level 7 | Cooked Coke Co.</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="shortcut icon" href="../favicon.ico">
+  <link rel="manifest" href="../site.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #000000;
+      --text: #f5f5f7;
+      --text-muted: #86868b;
+      --accent: #ff3b30;
+      --border: #424245;
+      --surface: #1d1d1f;
+      --nav-bg: rgba(0, 0, 0, 0.8);
+      --hero-gradient: linear-gradient(180deg, #fff 0%, #86868b 100%);
+      --banner-bg: linear-gradient(135deg, #1d1d1f 0%, #000000 100%);
+    }
+
+    [data-theme="light"] {
+      --bg: #ffffff;
+      --text: #1d1d1f;
+      --text-muted: #86868b;
+      --accent: #ff3b30;
+      --border: #d2d2d7;
+      --surface: #f5f5f7;
+      --nav-bg: rgba(255, 255, 255, 0.8);
+      --hero-gradient: linear-gradient(180deg, #1d1d1f 0%, #86868b 100%);
+      --banner-bg: linear-gradient(135deg, #f5f5f7 0%, #ffffff 100%);
+    }
+
+    .no-transition * {
+      transition: none !important;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.47059;
+      font-weight: 400;
+      letter-spacing: -0.022em;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav-content {
+      width: 100%;
+      max-width: 1024px;
+      padding: 0 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .nav-logo img {
+      height: 22px;
+      width: auto;
+    }
+    .logo-dark { display: none; }
+    [data-theme="dark"] .logo-light { display: none; }
+    [data-theme="dark"] .logo-dark { display: block; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 12px;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .theme-toggle:hover { opacity: 1; }
+    .theme-toggle img {
+      height: 18px;
+      width: auto;
+    }
+    .theme-icon-dark { display: none; }
+    [data-theme="dark"] .theme-icon-light { display: none; }
+    [data-theme="dark"] .theme-icon-dark { display: block; }
+
+    /* ─── HERO ─── */
+    .hero {
+      padding: 120px 22px;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-tag {
+      font-size: 21px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 10px;
+      display: block;
+      letter-spacing: 0.011em;
+    }
+    .hero-title {
+      font-size: clamp(48px, 8vw, 80px);
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      margin-bottom: 20px;
+      background: var(--hero-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: clamp(21px, 3vw, 28px);
+      line-height: 1.14286;
+      font-weight: 600;
+      letter-spacing: .007em;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .btn {
+      padding: 12px 24px;
+      border-radius: 980px;
+      font-size: 17px;
+      font-weight: 600;
+      font-family: inherit;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: #ff453a;
+      transform: scale(1.05);
+    }
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover {
+      background: var(--bg);
+      transform: scale(1.05);
+    }
+
+    /* ─── CATALOG ─── */
+    section {
+      padding: 100px 22px;
+      max-width: 1024px;
+      margin: 0 auto;
+    }
+    .section-header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .section-title {
+      font-size: 48px;
+      font-weight: 600;
+      letter-spacing: -0.003em;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .product-card {
+      background: var(--surface);
+      border-radius: 28px;
+      padding: 50px;
+      display: grid;
+      grid-template-rows: 50% auto auto;
+      min-height: 400px;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+    }
+    .product-card:hover {
+      transform: scale(1.02);
+    }
+    .product-name {
+      font-size: 32px;
+      font-weight: 600;
+      grid-row: 2;
+      align-self: start;
+      margin-bottom: 10px;
+    }
+    .product-desc {
+      font-size: 19px;
+      color: var(--text-muted);
+      grid-row: 3;
+      align-self: start;
+    }
+    .product-emoji {
+      font-size: 60px;
+      grid-row: 1;
+      align-self: start;
+    }
+
+    /* ─── BANNERS ─── */
+    .banner {
+      background: var(--banner-bg);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      padding: 80px 40px;
+      text-align: center;
+      margin: 40px 0;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .banner-title {
+      font-size: clamp(28px, 6vw, 40px);
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .banner-icon {
+      font-size: 100px;
+      margin: 30px 0;
+      filter: drop-shadow(0 0 20px rgba(255,255,255,0.1));
+    }
+
+    /* ─── VOTE VIEW ─── */
+    #vote-view {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 100px 22px;
+      text-align: center;
+    }
+    .poll-container {
+      width: 100%;
+      max-width: 600px;
+      background: #1d1d1f !important; /* Forced dark for Tally visibility */
+      color: #f5f5f7 !important;
+      border-radius: 28px;
+      padding: 40px;
+      border: 1px solid #424245;
+    }
+    .poll-container .banner-title { color: #ffffff !important; }
+    .poll-container .product-desc { color: #86868b !important; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 80px 22px;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: auto;
+    }
+    .footer-content {
+      max-width: 1024px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+      padding-top: 40px;
+    }
+    .footer-links {
+      margin-top: 20px;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+    }
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+
+    @media (max-width: 734px) {
+      .product-grid { grid-template-columns: 1fr; }
+      .product-card { min-height: 300px; padding: 30px; }
+      .hero { padding: 80px 22px; }
+      .banner { padding: 40px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-content">
+    <a href="#" onclick="hideVote(); return false;" class="nav-logo">
+      <img src="../Logo Vantablack.svg" alt="Cooked Coke Co." class="logo-light">
+      <img src="../Logo White.svg" alt="Cooked Coke Co." class="logo-dark">
+    </a>
+    <div class="nav-right">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="https://cookedcoke.square.site/s/shop" target="_blank">Shop</a></li>
+        <li><a href="#" id="navVote" onclick="showVote(); return false;">Vote</a></li>
+      </ul>
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle Theme">
+        <img src="../light.svg" alt="Light Mode" class="theme-icon-light">
+        <img src="../dark.svg" alt="Dark Mode" class="theme-icon-dark">
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main id="mainContent">
+  <div id="page-content">
+    <section class="hero">
+      <span class="hero-tag">Officially Licensed</span>
+      <h1 class="hero-title">High-altitude refreshment.</h1>
+      <p class="hero-sub">Visit us on Level 7. The student-led hub for healthy curated selections.</p>
+      <div class="btn-group">
+        <a href="https://cookedcoke.square.site/s/shop" target="_blank" class="btn btn-primary">Order Online</a>
+        <a href="#" id="voteBtn" onclick="showVote(); return false;" class="btn btn-secondary">Vote & Save 10%</a>
+      </div>
+    </section>
+
+    <section id="hours">
+      <div class="section-header">
+        <h2 class="section-title">Availability.</h2>
+        <p class="product-desc" style="margin-top: 10px;">Visit us on Level 7 during these daily sessions.</p>
+      </div>
+      <div style="max-width: 600px; margin: 0 auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
+          <thead>
+            <tr style="border-bottom: 2px solid var(--border);">
+              <th style="padding: 15px 0; font-weight: 700; font-size: 18px;">Day</th>
+              <th style="padding: 15px 0; font-weight: 700; font-size: 18px; text-align: center;">Recess</th>
+              <th style="padding: 15px 0; font-weight: 700; font-size: 18px; text-align: center;">Lunch</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 15px 0; font-weight: 600;">Monday</td>
+              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
+              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 15px 0; font-weight: 600; color: var(--accent);">Tuesday</td>
+              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
+              <td style="padding: 15px 0; text-align: center; opacity: 0.2;">—</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 15px 0; font-weight: 600;">Wednesday</td>
+              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
+              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 15px 0; font-weight: 600;">Thursday</td>
+              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
+              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
+            </tr>
+            <tr style="border-bottom: 1px solid var(--border);">
+              <td style="padding: 15px 0; font-weight: 600;">Friday</td>
+              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
+              <td style="padding: 15px 0; text-align: center; color: var(--accent); font-size: 20px;">✓</td>
+            </tr>
+          </tbody>
+        </table>
+        <p style="margin-top: 25px; font-size: 14px; color: var(--text-muted); text-align: center;">
+          Recess: 11:00 – 11:15 &nbsp;·&nbsp; Lunch: 13:10 – 13:45
+        </p>
+      </div>
+    </section>
+
+    <section id="catalog">
+      <div class="section-header">
+        <h2 class="section-title">Healthy. Curated.</h2>
+      </div>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-emoji">🥤</div>
+          <h3 class="product-name">Zero Classics.</h3>
+          <p class="product-desc">Coke Zero, Sprite Zero, and Fanta Minis. Plus our exclusive Red and Black specialty selections.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-emoji">🍑</div>
+          <h3 class="product-name">Chi Forest.</h3>
+          <p class="product-desc">Zero sugar sparkling water. White Peach, Lychee, Grape Delight, and 5+ more essences.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-emoji">⚡</div>
+          <h3 class="product-name">Energy & Vitality.</h3>
+          <p class="product-desc">Monster Zero Sugar and Red Bull. Maximum performance for high-altitude study sessions.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-emoji">🫧</div>
+          <h3 class="product-name">Sparkling & Tea.</h3>
+          <p class="product-desc">S.Pellegrino, Sodaly, and Lipton No Sugar Peach. Pure, crisp hydration.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-emoji">🍪</div>
+          <h3 class="product-name">Premium Snacks.</h3>
+          <p class="product-desc">Pocky, Pringles, and The Natural Party Mix. Curated for the perfect break.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-emoji">🍟</div>
+          <h3 class="product-name">Selected Crisps.</h3>
+          <p class="product-desc">Smith's, RRD Honey Soy, and fresh seasonal apples. Low-sodium, curated selections.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="loyalty">
+      <div class="banner">
+        <h2 class="banner-title" style="color: var(--accent);">The Token System.</h2>
+        <div class="banner-icon">🪙</div>
+        <p class="hero-sub" style="font-size: 24px; color: var(--text); margin-bottom: 30px;">Bespoke 3D-printed loyalty tokens.</p>
+        
+        <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+          <p class="product-desc" style="font-size: 21px; color: var(--text); line-height: 1.6;">
+            Get a <span style="color: var(--accent); font-weight: 700;">FREE TOKEN</span> with any item over $2.
+          </p>
+          <p class="product-desc" style="font-size: 21px; color: var(--text); line-height: 1.6; margin-top: 15px;">
+            Collect and redeem:<br>
+            <span style="font-size: 32px; font-weight: 800; color: var(--text); letter-spacing: -0.02em;">1 Token = <span style="color: var(--accent);">50¢</span> Credit</span>
+          </p>
+          <p class="product-desc" style="margin-top: 40px; font-size: 16px; color: var(--text-muted); max-width: 500px; margin-left: auto; margin-right: auto;">
+            Our exclusive internal reward system, designed and printed right here on Level 7.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div id="vote-view">
+    <div class="poll-container">
+      <div class="poll-wrapper" style="width: 100%; max-width: 600px; margin: 0 auto;">
+        <iframe data-tally-src="https://tally.so/embed/D4Dq6X?alignLeft=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="225" frameborder="0" marginheight="0" marginwidth="0" title="Should we add chips to the menu?"></iframe>
+      </div>
+      <button onclick="hideVote()" class="btn btn-secondary" style="margin-top: 30px; border-color: #424245; background: #2c2c2e; color: #ffffff;">◀ Back to Menu</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <p>Copyright © 2026 Cooked Coke Social Enterprise. Level 7 Refreshment Hub.</p>
+    <div class="footer-links">
+      <a href="https://cookedcoke.org">Governance & Compliance</a>
+      <a href="mailto:contact@cookedcoke.xyz">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const themeToggle = document.getElementById('themeToggle');
+  const htmlElement = document.documentElement;
+
+  // Restore transition after initial load
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      htmlElement.classList.remove('no-transition');
+    }, 100);
+
+    // Check voting status
+    if (localStorage.getItem('has_voted_xyz') === 'true') {
+      const voteBtn = document.getElementById('voteBtn');
+      const navVote = document.getElementById('navVote');
+      
+      if (voteBtn) {
+        voteBtn.textContent = 'Thanks for voting';
+        voteBtn.style.opacity = '0.5';
+        voteBtn.style.pointerEvents = 'none';
+        voteBtn.onclick = null;
+      }
+      if (navVote) {
+        navVote.textContent = 'Voted';
+        navVote.style.opacity = '0.5';
+        navVote.style.pointerEvents = 'none';
+        navVote.onclick = null;
+      }
+    }
+  });
+
+  themeToggle.addEventListener('click', () => {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    htmlElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme_xyz', newTheme);
+  });
+
+  function showVote() {
+    document.getElementById('page-content').style.display = 'none';
+    document.getElementById('vote-view').style.display = 'flex';
+    window.scrollTo(0, 0);
+    if (window.Tally) Tally.loadEmbeds();
+  }
+
+  function hideVote() {
+    document.getElementById('page-content').style.display = 'block';
+    document.getElementById('vote-view').style.display = 'none';
+  }
+
+  // Tally Embed Script
+  var d=document,w="https://tally.so/widgets/embed.js",v=function(){"undefined"!=typeof Tally?Tally.loadEmbeds():d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((function(e){e.src=e.dataset.tallySrc}))};if("undefined"!=typeof Tally)v();else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w,s.onload=v,s.onerror=v,d.body.appendChild(s);}
+</script>
+
+</body>
+</html>
