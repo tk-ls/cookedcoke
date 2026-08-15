@@ -276,67 +276,27 @@
     }
     .devbar a:hover { color: var(--frost); }
 
-    /* ═══ FASCIA (nav) ═══ */
-    nav {
-      position: sticky;
-      top: var(--frame-w);
-      z-index: 902;
-      margin: 0 var(--frame-w);
-      background: color-mix(in srgb, var(--void) 76%, transparent);
-      backdrop-filter: saturate(150%) blur(18px);
-      -webkit-backdrop-filter: saturate(150%) blur(18px);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav-content {
-      width: 100%;
-      max-width: var(--max);
-      margin: 0 auto;
-      height: 56px;
-      padding: 0 var(--gutter);
+    /* the case light switch, on the header panel */
+    .lightswitch {
+      margin-left: auto;
+      flex: 0 0 auto;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid rgba(10,25,40,.18);
+      background: rgba(255,255,255,.6);
+      cursor: pointer;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 16px;
+      justify-content: center;
+      transition: background-color .2s, border-color .2s;
     }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--frost); }
-    /* no `display` here — it would outrank the .logo-* toggles below */
-    .nav-logo img { height: 24px; width: auto; }
-    .nav-logo b {
-      font-family: var(--display);
-      font-variation-settings: 'wdth' 112, 'wght' 700;
-      text-transform: uppercase;
-      font-size: 13px;
-      letter-spacing: .02em;
-      white-space: nowrap;
-    }
-    .logo-dark { display: none; }
-    [data-theme="dark"] .logo-light { display: none; }
-    [data-theme="dark"] .logo-dark { display: block; }
-
-    .nav-right { display: flex; align-items: center; gap: clamp(12px, 2.6vw, 24px); }
-    .nav-links { display: flex; gap: clamp(12px, 2.6vw, 24px); list-style: none; }
-    .nav-links a {
-      font-family: var(--mono);
-      font-variation-settings: 'wdth' 88;
-      font-size: 11px;
-      font-weight: 500;
-      text-transform: uppercase;
-      letter-spacing: .12em;
-      color: var(--haze);
-      text-decoration: none;
-      transition: color .2s;
-      padding: 6px 0;
-    }
-    .nav-links a:hover { color: var(--frost); }
-
-    .theme-toggle {
-      background: none; border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      width: 34px; height: 34px; border-radius: 50%;
-      opacity: .7; transition: opacity .2s, background-color .2s;
-    }
-    .theme-toggle:hover { opacity: 1; background: var(--rail-s); }
-    .theme-toggle img { height: 17px; width: auto; }
+    .lightswitch:hover { background: #fff; border-color: rgba(10,25,40,.4); }
+    /* the panel is always lit, so force both icons dark — the white moon
+       would otherwise vanish into it */
+    .lightswitch img { height: 17px; width: auto; filter: brightness(0); opacity: .72; }
+    .lightswitch:hover img { opacity: 1; }
+    /* the fascia is always lit, so the icons never follow the page theme */
     .theme-icon-dark { display: none; }
     [data-theme="dark"] .theme-icon-light { display: none; }
     [data-theme="dark"] .theme-icon-dark { display: block; }
@@ -812,6 +772,14 @@
       text-shadow: 0 1px 0 rgba(255,255,255,.5);
     }
     .facing--mystery .tag { color: var(--chill); }
+    /* this one navigates away instead of opening a panel — say so */
+    .facing--order .shot::before { content: '\2197'; }
+    .facing--order .tag { color: var(--coke); }
+    .facing--order { text-decoration: none; }
+    .facing--mystery.is-done { cursor: default; }
+    .facing--mystery.is-done .shot { opacity: .45; }
+    .facing--mystery.is-done .shot i { animation: none; }
+    .facing--mystery.is-done .tag { color: var(--haze); }
     .facing--mystery .shot i { animation: shimmer 5.5s ease-in-out infinite; }
     @keyframes shimmer {
       0%, 88%, 100% { filter: brightness(1); }
@@ -1087,7 +1055,6 @@
     }
     @media (max-width: 560px) {
       body { font-size: 16px; }
-      .nav-logo b { display: none; }
       .devbar a { margin-left: 0; }
       .bay { --tag-h: 46px; }
       .bay__count { margin-left: 0; width: 100%; }
@@ -1126,6 +1093,10 @@
     <div class="fascia__brand">
       <img src="Logo Vantablack.svg" alt="" class="fascia__mark">
       <span class="fascia__word">Cooked Coke</span>
+      <button id="themeToggle" class="lightswitch" type="button" aria-label="Turn the case light on or off">
+        <img src="light.svg" alt="" class="theme-icon-light">
+        <img src="dark.svg" alt="" class="theme-icon-dark">
+      </button>
     </div>
     <p class="fascia__plate">
       Model L7 &nbsp;·&nbsp; Refreshment Hub &nbsp;·&nbsp; Reddam House &nbsp;·&nbsp; Student operated<br>
@@ -1152,25 +1123,6 @@
   </div>
 </header>
 
-<nav>
-  <div class="nav-content">
-    <a href="#" onclick="hideVote(); return false;" class="nav-logo">
-      <img src="Logo Vantablack.svg" alt="" class="logo-light">
-      <img src="Logo White.svg" alt="" class="logo-dark">
-    </a>
-    <div class="nav-right">
-      <ul class="nav-links">
-        <li><a href="#catalog">Shelves</a></li>
-        <li><a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener">Shop</a></li>
-        <li><a href="#" id="navVote" onclick="showVote(); return false;">Vote</a></li>
-      </ul>
-      <button id="themeToggle" class="theme-toggle" aria-label="Switch between the lit and unlit case">
-        <img src="light.svg" alt="" class="theme-icon-light">
-        <img src="dark.svg" alt="" class="theme-icon-dark">
-      </button>
-    </div>
-  </div>
-</nav>
 
 <main id="mainContent">
   <div id="page-content">
@@ -1178,11 +1130,6 @@
 
     <!-- ═══ THE CASE ═══ -->
     <section id="catalog" class="wrap">
-      <div class="ctas">
-        <a href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener" class="btn btn-primary">Order for pickup</a>
-        <a href="#" id="voteBtn" onclick="showVote(); return false;" class="btn btn-secondary">Vote, save 10%</a>
-      </div>
-
       <div class="case">
 
         <article class="bay" style="--tint: var(--sh-01)">
@@ -1222,10 +1169,10 @@
               <span class="shot"><i></i><img src="products/solo.png" alt="" loading="lazy"></span>
               <span class="tag">Solo</span>
             </div>
-            <button class="facing facing--mystery" data-form="can" data-mystery="hours" type="button" aria-haspopup="dialog">
+            <a class="facing facing--mystery facing--order" data-form="can" href="https://cookedcoke.square.site/s/shop" target="_blank" rel="noopener">
               <span class="shot"><i></i></span>
-              <span class="tag">Hours</span>
-            </button>
+              <span class="tag">Order</span>
+            </a>
           </div>
           <div class="bay__plate" aria-hidden="true"></div>
         </article>
@@ -1251,7 +1198,7 @@
               <span class="shot"><i></i><img src="products/chi-grape-delight.png" alt="" loading="lazy"></span>
               <span class="tag">Grape Delight</span>
             </div>
-            <button class="facing facing--mystery" data-form="bottle" data-mystery="vote" type="button" aria-haspopup="dialog">
+            <button class="facing facing--mystery" id="voteBtn" data-form="bottle" data-mystery="vote" type="button" aria-haspopup="dialog">
               <span class="shot"><i></i></span>
               <span class="tag">Vote</span>
             </button>
@@ -1304,6 +1251,10 @@
               <span class="shot"><i></i><img src="products/yoosh-lychee.png" alt="" loading="lazy"></span>
               <span class="tag">Yoosh Lychee</span>
             </div>
+            <button class="facing facing--mystery" data-form="bottle" data-mystery="hours" type="button" aria-haspopup="dialog">
+              <span class="shot"><i></i></span>
+              <span class="tag">Hours</span>
+            </button>
           </div>
           <div class="bay__plate" aria-hidden="true"></div>
         </article>
@@ -1604,19 +1555,13 @@
       else img.addEventListener('load', mark);
     });
 
+    // once voted, the vote can stays on the shelf but stops asking
     if (localStorage.getItem('has_voted_xyz') === 'true') {
       const voteBtn = document.getElementById('voteBtn');
-      const navVote = document.getElementById('navVote');
       if (voteBtn) {
-        voteBtn.textContent = 'Voted, thank you';
-        voteBtn.setAttribute('aria-disabled', 'true');
-        voteBtn.onclick = null;
-      }
-      if (navVote) {
-        navVote.textContent = 'Voted';
-        navVote.style.opacity = '.4';
-        navVote.style.pointerEvents = 'none';
-        navVote.onclick = null;
+        voteBtn.classList.add('is-done');
+        voteBtn.disabled = true;
+        voteBtn.querySelector('.tag').textContent = 'Voted';
       }
     }
   });
