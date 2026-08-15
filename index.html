@@ -754,7 +754,7 @@
       padding: 0;
       /* the global margin reset would otherwise pin the modal to the corner */
       margin: auto;
-      width: min(440px, calc(100vw - 2.5rem));
+      width: min(480px, calc(100vw - 2.5rem));
       box-shadow: 0 40px 80px -30px #000;
     }
     dialog.reveal::backdrop {
@@ -787,39 +787,22 @@
       cursor: pointer;
     }
     .reveal__close:hover { color: var(--frost); }
-    .mini-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--mono);
-      font-variation-settings: 'wdth' 86;
-      font-size: 10.5px;
-      letter-spacing: .05em;
-      text-transform: uppercase;
-      margin-top: 16px;
-    }
-    .mini-table td {
-      padding: 9px 0;
-      border-bottom: 1px solid var(--line);
-      color: var(--haze);
-    }
-    .mini-table td + td { text-align: right; }
-    .mini-table tr[data-today] td { color: var(--chill); }
-
-    /* ═══ TIMETABLE ═══ */
+    /* ═══ TIMETABLE — lives only inside the Hours popup now ═══ */
     .timetable {
       width: 100%;
       border-collapse: collapse;
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 88;
-      font-size: 12px;
-      letter-spacing: .05em;
+      font-variation-settings: 'wdth' 84;
+      font-size: 10px;
+      letter-spacing: .04em;
+      margin-top: 18px;
     }
     .timetable th {
       text-align: left;
-      padding: 12px 14px;
+      padding: 8px 6px;
       font-weight: 500;
-      font-size: 9.5px;
-      letter-spacing: .18em;
+      font-size: 8.5px;
+      letter-spacing: .16em;
       text-transform: uppercase;
       color: var(--haze);
       border-bottom: 1px solid var(--line);
@@ -827,85 +810,58 @@
     }
     .timetable th + th, .timetable td + td { text-align: center; }
     .timetable td {
-      padding: 15px 14px;
+      padding: 10px 6px;
       border-bottom: 1px solid var(--line);
       text-transform: uppercase;
       color: var(--haze);
+      white-space: nowrap;
     }
     .timetable td:first-child { color: var(--frost); font-weight: 500; }
     .timetable .yes { color: var(--chill); }
     .timetable .no  { opacity: .35; }
-    .timetable tr[data-today] td { background: color-mix(in srgb, var(--chill) 8%, transparent); }
+    .timetable tr[data-today] td { background: color-mix(in srgb, var(--chill) 10%, transparent); }
     .timetable tr[data-today] td:first-child { box-shadow: inset 2px 0 0 var(--chill); }
-    .today-flag { display: none; font-size: 8.5px; letter-spacing: .16em; color: var(--chill); margin-left: 8px; }
+    .today-flag { display: none; font-size: 7.5px; letter-spacing: .14em; color: var(--chill); margin-left: 6px; }
     tr[data-today] .today-flag { display: inline; }
-    .timetable caption {
-      caption-side: bottom;
-      text-align: left;
-      padding-top: 18px;
-      font-size: 11px;
+    .fineprint {
+      margin-top: 14px;
+      font-family: var(--mono);
+      font-variation-settings: 'wdth' 84;
+      font-size: 9px;
+      letter-spacing: .06em;
+      line-height: 1.8;
       color: var(--haze);
-      letter-spacing: .04em;
-      text-transform: none;
     }
 
     section { padding-block: clamp(48px, 7vw, 88px); }
-    .head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 30px; flex-wrap: wrap; }
-    .head h2 {
-      font-family: var(--display);
-      font-variation-settings: 'wdth' 116, 'wght' 800;
-      text-transform: uppercase;
-      font-size: clamp(1.6rem, 4.2vw, 2.8rem);
-      line-height: .95;
-      letter-spacing: -.018em;
-    }
 
-    /* ═══ TOKEN ═══ */
-    .token-band {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: color-mix(in srgb, var(--shelf) 88%, transparent);
-      padding: clamp(28px, 5vw, 56px);
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: clamp(26px, 5vw, 56px);
-      align-items: center;
-      box-shadow: 0 20px 40px -26px var(--cast);
-    }
-    .token-band h2 {
-      font-family: var(--display);
-      font-variation-settings: 'wdth' 116, 'wght' 800;
-      text-transform: uppercase;
-      font-size: clamp(1.6rem, 4.2vw, 2.5rem);
-      line-height: .95;
-      letter-spacing: -.018em;
-      margin: 12px 0 14px;
-    }
-    .token-band p { color: var(--haze); max-width: 46ch; }
+    /* ═══ TOKEN — lives only inside the Tokens popup now ═══ */
     .token-rate {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 92;
-      font-size: 13px;
+      font-variation-settings: 'wdth' 90;
+      font-size: 11px;
       font-weight: 600;
       letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--frost);
-      margin-top: 22px;
-      display: inline-flex;
+      margin-top: 18px;
+      display: flex;
       align-items: center;
-      gap: 12px;
+      justify-content: center;
+      gap: 10px;
       border: 1px solid var(--line);
       border-radius: 4px;
-      padding: 12px 18px;
+      padding: 12px 16px;
     }
     .token-rate em { font-style: normal; color: var(--coke); }
     .coin {
-      width: clamp(118px, 18vw, 168px);
+      width: clamp(96px, 26vw, 124px);
       aspect-ratio: 1;
       border-radius: 50%;
       display: grid;
       place-items: center;
       position: relative;
+      margin: 20px auto 22px;
       background:
         conic-gradient(from 210deg,
           color-mix(in srgb, var(--coke) 62%, #000) 0deg,
@@ -913,29 +869,29 @@
           color-mix(in srgb, var(--coke) 48%, #000) 150deg,
           color-mix(in srgb, var(--coke) 92%, #fff) 250deg,
           color-mix(in srgb, var(--coke) 58%, #000) 360deg);
-      box-shadow: 0 20px 40px -18px var(--coke), inset 0 0 0 1px rgba(255,255,255,.18);
+      box-shadow: 0 18px 34px -16px var(--coke), inset 0 0 0 1px rgba(255,255,255,.18);
     }
     .coin::before {
       content: '';
       position: absolute;
-      inset: 11px;
+      inset: 9px;
       border-radius: 50%;
       border: 1px dashed rgba(255,255,255,.32);
     }
     .coin span {
       font-family: var(--display);
       font-variation-settings: 'wdth' 108, 'wght' 900;
-      font-size: clamp(28px, 4.6vw, 42px);
+      font-size: clamp(24px, 7vw, 32px);
       color: #fff;
       text-shadow: 0 1px 0 rgba(0,0,0,.35);
     }
     .coin small {
       position: absolute;
-      bottom: 22%;
+      bottom: 21%;
       font-family: var(--mono);
       font-variation-settings: 'wdth' 84;
-      font-size: 8px;
-      letter-spacing: .22em;
+      font-size: 7px;
+      letter-spacing: .2em;
       text-transform: uppercase;
       color: rgba(255,255,255,.72);
     }
@@ -1007,15 +963,12 @@
 
     /* ═══ RESPONSIVE ═══ */
     @media (max-width: 860px) {
-      .token-band { grid-template-columns: 1fr; }
-      .coin { order: -1; }
     }
     @media (max-width: 560px) {
       body { font-size: 16px; }
       .devbar a { margin-left: 0; }
       .bay { --tag-h: 46px; }
       .bay__count { margin-left: 0; width: 100%; }
-      .timetable th, .timetable td { padding-left: 8px; padding-right: 8px; }
     }
 
     /* ═══ MOTION ═══ */
@@ -1252,42 +1205,7 @@
       </div>
     </section>
 
-    <!-- ═══ TIMETABLE ═══ -->
-    <section id="hours" class="wrap">
-      <div class="head">
-        <h2>When we're open</h2>
-      </div>
-      <table class="timetable">
-        <caption>Recess runs 11:00&ndash;11:15. Lunch runs 13:10&ndash;13:45. We close on the bell.</caption>
-        <thead>
-          <tr>
-            <th scope="col">Day</th>
-            <th scope="col">Recess</th>
-            <th scope="col">Lunch</th>
-          </tr>
-        </thead>
-        <tbody id="timetableBody">
-          <tr data-day="1"><td>Monday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
-          <tr data-day="2"><td>Tuesday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="no">Closed</td></tr>
-          <tr data-day="3"><td>Wednesday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
-          <tr data-day="4"><td>Thursday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
-          <tr data-day="5"><td>Friday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <!-- ═══ TOKEN ═══ -->
-    <section id="loyalty" class="wrap">
-      <div class="token-band">
-        <div>
-          <span class="eyebrow">Loyalty</span>
-          <h2>Tokens</h2>
-          <p>
-            Spend more than $2 and you get a token, printed on the Level 7 3D printer.
-            Bring them back and they come off your total.
-          </p>
-          <p class="token-rate">1 token <em>=</em> 50&cent; credit</p>
-        </div>
+  </div>
         <div class="coin" aria-hidden="true">
           <span>50&cent;</span>
           <small>Level 7</small>
@@ -1335,18 +1253,25 @@
 
 <template id="tpl-hours">
   <span class="eyebrow">Opening hours</span>
-  <h2 id="revealTitle">Are we open?</h2>
+  <h2 id="revealTitle">When we're open</h2>
   <p data-status="note">Reading today's timetable.</p>
-  <table class="mini-table">
-    <tbody id="miniBody">
-      <tr data-day="1"><td>Monday</td><td>Recess + lunch</td></tr>
-      <tr data-day="2"><td>Tuesday</td><td>Recess only</td></tr>
-      <tr data-day="3"><td>Wednesday</td><td>Recess + lunch</td></tr>
-      <tr data-day="4"><td>Thursday</td><td>Recess + lunch</td></tr>
-      <tr data-day="5"><td>Friday</td><td>Recess + lunch</td></tr>
+  <table class="timetable">
+    <thead>
+      <tr>
+        <th scope="col">Day</th>
+        <th scope="col">Recess</th>
+        <th scope="col">Lunch</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-day="1"><td>Monday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
+      <tr data-day="2"><td>Tuesday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="no">Closed</td></tr>
+      <tr data-day="3"><td>Wednesday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
+      <tr data-day="4"><td>Thursday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
+      <tr data-day="5"><td>Friday<span class="today-flag">Today</span></td><td class="yes">Open</td><td class="yes">Open</td></tr>
     </tbody>
   </table>
-  <a href="#hours" class="btn btn-secondary" data-close>See the full timetable</a>
+  <p class="fineprint">Recess runs 11:00&ndash;11:15. Lunch runs 13:10&ndash;13:45. We close on the bell.</p>
 </template>
 
 <template id="tpl-vote">
@@ -1358,9 +1283,16 @@
 
 <template id="tpl-token">
   <span class="eyebrow">Loyalty</span>
-  <h2 id="revealTitle">Worth 50 cents</h2>
-  <p>Every item over $2 comes with a 3D-printed token. Six of them buy you most of a drink.</p>
-  <a href="#loyalty" class="btn btn-secondary" data-close>How tokens work</a>
+  <h2 id="revealTitle">Tokens</h2>
+  <div class="coin" aria-hidden="true">
+    <span>50&cent;</span>
+    <small>Level 7</small>
+  </div>
+  <p>
+    Spend more than $2 and you get a token, printed on the Level 7 3D printer.
+    Bring them back and they come off your total.
+  </p>
+  <p class="token-rate">1 token <em>=</em> 50&cent; credit</p>
 </template>
 
 <script>
