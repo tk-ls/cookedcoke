@@ -10,23 +10,23 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="description" content="The student-run cold case on Level 7. Six shelves of soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
+  <meta name="description" content="The student-run cold case on Level 7. Four shelves of soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
   <meta name="theme-color" content="#05070c" media="(prefers-color-scheme: dark)" />
   <meta name="theme-color" content="#dce9f2" media="(prefers-color-scheme: light)" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://cookedcoke.co/" />
-  <meta property="og:title" content="Six shelves, Level seven | Cooked Coke Co." />
+  <meta property="og:title" content="Four shelves, Level seven | Cooked Coke Co." />
   <meta property="og:description" content="The student-run cold case on Level 7. Soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
   <meta property="og:image" content="android-chrome-512x512.png" />
 
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://cookedcoke.co/" />
-  <meta property="twitter:title" content="Six shelves, Level seven | Cooked Coke Co." />
+  <meta property="twitter:title" content="Four shelves, Level seven | Cooked Coke Co." />
   <meta property="twitter:description" content="The student-run cold case on Level 7. Soft drinks, sparkling water, noodles and snacks. Open at recess and lunch." />
   <meta property="twitter:image" content="android-chrome-512x512.png" />
 
-  <title>Six shelves, Level seven | Cooked Coke Co.</title>
+  <title>Four shelves, Level seven | Cooked Coke Co.</title>
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -81,12 +81,17 @@
       --backfill: #101827;
 
       /* shelf accents, from what is actually on them */
-      --sh-01: #ff2438;  /* classics — Coke red */
-      --sh-02: #ff8a1f;  /* minis — Fanta orange */
-      --sh-03: #ff6f9c;  /* Chi Forest — white peach */
-      --sh-04: #2bb3e8;  /* tea and Yoosh */
-      --sh-05: #ffb01f;  /* Chef Kang */
-      --sh-06: #35d98a;  /* snacks */
+      --sh-01: #ff2438;  /* classics */
+      --sh-02: #ff6f9c;  /* Chi Forest — white peach */
+      --sh-03: #2bb3e8;  /* tea and Yoosh */
+      --sh-04: #ffb01f;  /* noodles and snacks */
+
+      /* the four classics carry their own brand colour, mini included.
+         Prefixed so they don't collide with --coke, the action red. */
+      --br-coke:   #ee1c25;
+      --br-fanta:  #ff7a00;
+      --br-sprite: #00a94f;
+      --br-solo:   #ffc300;
 
       --display: 'Archivo', system-ui, sans-serif;
       --body: 'Instrument Sans', system-ui, sans-serif;
@@ -556,7 +561,8 @@
       z-index: 1;
       display: flex;
       align-items: flex-end;
-      gap: clamp(8px, 1.4vw, 18px);
+      /* stock on a real shelf is pushed up against itself */
+      gap: clamp(2px, 0.5vw, 7px);
       margin-top: 22px;
       padding: 12px 2px 0;
       overflow-x: auto;
@@ -570,6 +576,7 @@
       flex: 0 0 auto;
       width: clamp(86px, 9.4vw, 128px);
       scroll-snap-align: start;
+      cursor: default;
       display: flex;
       flex-direction: column;
       background: none;
@@ -579,6 +586,9 @@
       color: inherit;
       text-align: center;
     }
+
+    /* a mini takes less shelf room than its full-size counterpart */
+    .facing[data-form="mini"] { width: clamp(60px, 6.2vw, 84px); }
 
     /* the product itself: photo when there is one, drawn stand-in until then */
     .shot {
@@ -631,8 +641,20 @@
     }
 
     .facing[data-form="can"] i    { height: 88%; width: 68%; border-radius: 10px / 16px; }
-    /* the 250ml cans really are shorter, so the shelf should show that */
-    .facing[data-form="mini"] i   { height: 58%; width: 60%; border-radius: 9px / 14px; }
+    /* the minis are a slim can: barely shorter than a regular, much narrower */
+    .facing[data-form="mini"] i   { height: 80%; width: 40%; border-radius: 8px / 15px; }
+    /* a noodle bowl — a cylinder with the bottom edge chamfered off */
+    .facing[data-form="bowl"] i {
+      height: 64%;
+      width: 94%;
+      border-radius: 0;
+      box-shadow: none;
+      clip-path: polygon(
+        0% 0%, 100% 0%, 100% 84%,
+        92% 96%, 80% 100%, 20% 100%, 8% 96%,
+        0% 84%
+      );
+    }
     .facing[data-form="bottle"] i {
       height: 100%;
       width: 80%;
@@ -643,7 +665,16 @@
       );
       box-shadow: none;
     }
-    .facing[data-form="pack"] i   { height: 66%; width: 96%; border-radius: 7px; }
+    /* a sealed bag: crimped top and bottom, so it reads apart from a bowl */
+    .facing[data-form="pack"] i {
+      height: 74%;
+      width: 92%;
+      border-radius: 0;
+      clip-path: polygon(
+        0% 7%, 13% 0%, 87% 0%, 100% 7%,
+        100% 93%, 87% 100%, 13% 100%, 0% 93%
+      );
+    }
     .facing[data-form="round"] i  { height: 52%; aspect-ratio: 1; width: auto; border-radius: 50%; }
 
     .facing[data-form="can"] i::before,
@@ -661,6 +692,15 @@
       inset: 0 36% auto 36%;
       height: 14px;
       background: color-mix(in srgb, var(--frost) 32%, transparent);
+    }
+    /* the lid rim sits right across the top of the bowl */
+    .facing[data-form="bowl"] i::before {
+      content: '';
+      position: absolute;
+      inset: 2px 3px auto 3px;
+      height: 11px;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--frost) 30%, transparent);
     }
 
     /* the shelf-edge ticket */
@@ -1047,7 +1087,7 @@
     <header class="decal wrap">
       <p class="eyebrow">Level 7 &nbsp;·&nbsp; Refreshment hub &nbsp;·&nbsp; Student run</p>
       <h1>
-        <span>Six shelves.</span>
+        <span>Four shelves.</span>
         <span class="seven">Level seven.</span>
       </h1>
       <p>
@@ -1073,7 +1113,7 @@
         <div class="panel-cell">
           <span class="panel-label">Set point</span>
           <span class="panel-value">4&#8202;°C</span>
-          <span class="panel-note">Twenty-six facings across six shelves.</span>
+          <span class="panel-note">Twenty-six facings across four shelves.</span>
         </div>
       </div>
     </header>
@@ -1092,30 +1132,42 @@
           <div class="bay__rail">
             <span class="bay__no">Shelf 01</span>
             <h3 class="bay__name">Classics</h3>
-            <span class="bay__count">4 facings</span>
+            <span class="bay__count">7 facings</span>
           </div>
-          <p class="bay__note">The four we always have in.</p>
+          <p class="bay__note">Each one with its mini beside it. Solo only comes in the one size.</p>
           <div class="deck">
-            <div class="facing" data-form="can" style="--fade:0%">
+            <div class="facing" data-form="can" style="--tint: var(--br-coke)">
               <span class="shot"><i></i><img src="products/coke.png" alt="" loading="lazy"></span>
               <span class="tag">Coke</span>
             </div>
-            <div class="facing" data-form="can" style="--fade:26%">
+            <div class="facing" data-form="mini" style="--tint: var(--br-coke)">
+              <span class="shot"><i></i><img src="products/coke-mini.png" alt="" loading="lazy"></span>
+              <span class="tag">Coke Mini</span>
+            </div>
+            <div class="facing" data-form="can" style="--tint: var(--br-fanta)">
               <span class="shot"><i></i><img src="products/fanta.png" alt="" loading="lazy"></span>
               <span class="tag">Fanta</span>
+            </div>
+            <div class="facing" data-form="mini" style="--tint: var(--br-fanta)">
+              <span class="shot"><i></i><img src="products/fanta-mini.png" alt="" loading="lazy"></span>
+              <span class="tag">Fanta Mini</span>
+            </div>
+            <div class="facing" data-form="can" style="--tint: var(--br-sprite)">
+              <span class="shot"><i></i><img src="products/sprite.png" alt="" loading="lazy"></span>
+              <span class="tag">Sprite</span>
+            </div>
+            <div class="facing" data-form="mini" style="--tint: var(--br-sprite)">
+              <span class="shot"><i></i><img src="products/sprite-mini.png" alt="" loading="lazy"></span>
+              <span class="tag">Sprite Mini</span>
+            </div>
+            <div class="facing" data-form="can" style="--tint: var(--br-solo)">
+              <span class="shot"><i></i><img src="products/solo.png" alt="" loading="lazy"></span>
+              <span class="tag">Solo</span>
             </div>
             <button class="facing facing--mystery" data-form="can" data-mystery="hours" type="button" aria-haspopup="dialog">
               <span class="shot"><i></i></span>
               <span class="tag">Hours</span>
             </button>
-            <div class="facing" data-form="can" style="--fade:46%">
-              <span class="shot"><i></i><img src="products/sprite.png" alt="" loading="lazy"></span>
-              <span class="tag">Sprite</span>
-            </div>
-            <div class="facing" data-form="can" style="--fade:66%">
-              <span class="shot"><i></i><img src="products/solo.png" alt="" loading="lazy"></span>
-              <span class="tag">Solo</span>
-            </div>
           </div>
           <div class="bay__plate" aria-hidden="true"></div>
         </article>
@@ -1124,31 +1176,6 @@
           <div class="bay__led" aria-hidden="true"></div>
           <div class="bay__rail">
             <span class="bay__no">Shelf 02</span>
-            <h3 class="bay__name">Minis</h3>
-            <span class="bay__count">3 facings</span>
-          </div>
-          <p class="bay__note">Same drinks, smaller can. Solo only comes in the one size.</p>
-          <div class="deck">
-            <div class="facing" data-form="mini" style="--fade:0%">
-              <span class="shot"><i></i><img src="products/coke-mini.png" alt="" loading="lazy"></span>
-              <span class="tag">Coke Mini</span>
-            </div>
-            <div class="facing" data-form="mini" style="--fade:28%">
-              <span class="shot"><i></i><img src="products/fanta-mini.png" alt="" loading="lazy"></span>
-              <span class="tag">Fanta Mini</span>
-            </div>
-            <div class="facing" data-form="mini" style="--fade:52%">
-              <span class="shot"><i></i><img src="products/sprite-mini.png" alt="" loading="lazy"></span>
-              <span class="tag">Sprite Mini</span>
-            </div>
-          </div>
-          <div class="bay__plate" aria-hidden="true"></div>
-        </article>
-
-        <article class="bay" style="--tint: var(--sh-03)">
-          <div class="bay__led" aria-hidden="true"></div>
-          <div class="bay__rail">
-            <span class="bay__no">Shelf 03</span>
             <h3 class="bay__name">Chi Forest</h3>
             <span class="bay__count">9 facings</span>
           </div>
@@ -1198,10 +1225,10 @@
           <div class="bay__plate" aria-hidden="true"></div>
         </article>
 
-        <article class="bay" style="--tint: var(--sh-04)">
+        <article class="bay" style="--tint: var(--sh-03)">
           <div class="bay__led" aria-hidden="true"></div>
           <div class="bay__rail">
-            <span class="bay__no">Shelf 04</span>
+            <span class="bay__no">Shelf 03</span>
             <h3 class="bay__name">Tea &amp; Yoosh</h3>
             <span class="bay__count">3 facings</span>
           </div>
@@ -1223,59 +1250,46 @@
           <div class="bay__plate" aria-hidden="true"></div>
         </article>
 
-        <article class="bay" style="--tint: var(--sh-05)">
+        <article class="bay" style="--tint: var(--sh-04)">
           <div class="bay__led" aria-hidden="true"></div>
           <div class="bay__rail">
-            <span class="bay__no">Shelf 05</span>
-            <h3 class="bay__name">Chef Kang</h3>
-            <span class="bay__count">5 facings</span>
+            <span class="bay__no">Shelf 04</span>
+            <h3 class="bay__name">Noodles &amp; snacks</h3>
+            <span class="bay__count">7 facings</span>
           </div>
-          <p class="bay__note">Instant noodles, the whole range.</p>
+          <p class="bay__note">The whole Chef Kang range, plus Mamee and chips — kept cold with everything else.</p>
           <div class="deck">
-            <div class="facing" data-form="pack" style="--fade:0%">
+            <div class="facing" data-form="bowl" style="--fade:0%">
               <span class="shot"><i></i><img src="products/chef-kang-regular.png" alt="" loading="lazy"></span>
               <span class="tag">Regular</span>
             </div>
-            <div class="facing" data-form="pack" style="--fade:16%">
+            <div class="facing" data-form="bowl" style="--fade:14%">
               <span class="shot"><i></i><img src="products/chef-kang-hot-spicy-beef.png" alt="" loading="lazy"></span>
               <span class="tag">Hot &amp; Spicy Beef</span>
             </div>
-            <div class="facing" data-form="pack" style="--fade:32%">
+            <div class="facing" data-form="bowl" style="--fade:28%">
               <span class="shot"><i></i><img src="products/chef-kang-seafood.png" alt="" loading="lazy"></span>
               <span class="tag">Seafood</span>
             </div>
-            <button class="facing facing--mystery" data-form="pack" data-mystery="token" type="button" aria-haspopup="dialog">
-              <span class="shot"><i></i></span>
-              <span class="tag">Tokens</span>
-            </button>
-            <div class="facing" data-form="pack" style="--fade:48%">
+            <div class="facing" data-form="bowl" style="--fade:42%">
               <span class="shot"><i></i><img src="products/chef-kang-pickled-veg-beef.png" alt="" loading="lazy"></span>
               <span class="tag">Pickled Veg Beef</span>
             </div>
-            <div class="facing" data-form="pack" style="--fade:64%">
+            <div class="facing" data-form="bowl" style="--fade:56%">
               <span class="shot"><i></i><img src="products/chef-kang-pork-shallots.png" alt="" loading="lazy"></span>
               <span class="tag">Pork &amp; Fried Shallots</span>
             </div>
-          </div>
-          <div class="bay__plate" aria-hidden="true"></div>
-        </article>
-
-        <article class="bay" style="--tint: var(--sh-06)">
-          <div class="bay__led" aria-hidden="true"></div>
-          <div class="bay__rail">
-            <span class="bay__no">Shelf 06</span>
-            <h3 class="bay__name">Snacks</h3>
-            <span class="bay__count">2 facings</span>
-          </div>
-          <p class="bay__note">Chips and Mamee, kept in the fridge with everything else.</p>
-          <div class="deck">
-            <div class="facing" data-form="pack" style="--fade:0%">
-              <span class="shot"><i></i><img src="products/red-rock-deli.png" alt="" loading="lazy"></span>
-              <span class="tag">Red Rock Deli</span>
-            </div>
-            <div class="facing" data-form="pack" style="--fade:38%">
+            <button class="facing facing--mystery" data-form="bowl" data-mystery="token" type="button" aria-haspopup="dialog">
+              <span class="shot"><i></i></span>
+              <span class="tag">Tokens</span>
+            </button>
+            <div class="facing" data-form="pack" style="--fade:34%">
               <span class="shot"><i></i><img src="products/mamee-bbq.png" alt="" loading="lazy"></span>
               <span class="tag">Mamee BBQ</span>
+            </div>
+            <div class="facing" data-form="pack" style="--fade:62%">
+              <span class="shot"><i></i><img src="products/red-rock-deli.png" alt="" loading="lazy"></span>
+              <span class="tag">Red Rock Deli</span>
             </div>
           </div>
           <div class="bay__plate" aria-hidden="true"></div>

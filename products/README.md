@@ -4,28 +4,25 @@ Drop transparent PNGs in this folder using the exact filenames below. The site
 picks them up automatically — no code change needed. Until a file exists, that
 slot falls back to a drawn stand-in, so the page never looks broken.
 
-Twenty-six facings across six shelves.
+Twenty-six facings across four shelves.
 
 ## Shelf 01 — Classics
+
+Each mini sits immediately beside its full-size counterpart on the shelf.
 
 | Filename | Product |
 |---|---|
 | `coke.png` | Coke |
+| `coke-mini.png` | Coke Mini |
 | `fanta.png` | Fanta |
+| `fanta-mini.png` | Fanta Mini |
 | `sprite.png` | Sprite |
+| `sprite-mini.png` | Sprite Mini |
 | `solo.png` | Solo |
 
-## Shelf 02 — Minis
+Solo has no mini, so this shelf is seven facings rather than eight.
 
-| Filename | Product |
-|---|---|
-| `coke-mini.png` | Coke Mini |
-| `fanta-mini.png` | Fanta Mini |
-| `sprite-mini.png` | Sprite Mini |
-
-Solo has no mini, so there are three here rather than four.
-
-## Shelf 03 — Chi Forest
+## Shelf 02 — Chi Forest
 
 | Filename | Product |
 |---|---|
@@ -39,7 +36,7 @@ Solo has no mini, so there are three here rather than four.
 | `chi-bamboo-grapefruit.png` | Bamboo Grapefruit |
 | `chi-pomelo-zest.png` | Pomelo Zest |
 
-## Shelf 04 — Tea & Yoosh
+## Shelf 03 — Tea & Yoosh
 
 | Filename | Product |
 |---|---|
@@ -47,7 +44,7 @@ Solo has no mini, so there are three here rather than four.
 | `yoosh.png` | Yoosh |
 | `yoosh-lychee.png` | Yoosh Lychee |
 
-## Shelf 05 — Chef Kang
+## Shelf 04 — Noodles & snacks
 
 | Filename | Product |
 |---|---|
@@ -56,13 +53,8 @@ Solo has no mini, so there are three here rather than four.
 | `chef-kang-seafood.png` | Seafood |
 | `chef-kang-pickled-veg-beef.png` | Pickled Vegetables Beef |
 | `chef-kang-pork-shallots.png` | Pork with Fried Shallots |
-
-## Shelf 06 — Snacks
-
-| Filename | Product |
-|---|---|
-| `red-rock-deli.png` | Red Rock Deli |
 | `mamee-bbq.png` | Mamee BBQ |
+| `red-rock-deli.png` | Red Rock Deli |
 
 ## Shoot your own
 
