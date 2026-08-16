@@ -23,7 +23,7 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400..700&family=Martian+Mono:wdth,wght@75..112.5,300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
   <style>
     /* ══════════════════════════════════════════════════
        COOKED COKE CO. — voter reward
@@ -45,9 +45,9 @@
       --glass:  rgba(255,255,255,.05);
       --lip:    rgba(63,216,247,.42);
 
-      --display: 'Archivo', system-ui, sans-serif;
-      --body: 'Instrument Sans', system-ui, sans-serif;
-      --mono: 'Martian Mono', ui-monospace, 'SF Mono', monospace;
+      --display: 'Montserrat', system-ui, sans-serif;
+      --body: 'Montserrat', system-ui, sans-serif;
+      --mono: 'Montserrat', system-ui, sans-serif;
 
       --gutter: clamp(18px, 4vw, 40px);
       --max: 1140px;
@@ -105,13 +105,18 @@
 
     .eyebrow {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 88;
       font-size: 10.5px;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: .17em;
       color: var(--haze);
       display: block;
+    }
+
+    /* Montserrat's default figures are proportional; these places line up
+       numbers in columns, so ask for tabular ones. */
+    .readout, .timetable, .fineprint, .code-value, .bay__count, .log-date {
+      font-variant-numeric: tabular-nums;
     }
 
     /* ─── NAV ─── */
@@ -135,26 +140,15 @@
       align-items: center;
       gap: 20px;
     }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--frost); }
-    /* no `display` here — it would outrank the .logo-* toggles below */
-    .nav-logo img { height: 24px; width: auto; }
-    .nav-logo b {
-      font-family: var(--display);
-      font-variation-settings: 'wdth' 112, 'wght' 700;
-      text-transform: uppercase;
-      font-size: 13px;
-      letter-spacing: .02em;
-      white-space: nowrap;
-    }
-    .logo-dark { display: none; }
-    [data-theme="dark"] .logo-light { display: none; }
-    [data-theme="dark"] .logo-dark { display: block; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; }
+    /* The mark alone: at this size the full lockup would fall under the
+       brand sheet's 180px minimum. Coloured, so it needs no theme swap. */
+    .nav-logo img { height: 26px; width: 26px; display: block; }
 
     .nav-right { display: flex; align-items: center; gap: clamp(14px, 3vw, 26px); }
     .nav-links { display: flex; gap: clamp(14px, 3vw, 26px); list-style: none; }
     .nav-links a {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 88;
       font-size: 11px;
       font-weight: 500;
       text-transform: uppercase;
@@ -207,7 +201,7 @@
 
     .tag h1 {
       font-family: var(--display);
-      font-variation-settings: 'wdth' 116, 'wght' 800;
+      font-weight: 800;
       text-transform: uppercase;
       font-size: clamp(1.9rem, 6vw, 2.9rem);
       line-height: .92;
@@ -231,7 +225,6 @@
       min-width: 0;
       padding: 18px 20px;
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 100;
       font-size: clamp(22px, 6vw, 32px);
       font-weight: 700;
       letter-spacing: .16em;
@@ -246,7 +239,6 @@
       background: var(--rail-s);
       color: var(--frost);
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 88;
       font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
@@ -261,7 +253,6 @@
 
     .code-note {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 86;
       font-size: 10px;
       letter-spacing: .13em;
       text-transform: uppercase;
@@ -274,7 +265,6 @@
       align-items: center;
       justify-content: center;
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 90;
       font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
@@ -295,7 +285,6 @@
       padding-top: 20px;
       border-top: 1px solid var(--line);
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 86;
       font-size: 10px;
       letter-spacing: .15em;
       text-transform: uppercase;
@@ -323,7 +312,6 @@
     .footer-links { display: flex; gap: 26px; flex-wrap: wrap; }
     .footer-links a {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 86;
       font-size: 10.5px;
       letter-spacing: .13em;
       text-transform: uppercase;
@@ -334,7 +322,6 @@
     .footer-links a:hover { color: var(--chill); }
     .colophon {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 84;
       font-size: 10px;
       letter-spacing: .1em;
       text-transform: uppercase;
@@ -345,7 +332,6 @@
     @media (max-width: 560px) {
       body { font-size: 16px; }
       /* the mark alone carries the nav here; the wordmark would force a wrap */
-      .nav-logo b { display: none; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -360,10 +346,8 @@
 
 <nav>
   <div class="nav-content">
-    <a href="/" class="nav-logo">
-      <img src="Logo Vantablack.svg" alt="" class="logo-light">
-      <img src="Logo White.svg" alt="" class="logo-dark">
-      <b>Cooked Coke</b>
+    <a href="/" class="nav-logo" aria-label="Cooked Coke Co">
+      <img src="brand/cookedcoke-small-logo-400.png" alt="" width="400" height="400">
     </a>
     <div class="nav-right">
       <ul class="nav-links">

@@ -34,7 +34,7 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400..700&family=Martian+Mono:wdth,wght@75..112.5,300..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
   <style>
     /* ══════════════════════════════════════════════════════════
        COOKED COKE CO.
@@ -93,9 +93,9 @@
       --br-sprite: #00a94f;
       --br-solo:   #ffc300;
 
-      --display: 'Archivo', system-ui, sans-serif;
-      --body: 'Instrument Sans', system-ui, sans-serif;
-      --mono: 'Martian Mono', ui-monospace, 'SF Mono', monospace;
+      --display: 'Montserrat', system-ui, sans-serif;
+      --body: 'Montserrat', system-ui, sans-serif;
+      --mono: 'Montserrat', system-ui, sans-serif;
 
       --gutter: clamp(16px, 3.4vw, 38px);
       --max: 1140px;
@@ -159,6 +159,12 @@
 
     ::selection { background: var(--chill); color: var(--void); }
     :focus-visible { outline: 2px solid var(--chill); outline-offset: 3px; border-radius: 3px; }
+
+    /* Montserrat's default figures are proportional; these places line up
+       numbers in columns, so ask for tabular ones. */
+    .readout, .timetable, .fineprint, .code-value, .bay__count, .log-date {
+      font-variant-numeric: tabular-nums;
+    }
 
     /* ═══ THE UNIT ═══════════════════════════════════════════ */
 
@@ -259,7 +265,6 @@
       gap: 10px 16px;
       flex-wrap: wrap;
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 86;
       font-size: 10.5px;
       font-weight: 500;
       text-transform: uppercase;
@@ -307,7 +312,6 @@
 
     .eyebrow {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 88;
       font-size: 10.5px;
       font-weight: 500;
       text-transform: uppercase;
@@ -374,7 +378,6 @@
       align-items: baseline;
       gap: 5px clamp(12px, 1.8vw, 24px);
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 84;
     }
     .readout dt {
       font-size: 9px;
@@ -418,7 +421,6 @@
 
     .btn {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 90;
       font-size: 12px;
       font-weight: 600;
       text-transform: uppercase;
@@ -500,7 +502,6 @@
     }
     .bay__no {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 86;
       font-size: 10px;
       font-weight: 600;
       letter-spacing: .18em;
@@ -509,7 +510,7 @@
     }
     .bay__name {
       font-family: var(--display);
-      font-variation-settings: 'wdth' 114, 'wght' 800;
+      font-weight: 800;
       text-transform: uppercase;
       font-size: clamp(1.3rem, 3.4vw, 2rem);
       line-height: 1;
@@ -517,7 +518,6 @@
     }
     .bay__count {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 86;
       font-size: 10px;
       letter-spacing: .14em;
       text-transform: uppercase;
@@ -689,7 +689,6 @@
       align-items: center;
       justify-content: center;
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 84;
       font-size: 9px;
       font-weight: 600;
       letter-spacing: .07em;
@@ -722,7 +721,7 @@
       left: 0; right: 0;
       top: 42%;
       font-family: var(--display);
-      font-variation-settings: 'wdth' 112, 'wght' 900;
+      font-weight: 900;
       font-size: clamp(20px, 3vw, 30px);
       color: rgba(20,45,65,.5);
       text-shadow: 0 1px 0 rgba(255,255,255,.5);
@@ -761,7 +760,7 @@
     .reveal__inner { padding: clamp(22px, 4vw, 32px); }
     .reveal__inner h2 {
       font-family: var(--display);
-      font-variation-settings: 'wdth' 114, 'wght' 800;
+      font-weight: 800;
       text-transform: uppercase;
       font-size: clamp(1.35rem, 4vw, 1.9rem);
       line-height: .96;
@@ -789,7 +788,6 @@
       width: 100%;
       border-collapse: collapse;
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 84;
       font-size: 10px;
       letter-spacing: .04em;
       margin-top: 18px;
@@ -823,7 +821,6 @@
     .fineprint {
       margin-top: 14px;
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 84;
       font-size: 9px;
       letter-spacing: .06em;
       line-height: 1.8;
@@ -835,7 +832,6 @@
     /* ═══ TOKEN — lives only inside the Tokens popup now ═══ */
     .token-rate {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 90;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: .1em;
@@ -877,7 +873,7 @@
     }
     .coin span {
       font-family: var(--display);
-      font-variation-settings: 'wdth' 108, 'wght' 900;
+      font-weight: 900;
       font-size: clamp(24px, 7vw, 32px);
       color: #fff;
       text-shadow: 0 1px 0 rgba(0,0,0,.35);
@@ -886,7 +882,6 @@
       position: absolute;
       bottom: 21%;
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 84;
       font-size: 7px;
       letter-spacing: .2em;
       text-transform: uppercase;
@@ -905,7 +900,7 @@
     }
     .poll-shell h2 {
       font-family: var(--display);
-      font-variation-settings: 'wdth' 114, 'wght' 800;
+      font-weight: 800;
       text-transform: uppercase;
       font-size: clamp(1.4rem, 4vw, 2rem);
       line-height: .98;
@@ -939,7 +934,6 @@
     .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
     .footer-links a {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 86;
       font-size: 10.5px;
       letter-spacing: .13em;
       text-transform: uppercase;
@@ -950,7 +944,6 @@
     .footer-links a:hover { color: var(--chill); }
     .colophon {
       font-family: var(--mono);
-      font-variation-settings: 'wdth' 84;
       font-size: 10px;
       letter-spacing: .1em;
       text-transform: uppercase;
