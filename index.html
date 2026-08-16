@@ -57,7 +57,7 @@
       --haze:    #8298ae;
 
       --chill:  #3fd8f7;
-      --coke:   #ff2438;
+      --coke:   #fe0001;  /* brand primary, per the brand sheet */
       --warn:   #ffb01f;
 
       /* light in the box */
@@ -115,7 +115,7 @@
       --haze:    #4d6579;
 
       --chill:  #0079a0;
-      --coke:   #cf0b21;
+      --coke:   #b30000;  /* the brand's small-text red, for light backgrounds */
       --warn:   #8a5600;
 
       --led:      #ffffff;
@@ -352,17 +352,14 @@
     .fascia__brand {
       display: flex;
       align-items: center;
-      gap: clamp(10px, 1.6vw, 18px);
       min-width: 0;
     }
-    .fascia__mark { height: clamp(26px, 4vw, 44px); width: auto; }
-    .fascia__word {
-      font-family: var(--display);
-      font-variation-settings: 'wdth' 122, 'wght' 800;
-      text-transform: uppercase;
-      font-size: clamp(1.7rem, 5.6vw, 3.8rem);
-      line-height: .84;
-      letter-spacing: -.03em;
+    /* The official lockup. The brand sheet sets a 180px minimum width for the
+       full logo — below that it must be the mark alone — so that is the floor. */
+    .fascia__logo {
+      display: block;
+      width: clamp(180px, 26vw, 340px);
+      height: auto;
     }
 
     /* the readout, printed straight onto the lit panel */
@@ -1001,8 +998,13 @@
 <header class="fascia">
   <div class="fascia__inner wrap">
     <div class="fascia__brand">
-      <img src="Logo Vantablack.svg" alt="" class="fascia__mark">
-      <span class="fascia__word">Cooked Coke</span>
+      <img class="fascia__logo"
+           src="brand/cookedcoke-full-logo-1500w.png"
+           srcset="brand/cookedcoke-full-logo-750w.png 750w,
+                   brand/cookedcoke-full-logo-1500w.png 1500w"
+           sizes="(max-width: 700px) 200px, 340px"
+           width="1499" height="384"
+           alt="Cooked Coke Co">
     </div>
 
     <div class="fascia__right">
